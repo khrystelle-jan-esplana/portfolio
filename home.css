@@ -6,7 +6,8 @@ body {
     height: 200px; 
     border-radius: 50%;
     margin-top: 45px;
-    border: 2px #f0b4ff;
+    border: 2px solid;
+    border-color: #f0b4ff;
   }
   .btn {
     border: 2px solid black;
