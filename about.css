@@ -1,0 +1,38 @@
+body {
+    font-family: 'Montserrat', serif;
+    text-align: center;
+    background-color: #f0b4ff;
+  }
+  p {
+    margin-left: 10px;
+    margin-bottom: 80px;
+    font-size: 20px;
+    padding: 10px;
+  }
+  h1{
+    margin-bottom: 15px;
+    margin-left: 10px;
+    margin-top: 150px;
+    font-family: "Radley", serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 50px;
+  }
+  .btn {
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+    padding: 14px 28px;
+    font-size: 20px;
+    font-family: 'Montserrat', serif;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+  .about, .techstack, .contact {
+    border-color: #f0b4ff;
+    color: purple;
+  }
+  .btn:hover {
+    background-color: #f0b4ff;
+    color: purple;
+  }
