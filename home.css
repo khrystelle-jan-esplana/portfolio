@@ -73,13 +73,13 @@ body {
   }
 }
 
-/* Centering the buttons container */
+
 .button-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px; /* Space between buttons */
-  margin-top: 40px; /* Space above the buttons */
+  gap: 20px; 
+  margin-top: 40px; 
 }
 
 @media (max-width: 600px) {
@@ -89,7 +89,7 @@ body {
   }
 
   .button-container {
-    flex-direction: column; /* Stack buttons vertically on mobile */
-    gap: 15px; /* Space between buttons */
+    flex-direction: column; 
+    gap: 15px; 
   }
 }
