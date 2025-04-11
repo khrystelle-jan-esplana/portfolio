@@ -8,9 +8,9 @@ body {
 
 p {
   margin-left: 10px;
-  margin-bottom: 80px;
   font-size: 20px;
   padding: 10px;
+  text-align: left;
 }
 
 h1 {
