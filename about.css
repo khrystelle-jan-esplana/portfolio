@@ -1,102 +1,200 @@
 body {
-  font-family: 'Montserrat', serif;
   text-align: center;
-  background-color: #f0b4ff;
   margin: 0;
   padding: 0;
+  background-color: #fff0c0;
 }
 
-p {
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #a7c957;
+  padding: 0;
+  align-items: center;
+  z-index: 1000;
+  transition: top 0.3s;
+}
+
+.navbar.hidden {
+  top: -100px;
+}
+
+.navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navbar li {
+  margin: 0 1rem;
+}
+
+.navbar a {
+  color: #588157;
+  text-decoration: none;
+  font-family: 'Mansalva';
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.img-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  /* background-color: white; 
+  border-radius: 50%;        */
+  width: 80px;              
+  height: 80px;
+  /* box-shadow: 0 0 5px rgba(0,0,0,0.2);  */
+}
+
+.github-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  /* background-color: white; 
+  border-radius: 50%;        */
+  width: 50px;              
+  height: 50px;
+  /* box-shadow: 0 0 5px rgba(0,0,0,0.2);  */
+}
+
+.home-logo, .github-icon {
+  width: 100%;    
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.img-button, .github-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar a:hover {
+  background-color: #ffc716;
+  border-radius: 50px;
+  padding: 10px;
+}
+
+.img-frame {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* p {
   margin-left: 10px;
   font-size: 20px;
   padding: 10px;
   text-align: left;
+} */
+
+main {
+  padding-top: 100px;
 }
 
-h1 {
-  margin-top: 100px; 
-  margin-bottom: 20px;
-  font-family: "Radley", serif;
-  font-weight: 400;
-  font-style: italic;
-  font-size: 50px;
-}
-
-.icon-bar {
+.about-container {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-  position: fixed; 
-  bottom: 20px; 
-  left: 50%; 
-  transform: translateX(-50%); 
-  width: 90%; 
-  max-width: 400px; 
-  height: 70px; 
-  background-color: #fec89a;
-  border-radius: 20px; 
-  padding: 10px 0;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 3rem 2rem;
+  background-color: #fff0c0;
 }
 
-.icon-bar a {
+.text-section {
+  flex: 1;
+  padding-right: 2rem;
+}
+
+.text-section h2 {
+  color: #ffc716;
+  margin-top: 50px;
+  font-family: 'Gochi Hand';
+}
+
+.text-section h2:hover {
+  color: #588157;
+}
+
+.text-section h1 {
+  color: #588157;
+  margin-bottom: 1rem;
+  font-family: 'Poppins';
+}
+
+.text-section p {
+  color: #588157;
+  line-height: 1.5;
+  text-align: left;
+  font-family: 'Poppins';
+}
+
+.certification-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px; 
-  height: 60px; 
+  padding: 3rem 2rem;
+  background-color: #fff0c0;
+}
+
+.text-certif h1 {
+  color: #ffc716;
+  margin-top: 50px;
+  font-family: 'Gochi Hand';
   text-align: center;
-  transition: all 0.3s ease;
-  flex-shrink: 0; 
 }
 
-.icon-bar a svg {
-  fill: #d98676;
-  width: 36px;
-  height: 36px;
-  transition: fill 0.3s ease;
+.text-certif h1:hover{
+  color: #588157;
 }
 
-.icon-bar a:hover svg {
-  fill: #231942;
+.text-certif p{
+  color: #588157;
+  line-height: 1.5;
+  text-align: left;
+  font-family: 'Poppins';
 }
 
-.active {
-  background-color: #04AA6D;
+
+
+/* .img-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  perspective: 800px;
 }
 
-@media (max-width: 600px) {
-  .icon-bar {
-    width: 95%; 
-    height: 60px; 
-    bottom: 10px; 
-  }
-
-  .icon-bar a {
-    width: 50px;
-    height: 50px;
-  }
-
-  .icon-bar a svg {
-    width: 28px;
-    height: 28px;
-  }
-}
-body {
-	background: linear-gradient(-45deg, #ffb5a7, #fcd5ce, #f8edeb, #f9dcc4, #fec89a, #d98676);
-	background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
-	height: 100vh;
+.img-section img {
+  width: 250px;
+  height: 250px;
+  padding-top: 15%;
+  transition: transform 0.3s ease;
+  border: 5px solid red;
 }
 
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+.img-section:hover img {
+  transform: rotateZ(5deg) rotateY(-5deg);
 }
+
+.img-section:hover::after {
+  content: "Call me Telle for short!";
+  position: absolute;
+  background: #264653;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  top: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+} */
