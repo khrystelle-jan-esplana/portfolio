@@ -6,34 +6,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; 
+  min-height: 100vh;
 }
-
-
-/* .img-section img {
-  width: 250px;
-  height: 250px;
-  padding-top: 15%;
-  transition: transform 0.3s ease;
-}
-
-.img-section:hover img {
-  transform: rotateZ(5deg) rotateY(-5deg);
-}
-
-.img-section:hover::after {
-  content: "Call me Telle for short!";
-  position: absolute;
-  background: #264653;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  top: 90%;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-} */
-
 
 .img-container {
   display: flex;
@@ -47,9 +21,10 @@ body {
 }
 
 .circular-img {
-  width: 30vw;
+  width: 200px;
   max-width: 200px;
-  height: auto;
+  aspect-ratio: 1 / 1;
+  height: 200px;
   margin-left: 0;
   border-radius: 50%;
   border: 4px dashed #588157;
@@ -58,30 +33,30 @@ body {
   border-color: #588157;
 }
 
+
 .card {
   width: 100%;
   height: 100%;
-  position: absolute;
-  box-shadow: 0 8px 16px rgba(69, 106, 255, 0.2);
-}
-
-.dark-green {
-  background-color: #386641;
-  top: 20px;
-  left: 60px;
-  z-index: 1;
+  /* position: absolute; */
+  /* box-shadow: 0 8px 16px rgba(69, 106, 255, 0.2); */
 }
 
 .light-green {
   background-color: #a7c957;
-  top: 0px;
-  left: 0px;
   z-index: 2;
   display: flex;
   align-items: center;
   flex-direction: row;
   padding-left: 40px;
+  margin-right: 40px;
   min-height: 100%;
+  padding-bottom: 1rem;
+  box-shadow: 1rem 1rem #344e41;
+}
+
+.spacer {
+  height: 100px;
+  background: transparent;
 }
 
 .card-wrapper {
@@ -89,9 +64,9 @@ body {
   flex-wrap: wrap;
   width: 100%;
   max-width: 1000px;
-  height: 500px;
+  height: auto;
   aspect-ratio: 2 / 1;
-  
+  margin-bottom: 2rem;
 }
 
 .text {
@@ -120,23 +95,45 @@ body {
 }
 
 @media (max-width: 768px) {
-  .card-wrapper {
+  body {
     height: auto;
+    min-height: 100vh;
+    padding-bottom: 2rem;
+  }
+
+  .card-wrapper {
     flex-direction: column;
-    align-items: center;
+    height: auto;
+    min-height: auto;
+    aspect-ratio: auto;
+    position: relative;
+    width: 100%;
+  }
+
+  .card {
+    position: relative;
+    height: auto;
+  }
+
+  .light-green {
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
   }
 
   .img-container {
     flex-direction: column;
-    text-align: center;
     gap: 1rem;
     text-align: center;
-  }
-
-  .light-green {
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
   }
 
   .text {
@@ -148,32 +145,12 @@ body {
   .text .subtitle {
     text-align: center;
   }
-}
 
-/* @media (max-width: 768px) {
-  .text .greeting,
-  .text .name,
-  .text .subtitle {
-    text-align: center;
-  }
-}
-
-@media (max-width: 768px) {
-  .card-wrapper {
+  .buttons {
     flex-direction: column;
     align-items: center;
   }
-} */
-
-/* .btn {
-  border: 2px solid black;
-  background-color: white;
-  color: black;
-  padding: 14px 28px;
-  font-size: 20px;
-  font-family: 'Montserrat', serif;
-  cursor: pointer;
-} */
+}
 
 .about, .techstack, .contact {
   background: url('Images/bg-btn.png') no-repeat center;
@@ -195,6 +172,7 @@ body {
 }
 
 .text-about, .text-techstack, .text-contact {
+  margin-top: 5%;
   position: relative;
   display: inline-block;
 }
@@ -203,7 +181,7 @@ body {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -5px;
+  bottom: -2px;
   width: 100%;
   height: 2px;
   background-color: #ffb5a7;
@@ -216,31 +194,6 @@ body {
   transform: scaleX(1); 
   transform-origin: bottom left;
 }
-
-
-/* .img-section img {
-  width: 250px;
-  height: 250px;
-  padding-top: 15%;
-  transition: transform 0.3s ease;
-}
-
-.img-section:hover img {
-  transform: rotateZ(5deg) rotateY(-5deg);
-}
-
-.img-section:hover::after {
-  content: "Call me Telle for short!";
-  position: absolute;
-  background: #264653;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  top: 90%;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-} */
 
 /* body {
   background: linear-gradient(-45deg, #ffb5a7, #fcd5ce, #f8edeb, #f9dcc4, #fec89a, #d98676);
@@ -260,7 +213,7 @@ body {
   }
 } */
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .card-wrapper {
     height: auto;
   }
@@ -270,7 +223,7 @@ body {
     gap: 1rem;
   }
 
-  .light-green {
+  .light-green, .dark-green {
     flex-direction: column;
     align-items: center;
     padding: 1rem;
@@ -294,7 +247,7 @@ body {
     flex-direction: column; 
     gap: 15px; 
   }
-}
+} */
 
 @import url(https://fonts.googleapis.com/css?family=Exo:100);
 @-webkit-keyframes bg-scrolling-reverse {
