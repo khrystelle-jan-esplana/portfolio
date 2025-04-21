@@ -5,33 +5,104 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Me</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Mansalva&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
     <link rel="stylesheet" href="about.css">
+    <link rel="icon" type="image/png" href="Images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="Images/favicon.svg" />
+    <link rel="shortcut icon" href="Images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="Images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+    <link rel="manifest" href="Images/site.webmanifest" />
   </head>
   <body>
-    <h1>About Me</h1>
-    <p>
-      I am a hardworking student who always wants to learn something new. I am especially interested 
-      in learning more programming languages to help me grow in my career. I enjoy facing new challenges 
-      because they help me improve my skills and become better at what I do. I believe that learning is a lifelong journey, and I am always ready to take the next step.
-    </p>
-    <p>
-      In the future, I want to become an expert in a specific skill like data analysis or developing software. I also plan to earn certifications or maybe even a higher degree to 
-      support my goals as well as improve my public speaking and leadership skills so I can communicate better with others. At the same time, I hope to keep a good balance between 
-      my work and personal life while staying productive and happy in my job.
-    </p>
-    <nav>
-      <div class="d-flex flex-column justify-content-center w-100 h-100"></div>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <div class="icon-bar">
-        <a href="index.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-            <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
-          </svg>
-        </a>
-      </div>
+    <nav class="custom-navbar">
+      <ul>
+        <li><a href="about.html">about</a></li>
+        <li><a href="techstack.html" >tech stack</a></li>
+        <li>
+          <div class="img-frame">
+           <a href="index.html"><button class="img-button">
+            <img src="Images/transparent-website-logo.png" alt="Home Button Image" class="home-logo">
+            </button></a>
+          </div>
+        </li>
+        <li><a href="contact.html">contact</a></li>
+        <li>
+          <div class="github-frame">
+           <a href="index.html"><button class="github-button">
+            <img src="Images/github-icon.png" alt="GitHub Icon" class="github-icon">
+            </button></a>
+          </div>
+        </li>
+      </ul>
     </nav>
+    <main>
+      <section class="about-container">
+          <div class="text-section">
+            <h2>hey there!</h2>
+            <h1>I'm Khrystelle Jan Gacute Esplana</h1>
+            <p>
+              I am a dedicated student with a passion for continuous learning, especially in programming.
+              I embrace challenges to enhance my skills and aim to specialize in areas like data analysis or software development.
+              I plan to pursue certifications or higher education while also improving my communication and leadership abilities, all while maintaining a healthy work-life balance.
+            </p>
+          </div>
+          <!-- <div class="img-section" title="Call me Telle for short!">
+            <img src="Images/aboutme-img.png" alt="Polaroid of KJ">
+          </div> -->
+      </section>
+      <section class="certification-container d-flex flex-column align-items-center">
+        <div class="text-certif mb-4 text-center">
+          <h1>Certifications</h1>
+          <p>Here's the certifications that I received so far while studying at St. Dominic College of Asia</p>
+        </div>
+      
+        <div class="d-flex flex-wrap justify-content-center gap-4">
+          <div class="card" style="width: 18rem;">
+            <img src="Images/sample-cert1.png" class="card-img-top" alt="Certification 1">
+            <div class="card-body">
+              <h5 class="card-title">Certificate Title 1</h5>
+              <p class="card-text">Brief description of the certificate or course.</p>
+            </div>
+          </div>
+      
+          <div class="card" style="width: 18rem;">
+            <img src="Images/sample-cert2.png" class="card-img-top" alt="Certification 2">
+            <div class="card-body">
+              <h5 class="card-title">Certificate Title 2</h5>
+              <p class="card-text">Another short description of your achievement.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    </main>
+    <script>
+      let lastScrollTop = 0;
+      const navbar = document.querySelector('.custom-navbar');
+   
+      window.addEventListener('scroll', function () {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+   
+        if (currentScroll > lastScrollTop) {
+         
+          navbar.classList.add('hidden');
+        } else {
+         
+          navbar.classList.remove('hidden');
+        }
+   
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+      });
+    </script>    
   </body>
 </html>
