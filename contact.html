@@ -8,23 +8,65 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
-    <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="about.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mansalva&display=swap">
+    <link rel="stylesheet" href="contact.css">
+    <link rel="icon" type="image/png" href="Images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="Images/favicon.svg" />
+    <link rel="shortcut icon" href="Images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="Images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+    <link rel="manifest" href="Images/site.webmanifest" />
   </head>
   <body>
-    <h1>Contact</h1>
-    <p>
-      Contact Details:
-    </p>
-    <nav>
-      <div class="d-flex flex-column justify-content-center w-100 h-100"></div>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <div class="icon-bar">
-        <a href="index.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-            <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
-          </svg>
-        </a>
-      </div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="about.html">about</a></li>
+        <li><a href="techstack.html" >tech stack</a></li>
+        <li>
+          <div class="img-frame">
+           <a href="index.html"><button class="img-button">
+            <img src="Images/transparent-website-logo.png" alt="Home Button Image" class="home-logo">
+            </button></a>
+          </div>
+        </li>
+        <li><a href="contact.html">contact</a></li>
+        <li>
+          <div class="github-frame">
+           <a href="index.html"><button class="github-button">
+            <img src="Images/github-icon.png" alt="GitHub Icon" class="github-icon">
+            </button></a>
+          </div>
+        </li>
+      </ul>
     </nav>
+    <main>
+      <h1>Contact</h1>
+      <p>
+        Contact Details:
+      </p>
+    </main>
+    <script>
+      let lastScrollTop = 0;
+      const navbar = document.querySelector('.navbar');
+   
+      window.addEventListener('scroll', function () {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+   
+        if (currentScroll > lastScrollTop) {
+         
+          navbar.classList.add('hidden');
+        } else {
+         
+          navbar.classList.remove('hidden');
+        }
+   
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+      });
+    </script>  
   </body>
 </html>
