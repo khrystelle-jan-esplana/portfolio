@@ -7,13 +7,7 @@
     <title>Tech Stack</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
-    <link rel="stylesheet" href="about.css"><link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mansalva&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Finger+Paint&family=Gochi+Hand&family=Jua&family=Mansalva&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
     <link rel="stylesheet" href="techstack.css">
     <link rel="icon" type="image/png" href="Images/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="Images/favicon.svg" />
@@ -49,11 +43,33 @@
         <p>
           Below are the the list of programming languages and tools I have learned.
         </p>
-        <nav>
-          <div class="d-flex flex-column justify-content-center w-100 h-100"></div>
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        </nav>
+        <div class="container mt-4">
+          <div class="btn-group mb-3">
+            <button class="btn toggle-btn active" onclick="showContent('languages', this)">Language</button>
+            <button class="btn toggle-btn" onclick="showContent('tools', this)">Tools</button>
+          </div>
+        
+          <div id="languages" class="content-section">
+            <p>Trial</p>
+          </div>
+        
+          <div id="tools" class="content-section" style="display: none;">
+            <p>trial</p>
+          </div>
+        </div>  
     </main>
+    <script>
+      function showContent(idToShow, clickedButton) {
+      const sections = document.querySelectorAll('.content-section');
+      sections.forEach(section => section.style.display = 'none');
+
+      document.getElementById(idToShow).style.display = 'block';
+
+      const buttons = document.querySelectorAll('.toggle-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      clickedButton.classList.add('active');
+      }
+    </script>
     <script>
       let lastScrollTop = 0;
       const navbar = document.querySelector('.navbar');
