@@ -112,9 +112,40 @@ main {
   background-color: #fff0c0;
 }
 
+.about-card {
+  background-color: transparent; 
+  border: #fff0c0;
+  padding: 1rem;
+  font-size: 1.1rem;
+  color: #344e41;  
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px); 
+  box-shadow: 10px 10px 0px rgb(245, 191, 98);  
+}
+
 .text-section {
   flex: 1;
   padding-right: 2rem;
+  color: #588157;
+}
+
+.card-text {
+  text-align: justify;
+  color: #588157;
+  flex: 1;
+}
+
+.text-section h1.aspirations-heading {
+  margin-top: 50px;
+  color: #ffc716;
+  font-family: 'Gochi Hand';
+}
+
+.text-section h1.aspirations-heading:hover {
+  color: #588157;
 }
 
 h2 {
