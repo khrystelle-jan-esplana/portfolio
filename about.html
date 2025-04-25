@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Me</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Finger+Paint&family=Gochi+Hand&family=Jua&family=Mansalva&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
@@ -18,28 +19,27 @@
     <link rel="manifest" href="Images/site.webmanifest" />
   </head>
   <body>
-    <nav class="custom-navbar">
-      <ul>
+    <nav class="navbar navbar-expand-lg">
+      <div class="website-logo-container">
+        <a href="index.html"><button class="home-button">
+          <img src="Images/transparent-website-logo.png" alt="Home Button Image" class="website-logo">
+          </button></a>
+      </div>
+      <ul class="nav-links navbar-nav ms-auto d-flex flex-lg-row flex-column align-items-center">
         <li><a href="about.html">about</a></li>
         <li><a href="techstack.html" >tech stack</a></li>
-        <li>
-          <div class="img-frame">
-           <a href="index.html"><button class="img-button">
-            <img src="Images/transparent-website-logo.png" alt="Home Button Image" class="home-logo">
-            </button></a>
-          </div>
-        </li>
         <li><a href="contact.html">contact</a></li>
-        <li>
-          <div class="github-frame">
-           <a href="index.html"><button class="github-button">
-            <img src="Images/github-icon.png" alt="GitHub Icon" class="github-icon">
-            </button></a>
-          </div>
-        </li>
       </ul>
+      <div class="github-logo-container">
+        <a href="https://github.com/khrystelle-jan-esplana"><button class="github-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="github-icon" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+          </svg>
+          </button></a>
+       </div>
     </nav>
     <main>
+      <!-- about me -->
       <section class="about-container d-flex justify-content-center mb-5 flex-column align-items-center">
         <div class="text-section text-center">
           <h2>hey there!</h2>
@@ -47,107 +47,136 @@
         </div>
         <div class="card mt-4 about-card" style="max-width: 800px;">
           <div class="card-body text-start">
-            <p class="card-text">
+            <p>
               I’m a second year student here at St. Dominic College of Asia currently studying Bachelor of Science in Information Technology. 
               As a second year student, I’m still learning and exploring programming languages that will help me in my future career. 
               At the same time, I am also improving my skills like critical thinking, problem solving, and creativity.
             </p>
           </div>
         </div>
+        <!-- professional aspirations -->
         <div class="text-section text-center">
           <h1 class="aspirations-heading">Professional Aspirations</h1>
         </div>
         <div class="card mt-4 about-card" style="max-width: 800px;">
           <div class="card-body text-start">
-            <p class="card-text">
+            <p>
               My professional aspiration is to become an expert in a specific technology that could be beneficial to people with disabilities, animals, or plants.  
               I’ve always wanted to do something with a purpose and that is utilizing technology and my improving knowledge and imagination for the people around me who truly need a lending hand. 
             </p>
           </div>
         </div>
-      </section>            
+      </section>     
+      <!-- certifications        -->
       <section class="certification-container d-flex flex-column align-items-center">
         <div class="text-certif mb-4 text-center">
           <h1>Certifications</h1>
           <p>Here's the certifications that I received so far while studying at St. Dominic College of Asia</p>
         </div>
       
-        <div class="d-flex flex-wrap justify-content-center gap-4">
-          <div class="card" style="width: 18rem;">
-            <img src="Images/dsdap-certif.png" class="card-img-top" alt="Certification 1">
-            <div class="card-body">
-              <h5 class="card-title">Digital Startup Development and Acceleration Program</h5>
-              <p class="card-text">Attended on May 29, 2024</p>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="Images/dsdap-certif.png" class="card-img-top" alt="Digital Startup Development and Acceleration Program Certificate">
+              <div class="card-body">
+                <h5 class="card-title">Digital Startup Development and Acceleration Program</h5>
+                <p class="card-text">Attended on May 29, 2024</p>
+              </div>
             </div>
           </div>
       
-          <div class="card" style="width: 18rem;">
-            <img src="Images/egovph-certif.png" class="card-img-top" alt="Certification 2">
-            <div class="card-body">
-              <h5 class="card-title">eGOVPh Super App Orientation</h5>
-              <p class="card-text">Attended on May 29, 2024</p>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="Images/egovph-certif.png" class="card-img-top" alt="eGOVPh Super App Orientation Certificate">
+              <div class="card-body">
+                <h5 class="card-title">eGOVPh Super App Orientation</h5>
+                <p class="card-text">Attended on May 29, 2024</p>
+              </div>
             </div>
           </div>
 
-          <div class="card" style="width: 18rem;">
-            <img src="Images/gclass-day1-certif.png" class="card-img-top" alt="Certification 3">
-            <div class="card-body">
-              <h5 class="card-title">Global Classroom Sessions: Global Trends and Practices(Day 1)</h5>
-              <p class="card-text">Certification was given on May 21, 2024</p>
-            </div>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="Images/gclass-day1-certif.png" class="card-img-top" alt="Global Classroom Sessions: Global Trends and Practices(Day 1) Certificate">
+              <div class="card-body">
+                <h5 class="card-title">Global Classroom Sessions: Global Trends and Practices(Day 1)</h5>
+                <p class="card-text">Certification was given on May 21, 2024</p>
+              </div>
+            </div>    
           </div>
 
-          <div class="card" style="width: 18rem;">
-            <img src="Images/gclass-day3-certif.png" class="card-img-top" alt="Certification 4">
-            <div class="card-body">
-              <h5 class="card-title">Global Classroom Sessions: Global Trends and Practices(Day 3)</h5>
-              <p class="card-text">Certification was given on May 25, 2024</p>
-            </div>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="Images/gclass-day3-certif.png" class="card-img-top" alt="Global Classroom Sessions: Global Trends and Practices(Day 3) Certificate">
+              <div class="card-body">
+                <h5 class="card-title">Global Classroom Sessions: Global Trends and Practices(Day 3)</h5>
+                <p class="card-text">Certification was given on May 25, 2024</p>
+              </div>
+            </div>            
           </div>
 
-          <div class="card" style="width: 18rem;">
-            <img src="Images/msword-badge.png" class="card-img-top" alt="Certification 5">
-            <div class="card-body">
-              <h5 class="card-title">Microsoft Office Specialist: Word Associate (Office 2019)</h5>
-              <p class="card-text">Date issued: March 13, 2024</p>
-            </div>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="Images/msword-badge.png" class="card-img-top" alt="MS Word Certificate">
+              <div class="card-body">
+                <h5 class="card-title">Microsoft Office Specialist: Word Associate (Office 2019)</h5>
+                <p class="card-text">Date issued: March 13, 2024</p>
+              </div>
+            </div>            
           </div>
 
-          <div class="card" style="width: 18rem;">
-            <img src="Images/ppt-badge.png" class="card-img-top" alt="Certification 6">
-            <div class="card-body">
-              <h5 class="card-title">Microsoft Office Specialist: PowerPoint Associate (Office 2019)</h5>
-              <p class="card-text">Date issued: May 30, 2024</p>
-            </div>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="Images/ppt-badge.png" class="card-img-top" alt="MS PPT Certificate">
+              <div class="card-body">
+                <h5 class="card-title">Microsoft Office Specialist: PowerPoint Associate (Office 2019)</h5>
+                <p class="card-text">Date issued: May 30, 2024</p>
+              </div>
+            </div>            
           </div>
 
-          <div class="card" style="width: 18rem;">
-            <img src="Images/stardom-day2-certif.png" class="card-img-top" alt="Certification 7">
-            <div class="card-body">
-              <h5 class="card-title">4th SDCA International Multidisciplinary Research Conference 2024 (Day 2 - Morning Session)</h5>
-              <p class="card-text">Certification was given on May 23, 2024</p>
-            </div>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="Images/java-completion.png" class="card-img-top" alt="JFo Course Completion Certificate">
+              <div class="card-body">
+                <h5 class="card-title">Java Foundations Course Completion</h5>
+                <p class="card-text">Date issued: December 28, 2024</p>
+              </div>
+            </div>            
           </div>
 
-          <div class="card" style="width: 18rem;">
-            <img src="Images/stardom-day3-certif.png" class="card-img-top" alt="Certification 8">
-            <div class="card-body">
-              <h5 class="card-title">4th SDCA International Multidisciplinary Research Conference 2024 (Day 3)</h5>
-              <p class="card-text">Certification was given on May 24, 2024</p>
-            </div>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="Images/stardom-day2-certif.png" class="card-img-top" alt="Research Conference 2024 Day 2 Certificate">
+              <div class="card-body">
+                <h5 class="card-title">4th SDCA International Multidisciplinary Research Conference 2024 (Day 2 - Morning Session)</h5>
+                <p class="card-text">Certification was given on May 23, 2024</p>
+              </div>
+            </div>            
           </div>
 
-          <div class="card" style="width: 18rem;">
-            <img src="Images/treeplanting-certif.png" class="card-img-top" alt="Certification 9">
-            <div class="card-body">
-              <h5 class="card-title">Tree Planting Activity</h5>
-              <p class="card-text">Certification was given on September 29, 2023</p>
-            </div>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="Images/stardom-day3-certif.png" class="card-img-top" alt="Research Conference 2024 Day 3 Certificate">
+              <div class="card-body">
+                <h5 class="card-title">4th SDCA International Multidisciplinary Research Conference 2024 (Day 3)</h5>
+                <p class="card-text">Certification was given on May 24, 2024</p>
+              </div>
+            </div>            
+          </div>
+
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img src="Images/treeplanting-certif.png" class="card-img-top" alt="Tree Planting Activity Certificate">
+              <div class="card-body">
+                <h5 class="card-title">Tree Planting Activity</h5>
+                <p class="card-text">Certification was given on September 29, 2023</p>
+              </div>
+            </div>            
           </div>
           </div>
         </div>
       </section>
-      
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
@@ -163,6 +192,6 @@
         }
         lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
       });
-    </script>    
+    </script>  
   </body>
 </html>
