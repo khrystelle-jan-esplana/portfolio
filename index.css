@@ -33,7 +33,6 @@ body {
   border-color: #588157;
 }
 
-
 .card {
   width: 100%;
   height: 100%;
@@ -65,7 +64,7 @@ body {
   width: 100%;
   max-width: 1000px;
   height: auto;
-  aspect-ratio: 2 / 1;
+  /* aspect-ratio: 2 / 1; */
   margin-bottom: 2rem;
 }
 
@@ -74,21 +73,21 @@ body {
   flex-direction: column;
 }
 
-.text .greeting {
+.text, .greeting {
   margin: 0;
   font-size: 2.5rem;
   font-family: "Finger Paint", sans-serif;
   color: #344e41;
 }
 
-.text .name {
+.text, .name {
   margin: 10px 0;
   font-size: 3.5rem;
   font-family: "Jua", sans-serif;
   color: #344e41;
 }
 
-.text .subtitle {
+.text, .subtitle {
   font-size: 1.5rem;
   font-family: "Finger Paint", sans-serif;
   color: #344e41;
@@ -175,6 +174,7 @@ body {
   margin-top: 5%;
   position: relative;
   display: inline-block;
+  font-family: 'Jua';
 }
 
 .text-about::after, .text-techstack::after, .text-contact::after {
@@ -195,115 +195,18 @@ body {
   transform-origin: bottom left;
 }
 
-/* body {
-  background: linear-gradient(-45deg, #ffb5a7, #fcd5ce, #f8edeb, #f9dcc4, #fec89a, #d98676);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-}
-
-@keyframes gradient {
+@import url('https://fonts.googleapis.com/css?family=Exo:100');
+@keyframes bg-scroll {
   0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
+    background-position: 0 0;
   }
   100% {
-    background-position: 0% 50%;
-  }
-} */
-
-/* @media (max-width: 768px) {
-  .card-wrapper {
-    height: auto;
-  }
-
-  .img-container {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .light-green, .dark-green {
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
+    background-position: 500px 500px;
   }
 }
 
-.buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-}
-
-@media (max-width: 600px) {
-  .btn {
-    padding: 12px 24px;
-    font-size: 16px;
-  }
-
-  .button-container {
-    flex-direction: column; 
-    gap: 15px; 
-  }
-} */
-
-@import url(https://fonts.googleapis.com/css?family=Exo:100);
-@-webkit-keyframes bg-scrolling-reverse {
-  100% {
-    background-position: 50px 50px;
-  }
-}
-@-moz-keyframes bg-scrolling-reverse {
-  100% {
-    background-position: 50px 50px;
-  }
-}
-@-o-keyframes bg-scrolling-reverse {
-  100% {
-    background-position: 50px 50px;
-  }
-}
-@keyframes bg-scrolling-reverse {
-  100% {
-    background-position: 50px 50px;
-  }
-}
-@-webkit-keyframes bg-scrolling {
-  0% {
-    background-position: 50px 50px;
-  }
-}
-@-moz-keyframes bg-scrolling {
-  0% {
-    background-position: 50px 50px;
-  }
-}
-@-o-keyframes bg-scrolling {
-  0% {
-    background-position: 50px 50px;
-  }
-}
-@keyframes bg-scrolling {
-  0% {
-    background-position: 50px 50px;
-  }
-}
 /* Main styles */
 body {
-  /* img size is 50x50 */
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAlCAYAAAAuqZsAAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAF1SURBVFhH7di/SsNAHMDxb5s2tAWraDsoOImDb+Ar+AK+hZur4CQ4qQ/gLjgKKujipKCTiEupqG2F2lZja2rTP4mX3Amut6Qd7guFNMmRD5dMv0QgYgKTsOEHuI/gvUJ+FewFSGbULXHlw6AOnTsIhgrWvoHKDoxcSM1AcR3Sc2pBTPlDcC7h+1ZsV0bBGsdQ24deGXLLkF2RwDgLYe6DMJTEn0DBvAo8bUK/BrNrML8hYHm5IK7E68O5kBuUzCqY34PPM2idwNKB2Mr0eL6xkXBUd6O3lYzOhYjUrPhNgzU1BlSYoFg5+QmlCwo2gRmYbgamm4HpZmC6GZhuBqabgelmYLoZmG4GppuB6WZguk04zO9Cvw6DJtGsLJxlxJ4vnt2WDq+qYIMGvB9CtwQv2xB40elYCwTMOYfONXxd/ZuPve3BT1mOn8LhSsJWK+IqEDvmyIlP4m8+5t7D85a4aIFdgEVxbBfl/XHl96F5BK1TAbP4BTa0jewXVk9NAAAAAElFTkSuQmCC) repeat 0 0;
-  -webkit-animation: bg-scrolling-reverse 0.92s infinite;
-  /* Safari 4+ */
-  -moz-animation: bg-scrolling-reverse 0.92s infinite;
-  /* Fx 5+ */
-  -o-animation: bg-scrolling-reverse 0.92s infinite;
-  /* Opera 12+ */
-  animation: bg-scrolling-reverse 0.92s infinite;
-  /* IE 10+ */
-  -webkit-animation-timing-function: linear;
-  -moz-animation-timing-function: linear;
-  -o-animation-timing-function: linear;
-  animation-timing-function: linear;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAlCAYAAAAuqZsAAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAF1SURBVFhH7di/SsNAHMDxb5s2tAWraDsoOImDb+Ar+AK+hZur4CQ4qQ/gLjgKKujipKCTiEupqG2F2lZja2rTP4mX3Amut6Qd7guFNMmRD5dMv0QgYgKTsOEHuI/gvUJ+FewFSGbULXHlw6AOnTsIhgrWvoHKDoxcSM1AcR3Sc2pBTPlDcC7h+1ZsV0bBGsdQ24deGXLLkF2RwDgLYe6DMJTEn0DBvAo8bUK/BrNrML8hYHm5IK7E68O5kBuUzCqY34PPM2idwNKB2Mr0eL6xkXBUd6O3lYzOhYjUrPhNgzU1BlSYoFg5+QmlCwo2gRmYbgamm4HpZmC6GZhuBqabgelmYLoZmG4GppuB6WZguk04zO9Cvw6DJtGsLJxlxJ4vnt2WDq+qYIMGvB9CtwQv2xB40elYCwTMOYfONXxd/ZuPve3BT1mOn8LhSsJWK+IqEDvmyIlP4m8+5t7D85a4aIFdgEVxbBfl/XHl96F5BK1TAbP4BTa0jewXVk9NAAAAAElFTkSuQmCC') repeat;
+  animation: bg-scroll 60s linear infinite;
 }
