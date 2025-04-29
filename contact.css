@@ -191,6 +191,7 @@ h1 {
 
 p {
   margin-left: 55px;
+  margin-right: 55px;
   margin-bottom: 80px;
   font-size: 1.5rem;
   text-align: center;
@@ -374,6 +375,18 @@ button.github-box span {
 @media (max-width: 768px) {
   main {
     padding-top: 80px;
+  }
+  
+  h1 {
+    font-size: 3.2rem;
+    margin-top: 140px;
+  }
+  
+  p {
+    font-size: 1.4rem;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 70px;
   }
 }
 
