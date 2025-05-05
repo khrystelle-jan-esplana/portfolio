@@ -72,11 +72,9 @@ body {
   align-items: center;
 }
 
-
 .navbar li {
   margin: 0 1rem;
 }
-
 
 .navbar a {
   color: #588157;
@@ -256,6 +254,17 @@ p {
   background-color: #fff0c0;
 }
 
+.certification-container .row {
+  justify-content: center;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-height: 200px;
+}
+
 .text-certif h1 {
   color: #ffc716;
   margin-top: 50px;
@@ -323,12 +332,40 @@ p {
   .navbar-collapse.show {
     background-color: #a7c957;
   }
+  
 }
 
 @media (max-width: 768px) {
   main {
     padding-top: 80px;
   }
+
+  .about-card {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .text-section h1,
+  .text-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .text-certif h1, .text-section h1.aspirations-heading {
+    font-size: 2.5rem;
+  }
+
+  .text-certif p {
+    font-size: 1.5rem;
+  }
+
+  .certification-container .card h5 {
+    font-size: 1rem;
+  }
+
+  .certification-container .card p {
+    font-size: 0.9rem;
+  }
+
 }
 
 /* for desktop */
@@ -378,6 +415,18 @@ p {
   }
   .navbar-toggler {
     padding: 0.25rem;
+  }
+
+  .about-container {
+    padding: 2rem 1rem;
+  }
+
+  .about-card {
+    font-size: 0.95rem;
+  }
+
+  .card-img-top {
+    max-height: 150px;
   }
 }
 
