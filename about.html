@@ -72,11 +72,11 @@
     <main>
       <!-- about me -->
       <section class="about-container d-flex justify-content-center mb-5 flex-column align-items-center">
-        <div class="text-section text-center">
+        <div class="text-section text-center fade-slide-in">
           <h2>hey there!</h2>
           <h1>I'm Khrystelle Jan Esplana</h1>
         </div>
-        <div class="card mt-4 about-card" style="max-width: 800px;">
+        <div class="card mt-4 about-card fade-slide-in" style="max-width: 800px;">
           <div class="card-body text-start">
             <p>
               I’m a second year student here at St. Dominic College of Asia currently studying Bachelor of Science in Information Technology. 
@@ -86,10 +86,10 @@
           </div>
         </div>
         <!-- professional aspirations -->
-        <div class="text-section text-center">
+        <div class="text-section text-center fade-slide-in">
           <h1 class="aspirations-heading">Professional Aspirations</h1>
         </div>
-        <div class="card mt-4 about-card" style="max-width: 800px;">
+        <div class="card mt-4 about-card fade-slide-in" style="max-width: 800px;">
           <div class="card-body text-start">
             <p>
               My professional aspiration is to become an expert in a specific technology that could be beneficial to people with disabilities, animals, or plants.  
@@ -100,12 +100,12 @@
       </section>     
       <!-- certifications -->
       <section class="certification-container d-flex flex-column align-items-center">
-        <div class="text-certif mb-4 text-center">
+        <div class="text-certif mb-4 text-center fade-slide-in">
           <h1>Certifications</h1>
           <p>Here's the certifications that I received so far while studying at St. Dominic College of Asia</p>
         </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-          <div class="col">
+          <div class="col fade-slide-in">
             <div class="card h-100 shadow-sm">
               <img src="Images/msword-badge.png" class="card-img-top" alt="MS Word Certificate">
               <div class="card-body">
@@ -115,7 +115,7 @@
             </div>            
           </div>
 
-          <div class="col">
+          <div class="col fade-slide-in">
             <div class="card h-100 shadow-sm">
               <img src="Images/ppt-badge.png" class="card-img-top" alt="MS PPT Certificate">
               <div class="card-body">
@@ -125,7 +125,7 @@
             </div>            
           </div>
 
-          <div class="col">
+          <div class="col fade-slide-in">
             <div class="card h-100 shadow-sm">
               <img src="Images/java-completion.png" class="card-img-top" alt="JFo Course Completion Certificate">
               <div class="card-body">
@@ -137,6 +137,7 @@
         </div>
       </section>
     </main>
+    <!-- javascripts -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <script>
@@ -164,5 +165,45 @@
         }
       });
     </script>  
+    <!-- page transition -->
+    <script>
+      document.body.classList.add('page-enter');
+      requestAnimationFrame(() => {
+        document.body.classList.add('page-enter-active');
+      });
+
+      document.querySelectorAll('a[href]').forEach(link => {
+        const url = new URL(link.href, location.href);
+        const isSameOrigin = url.origin === location.origin;
+        if (isSameOrigin && !link.target && !link.hasAttribute('download')) {
+          link.addEventListener('click', e => {
+            e.preventDefault();
+            document.body.classList.add('page-exit');
+            requestAnimationFrame(() => {
+              document.body.classList.add('page-exit-active');
+              setTimeout(() => {
+                window.location.href = link.href;
+              }, 400);
+            });
+          });
+        }
+      });
+    </script>
+    <!-- contents animation -->
+    <script>
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      document.querySelectorAll('.fade-slide-in').forEach(el => {
+        observer.observe(el);
+      });
+    </script>
   </body>
 </html>

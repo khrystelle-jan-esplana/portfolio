@@ -11,6 +11,38 @@ body {
   animation: bg-scroll 60s linear infinite;
 }
 
+/* page transition and content animation */
+body.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+body.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body.page-exit {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+body.page-exit-active {
+  opacity: 0;
+}
+
+.fade-slide-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-slide-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .img-container {
   display: flex;
   flex-wrap: wrap;
