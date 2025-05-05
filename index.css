@@ -22,6 +22,18 @@ body {
   gap: 20px;
 }
 
+.hover-text {
+  font-family: "Finger Paint", sans-serif;
+  font-size: 1.2rem;
+  color: #344e41;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.col-md-4:hover .hover-text {
+  opacity: 1;
+}
+
 .circular-img {
   /* width: 200px; */
   width: 100%;
