@@ -340,6 +340,39 @@ p {
     box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
     z-index: 999;
   }
+
+
+  .navbar-collapse .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar-collapse .nav-links li {
+    width: 100%;
+    display: block;
+  }
+
+  .navbar-collapse .nav-links a {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 12px 18px;
+    margin: 2px 0;
+    text-align: right;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .navbar-collapse .nav-links a:hover,
+  .navbar-collapse .nav-links a:focus {
+    background-color: #ffc716;
+    transform: none; 
+  }
   
   .nav-links {
     flex-direction: column;
@@ -364,10 +397,7 @@ p {
   .navbar-collapse.show {
     background-color: #a7c957;
   }
-  
-}
 
-@media (max-width: 768px) {
   main {
     padding-top: 80px;
   }
@@ -397,7 +427,7 @@ p {
   .certification-container .card p {
     font-size: 0.9rem;
   }
-
+  
 }
 
 /* for desktop */
@@ -459,54 +489,6 @@ p {
 
   .card-img-top {
     max-height: 150px;
-  }
-}
-
-/* for hamburger menu on mobile */
-@media (max-width: 992px) {
-  .navbar-collapse {
-    position: absolute;
-    top: 100%;
-    right: 20px;
-    width: auto;
-    min-width: 220px;
-    background-color: #a7c957;
-    padding: 15px 25px;
-    border-radius: 12px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
-    z-index: 1000;
-  }
-
-  .navbar-collapse .nav-links {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  .navbar-collapse .nav-links li {
-    width: 100%;
-    display: block;
-  }
-
-  .navbar-collapse .nav-links a {
-    display: block;
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    padding: 12px 18px;
-    margin: 2px 0;
-    text-align: right;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .navbar-collapse .nav-links a:hover,
-  .navbar-collapse .nav-links a:focus {
-    background-color: #ffc716;
-    transform: none; 
   }
 }
 
