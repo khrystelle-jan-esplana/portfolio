@@ -364,7 +364,7 @@ button.github-box span {
   background-color: #407FC7;
 }
 
-/* responsive navbar */
+/* media queries */
 @media (max-width: 992px) {
   .navbar-collapse {
     position: absolute;
@@ -377,6 +377,38 @@ button.github-box span {
     border-radius: 10px; 
     box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
     z-index: 999;
+  }
+
+  .navbar-collapse .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar-collapse .nav-links li {
+    width: 100%;
+    display: block;
+  }
+
+  .navbar-collapse .nav-links a {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 12px 18px;
+    margin: 2px 0;
+    text-align: right;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .navbar-collapse .nav-links a:hover,
+  .navbar-collapse .nav-links a:focus {
+    background-color: #ffc716;
+    transform: none; 
   }
   
   .nav-links {
@@ -402,9 +434,7 @@ button.github-box span {
   .navbar-collapse.show {
     background-color: #a7c957;
   }
-}
 
-@media (max-width: 768px) {
   main {
     padding-top: 80px;
   }
@@ -419,19 +449,6 @@ button.github-box span {
     margin-left: 40px;
     margin-right: 40px;
     margin-bottom: 70px;
-  }
-}
-
-/* for desktop */
-@media (min-width: 769px) {
-  .navbar {
-    padding: 0 2rem;
-  }
-  .nav-links {
-    gap: 60px;
-  }
-  .github-logo-container {
-    margin-left: auto;
   }
 }
 
@@ -472,56 +489,20 @@ button.github-box span {
   }
 }
 
-/* for hamburger menu on mobile */
-@media (max-width: 992px) {
-  .navbar-collapse {
-    position: absolute;
-    top: 100%;
-    right: 20px;
-    width: auto;
-    min-width: 220px;
-    background-color: #a7c957;
-    padding: 15px 25px;
-    border-radius: 12px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
-    z-index: 1000;
-  }
-
-  .navbar-collapse .nav-links {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  .navbar-collapse .nav-links li {
-    width: 100%;
-    display: block;
-  }
-
-  .navbar-collapse .nav-links a {
-    display: block;
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    padding: 12px 18px;
-    margin: 2px 0;
-    text-align: right;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .navbar-collapse .nav-links a:hover,
-  .navbar-collapse .nav-links a:focus {
-    background-color: #ffc716;
-    transform: none; 
-  }
-}
-
 /* for desktop */
 @media (min-width: 992px) {
+  .navbar {
+    padding: 0 2rem;
+  }
+
+  .nav-links {
+    gap: 60px;
+  }
+  
+  .github-logo-container {
+    margin-left: auto;
+  }
+
   .navbar-collapse {
     display: none !important;
   }
