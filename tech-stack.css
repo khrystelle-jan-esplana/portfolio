@@ -302,18 +302,6 @@ main {
   transition: transform 0.3s;
 }
 
-.logo-container img {
-  width: 80px;
-  height: auto;
-  max-width: 100px;
-  display: block;
-  transition: transform 0.3s;
-}
-
-.logo-container:hover img {
-  transform: scale(1.05);
-}
-
 .logo-text {
   margin-top: 1.5rem;
   padding: 8px 10px;
@@ -339,7 +327,7 @@ main {
 .logo-images {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 30px 50px;
   margin-top: 30px;
   justify-content: center;
 }
