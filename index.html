@@ -43,45 +43,6 @@
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <!-- page transition -->
-  <script>
-    document.body.classList.add('page-enter');
-    requestAnimationFrame(() => {
-      document.body.classList.add('page-enter-active');
-    });
-
-    document.querySelectorAll('a[href]').forEach(link => {
-      const url = new URL(link.href, location.href);
-      const isSameOrigin = url.origin === location.origin;
-      if (isSameOrigin && !link.target && !link.hasAttribute('download')) {
-        link.addEventListener('click', e => {
-          e.preventDefault();
-          document.body.classList.add('page-exit');
-          requestAnimationFrame(() => {
-            document.body.classList.add('page-exit-active');
-            setTimeout(() => {
-              window.location.href = link.href;
-            }, 400);
-          });
-        });
-      }
-    });
-  </script>
-  <!-- contents animation -->
-  <script>
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, {
-      threshold: 0.1
-    });
-
-    document.querySelectorAll('.fade-slide-in').forEach(el => {
-      observer.observe(el);
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
