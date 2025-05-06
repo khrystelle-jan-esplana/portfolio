@@ -82,33 +82,63 @@
           </div>
         
           <div id="languages" class="logo-images">
-            <img src="Images/javalogo.png" alt="Java Logo">
-            <img src="Images/c-logo.png" alt="C Logo">
-            <img src="Images/html-logo.png" alt="HTML Logo">
-            <img src="Images/css-logo.png" alt="CSS Logo">
-            <img src="Images/sql.png" alt="SQL Logo">
+            <div class="logo-container">
+              <img src="Images/javalogo.png" alt="Java Logo">
+              <div class="logo-text">Java</div>
+            </div>
+            <div class="logo-container">
+              <img src="Images/c-logo.png" alt="C Logo">
+              <div class="logo-text">C Language</div>
+            </div>
+            <div class="logo-container">
+              <img src="Images/html-logo.png" alt="HTML Logo">
+              <div class="logo-text">HTML</div>
+            </div>
+            <div class="logo-container">
+              <img src="Images/css-logo.png" alt="CSS Logo">
+              <div class="logo-text">CSS</div>
+            </div>
+            <div class="logo-container">
+              <img src="Images/sql.png" alt="SQL Logo">
+              <div class="logo-text">SQL</div>
+            </div>
           </div>          
         
           <div id="tools" class="logo-images" style="display: none;">
-            <img src="Images/vscode-logo.png" alt="Visual Studio Logo">
-            <img src="Images/netbeans-logo.png" alt="Apache Netbeans Logo">
-            <img src="Images/oracleapex.png" alt="Oracle Apex Logo">
-            <img src="Images/AS-logo.png" alt="Android Studio Logo">
-            <img src="Images/gitimg.png" alt="Git Logo">
+            <div class="logo-container">
+              <img src="Images/vscode-logo.png" alt="VS Code Logo">
+              <div class="logo-text">Visual Studio Code</div>
+            </div>
+            <div class="logo-container">
+              <img src="Images/netbeans-logo.png" alt="Apache Netbeans Logo">
+              <div class="logo-text">Apache Netbeans</div>
+            </div>
+            <div class="logo-container">
+              <img src="Images/oracleapex.png" alt="Oracle Apex Logo">
+              <div class="logo-text">Oracle Apex</div>
+            </div>
+            <div class="logo-container">
+              <img src="Images/AS-logo.png" alt="Android Studio Logo">
+              <div class="logo-text">Android Studio</div>
+            </div>
+            <div class="logo-container">
+              <img src="Images/gitimg.png" alt="Git Logo">
+              <div class="logo-text">Git</div>
+            </div>
           </div>
         </div>  
       </div>
     </main>
     <script>
       function showContent(idToShow, clickedButton) {
-      const sections = document.querySelectorAll('.logo-images');
-      sections.forEach(section => section.style.display = 'none');
-
-      document.getElementById(idToShow).style.display = 'block';
-
-      const buttons = document.querySelectorAll('.toggle-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      clickedButton.classList.add('active');
+        const sections = document.querySelectorAll('.logo-images');
+        sections.forEach(section => section.style.display = 'none');
+    
+        document.getElementById(idToShow).style.display = 'flex';
+    
+        const buttons = document.querySelectorAll('.toggle-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        clickedButton.classList.add('active');
       }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

@@ -37,6 +37,7 @@ body.page-exit-active {
   transform: translateY(0);
 }
 
+/* navbar */
 .navbar {
   position: fixed;
   top: 0;
@@ -103,11 +104,9 @@ body.page-exit-active {
   align-items: center;
 }
 
-
 .navbar li {
   margin: 0 1rem;
 }
-
 
 .navbar a {
   color: #588157;
@@ -220,14 +219,11 @@ p {
 }
 
 h1 {
-  /* margin-top: 150px; */
-  /* margin-bottom: 20px; */
   margin: 0 0 20px 0;
   font-family: 'Gochi Hand';
   font-weight: 400;
   font-size: 3.5rem;
   text-align: center;
-  /* margin-left: 50px; */
   color: #588157;
   scroll-margin-top: 100px;
   font-size: clamp(2rem, 5vw, 3.5rem);
@@ -242,7 +238,6 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding-top: 80px;  */
 }
 
 .main-wrapper {
@@ -298,10 +293,53 @@ main {
   background-color: rgba(88, 129, 87, 0.1); 
 }
 
+.logo-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.logo-container img {
+  width: 80px;
+  height: auto;
+  max-width: 100px;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.logo-container:hover img {
+  transform: scale(1.05);
+}
+
+.logo-text {
+  margin-top: 1.5rem;
+  padding: 8px 10px;
+  border: 2px solid #ffc716;
+  border-radius: 5px;
+  background-color: #588157;
+  color: #ffc716;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  text-align: center;
+  width: max-content;
+  max-width: 120px;
+}
+
+.logo-container:hover .logo-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .logo-images {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px;
   margin-top: 30px;
   justify-content: center;
 }
@@ -356,10 +394,6 @@ main {
     padding: 0 15px;
   }
 
-}
-
-/* responsive navbar */
-@media (max-width: 992px) {
   .navbar-collapse {
     position: absolute;
     top: 100%; 
@@ -396,29 +430,7 @@ main {
   .navbar-collapse.show {
     background-color: #a7c957;
   }
-}
 
-@media (max-width: 768px) {
-  main {
-    padding-top: 80px;
-  }
-}
-
-/* for desktop */
-@media (min-width: 769px) {
-  .navbar {
-    padding: 0 2rem;
-  }
-  .nav-links {
-    gap: 60px;
-  }
-  .github-logo-container {
-    margin-left: auto;
-  }
-}
-
-/* for tablet */
-@media (min-width: 481px) and (max-width: 768px) {
   .navbar-collapse {
     right: 2rem;
     min-width: 250px;
@@ -427,6 +439,7 @@ main {
     width: 60px;
     height: 60px;
   }
+
 }
 
 /* for mobile */
@@ -534,5 +547,21 @@ main {
 
   .navbar-toggler {
     display: none;
+  }
+
+  .navbar {
+    padding: 0 2rem;
+  }
+
+  .nav-links {
+    gap: 60px;
+  }
+
+  .github-logo-container {
+    margin-left: auto;
+  }
+  
+  .logo-text {
+    margin-right: 2rem;
   }
 }
