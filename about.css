@@ -327,6 +327,19 @@ p {
   transform: translateY(-5px);
 }
 
+.btn-primary {
+  color: #ffc716;
+  background-color: #588157;
+  border-color: #344e41;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #ffc716;
+  border-color: #ffc716;
+}
+
+/* media queries */
 @media (max-width: 992px) {
   .navbar-collapse {
     position: absolute;
