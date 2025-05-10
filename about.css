@@ -297,9 +297,12 @@ p {
   max-height: 200px;
 }
 
+.card-body {
+  padding: 3rem 2rem;
+}
+
 .text-certif h1 {
   color: #ffc716;
-  margin-top: 50px;
   font-family: 'Gochi Hand';
   text-align: center;
   font-size: 3.5rem;
@@ -320,7 +323,6 @@ p {
 .card {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
-  border-radius: rem;
 }
 
 .card:hover {
