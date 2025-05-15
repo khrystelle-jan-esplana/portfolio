@@ -241,6 +241,11 @@ main {
   flex: 1;
 }
 
+.aspirations-heading {
+  margin-bottom: 0; 
+  font-size: 2rem;
+}
+
 .text-section h1.aspirations-heading {
   margin-top: 50px;
   color: #ffc716;
@@ -282,12 +287,53 @@ p {
 
 .certification-container {
   display: flex;
-  padding: 3rem 2rem;
+  /* padding: 3rem 2rem; */
+  padding: 0 1rem;
+  width: 100%;
   background-color: #fff0c0;
 }
 
 .certification-container .row {
   justify-content: center;
+}
+
+.certification-container .text-certif {
+  max-width: 800px;
+}
+
+.certification-container h1,
+.certification-container p {
+  text-align: center;
+}
+
+.certification-container .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.certification-container .card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.certification-container .card-text {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.certification-container .btn {
+  margin-top: auto;
+}
+
+.certification-container .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
 }
 
 .card-img-top {
@@ -355,7 +401,6 @@ p {
     box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
     z-index: 999;
   }
-
 
   .navbar-collapse .nav-links {
     display: flex;
@@ -433,6 +478,14 @@ p {
 
   .text-certif p {
     font-size: 1.5rem;
+  }
+
+   .certification-container .card-title {
+    font-size: 1rem;
+  }
+
+  .certification-container .card-text {
+    font-size: 0.85rem;
   }
 
   .certification-container .card h5 {
