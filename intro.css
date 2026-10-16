@@ -1,0 +1,191 @@
+/* ==========================================================
+   Intro that plays ONLY when a page is opened from a star on
+   the landing page: the screen splits open, "khrystelle" is
+   written in cursive, then slides up to the header corner and
+   the navigation pops in. Opened any other way = normal page.
+   Uses the page's own tokens: --bg, --accent, --glow
+   ========================================================== */
+
+/* while the intro runs: cover the page, freeze it, hide the header bits */
+html.intro-active { overflow: hidden; }
+
+html.intro-active::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  background: var(--bg);           /* no flash of the page before the overlay exists */
+}
+
+html.intro-active main { opacity: 0; }
+html.intro-active main * { animation-play-state: paused !important; }
+html.intro-active .star-nav,
+html.intro-active .theme-toggle,
+html.intro-active .site-header .logo { opacity: 0; }
+
+main { transition: opacity 0.9s ease; }
+
+/* the header logo is already fully written when it lands, so don't write it twice */
+html.from-landing .logo .w { animation: none; }
+
+/* after the logo lands: the about me pill and the other stars pop in */
+html.intro-reveal .theme-toggle { animation: intro-pop 0.75s var(--ease-pop, cubic-bezier(0.34, 1.56, 0.64, 1)) backwards; }
+html.intro-reveal .nav-item { animation: intro-pop 0.75s var(--ease-pop, cubic-bezier(0.34, 1.56, 0.64, 1)) backwards; }
+html.intro-reveal .nav-item:nth-child(1) { animation-delay: 0.10s; }
+html.intro-reveal .nav-item:nth-child(2) { animation-delay: 0.25s; }
+html.intro-reveal .nav-item:nth-child(3) { animation-delay: 0.35s; }
+html.intro-reveal .nav-item:nth-child(4) { animation-delay: 0.45s; }
+html.intro-reveal .nav-item:nth-child(5) { animation-delay: 0.55s; }
+
+@keyframes intro-pop {
+  from { opacity: 0; transform: scale(0.3); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ---------- the overlay ---------- */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  overflow: hidden;
+}
+
+.intro-stage {
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  transition: opacity 1s ease;
+}
+
+.intro-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, var(--glow), transparent 62%);
+  opacity: 0.35;
+  animation: intro-glow 4s ease-in-out infinite alternate;
+}
+
+.intro.leaving .intro-stage { opacity: 0; }
+
+@keyframes intro-glow {
+  from { opacity: 0.2; transform: scale(0.92); }
+  to   { opacity: 0.45; transform: scale(1.06); }
+}
+
+/* a few blurry stars breathing behind the writing */
+.intro-bgstar {
+  position: absolute;
+  width: clamp(200px, 30vw, 420px);
+  translate: -50% -50%;
+  opacity: 0;
+  animation: intro-bgstar-in 1.6s ease 1s forwards;
+}
+.intro-bgstar svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  animation: intro-breathe 5s ease-in-out infinite alternate;
+}
+@keyframes intro-bgstar-in { to { opacity: 1; } }
+@keyframes intro-breathe {
+  from { transform: scale(0.8) rotate(-6deg); opacity: 0.4; }
+  to   { transform: scale(1.25) rotate(6deg); opacity: 1; }
+}
+
+/* the two halves that split open */
+.intro-half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  z-index: 2;
+  background: var(--bg);
+  animation: 1.2s cubic-bezier(0.77, 0, 0.18, 1) 0.45s both;
+}
+.intro-half--top    { top: 0;    box-shadow: 0 10px 50px -6px var(--glow); animation-name: intro-split-up; }
+.intro-half--bottom { bottom: 0; box-shadow: 0 -10px 50px -6px var(--glow); animation-name: intro-split-down; }
+
+@keyframes intro-split-up   { from { transform: translateY(0); } to { transform: translateY(-102%); } }
+@keyframes intro-split-down { from { transform: translateY(0); } to { transform: translateY(102%); } }
+
+/* glowing seam that grows across the screen right before it splits */
+.intro-seam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 3px;
+  margin-top: -1.5px;
+  z-index: 3;
+  background: var(--accent);
+  box-shadow: 0 0 22px 4px var(--glow);
+  animation: intro-seam 1.2s ease both;
+}
+@keyframes intro-seam {
+  0%   { transform: scaleX(0); opacity: 1; }
+  35%  { transform: scaleX(1); opacity: 1; }
+  70%  { transform: scaleX(1) scaleY(2.2); opacity: 1; }
+  100% { transform: scaleX(1) scaleY(0.4); opacity: 0; }
+}
+
+/* the big logo: pops in, writes itself, then flies to the header */
+.intro-logo {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  width: min(70vw, 640px);
+  transform: translate(-50%, -50%);
+  transition: transform 1.15s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.intro-pop { animation: intro-logo-pop 0.9s var(--ease-pop, cubic-bezier(0.34, 1.56, 0.64, 1)) 0.8s both; }
+@keyframes intro-logo-pop {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.intro-logo svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.intro-logo .w {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 4.4;               /* same as the header logo so the hand-off is seamless */
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: intro-write calc(var(--dur) * 0.6) cubic-bezier(0.45, 0.05, 0.55, 0.95) calc(1.7s + var(--t) * 0.6) both;
+}
+
+.intro-logo .star {
+  fill: var(--accent);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    intro-write calc(var(--dur) * 0.6) cubic-bezier(0.45, 0.05, 0.55, 0.95) calc(1.7s + var(--t) * 0.6) both,
+    intro-fill 0.4s ease calc(1.7s + (var(--t) + var(--dur)) * 0.6) both,
+    intro-bump 0.7s var(--ease-pop, cubic-bezier(0.34, 1.56, 0.64, 1)) calc(1.7s + (var(--t) + var(--dur)) * 0.6) both;
+}
+
+.intro-logo .heart {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    intro-write calc(var(--dur) * 0.6) cubic-bezier(0.45, 0.05, 0.55, 0.95) calc(1.7s + var(--t) * 0.6) both,
+    intro-bump 0.7s var(--ease-pop, cubic-bezier(0.34, 1.56, 0.64, 1)) calc(1.7s + (var(--t) + var(--dur)) * 0.6) both;
+}
+
+@keyframes intro-write {
+  from { stroke-dashoffset: 1; opacity: 0; }
+  1%   { opacity: 1; }
+  to   { stroke-dashoffset: 0; opacity: 1; }
+}
+@keyframes intro-fill { from { fill-opacity: 0; } to { fill-opacity: 1; } }
+@keyframes intro-bump {
+  0%   { transform: scale(1) rotate(0deg); }
+  45%  { transform: scale(1.45) rotate(14deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}

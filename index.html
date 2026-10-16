@@ -118,18 +118,26 @@
         <a class="star" href="projects.html" aria-label="projects"><svg class="star-art" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg></a>
       </div>
       <div class="cluster" data-id="goals" style="--n:2">
-        <svg class="title" viewBox="-140 -140 280 280" aria-hidden="true"><defs><path id="arc-goals" d="M -9.2 -87.5 A 88 88 0 0 1 81.6 -33.0"/></defs><text><textPath href="#arc-goals">goals</textPath></text></svg>
+        <svg class="title" viewBox="-140 -140 280 280" aria-hidden="true"><defs><path id="arc-techstack" d="M -50.5 -72.1 A 88 88 0 0 1 77.7 -41.3"/></defs><text><textPath href="#arc-techstack">tech stack</textPath></text></svg>
         <div class="slide slide--bar" style="--i:0"><span class="bar" style="--lx:83;--ly:0;--ll:68;--la:-11.8"></span></div>
-        <div class="slide slide--label" style="--i:0"><a class="label" href="goals.html#goals" tabindex="-1" style="--tx:185;--ty:-20;--ta:-11">goals</a></div>
+        <div class="slide slide--label" style="--i:0"><a class="label" href="tech-stack.html#languages" tabindex="-1" style="--tx:185;--ty:-20;--ta:-11">programming language</a></div>
         <div class="slide slide--bar" style="--i:1"><span class="bar" style="--lx:85;--ly:35;--ll:70;--la:18.4"></span></div>
-        <div class="slide slide--label" style="--i:1"><a class="label" href="goals.html#professional" tabindex="-1" style="--tx:175;--ty:56;--ta:-6">professional goals</a></div>
-        <svg class="mini-star" viewBox="0 0 97 97" aria-hidden="true" style="--mx:440;--my:22"><use href="#star-g"/></svg>
-        <a class="star" href="goals.html" aria-label="goals"><svg class="star-art" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg></a>
+        <div class="slide slide--label" style="--i:1"><a class="label" href="tech-stack.html#tools" tabindex="-1" style="--tx:175;--ty:56;--ta:-6">programming tool</a></div>
+        <a class="star" href="tech-stack.html" aria-label="tech stack"><svg class="star-art" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg></a>
       </div>
       </nav>
     </main>
   </div>
 
   <script src="landing.js"></script>
+  <script>
+  (function () {
+    document.querySelectorAll('.constellation a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        try { sessionStorage.setItem('fromLanding', '1'); } catch (e) {}
+      });
+    });
+  })();
+</script>
 </body>
 </html>
