@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Italiana&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-gradient-light: linear-gradient(135deg, #CDB9DE, #9680D5, #76ADCB, #F4F8EA);
+  --bg-gradient-dark: linear-gradient(135deg, #460C3F, #4E3DA3, #E1DAFC, #AD0574);
+  
+  --text-light: #460C3F;
+  --text-dark: #F4C6D1;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+
+.bg-light-mode {
+  background: var(--bg-gradient-light);
+  color: var(--text-light);
+}
+
+.bg-dark-mode {
+  background: var(--bg-gradient-dark);
+  color: var(--text-dark);
+}
+
+/* Adds a subtle, transparent star pattern over your gradients */
+.star-pattern-overlay {
+  background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+  mix-blend-mode: soft-light; /* Blends the stars into your purple/blue gradients */
+  opacity: 0.7;
+}
+
+.font-italiana {
+  font-family: 'Italiana', serif;
+}
