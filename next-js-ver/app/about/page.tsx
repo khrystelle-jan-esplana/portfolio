@@ -8,7 +8,7 @@ import TypingText from "@/components/typingText";
 
 const SUN = "/svg-icons/sun-icon.svg";
 // Only "about me" exists so far; the others point back to the menu until you build them.
-const NAV: [string, string][] = [["about me", "/about"], ["achievements", "/menu"], ["certifications", "/menu"], ["projects", "/menu"], ["tech stack", "/menu"]];
+const NAV: [string, string][] = [["about me", "/about"], ["achievements", "/achievements"], ["certifications", "/menu"], ["projects", "/menu"], ["tech stack", "/menu"]];
 
 const TOPICS: Record<"interests" | "hobbies", [string, string][]> = {
   interests: [

@@ -6,13 +6,13 @@ import { Icon, ICONS } from "@/components/icons";
 import StarField from "@/components/starField";
 import ThemeToggle from "@/components/themeToggle";
 
-// Stars are in this order around the orbit. Only "about me" has content for now.
+// Stars are in this order around the orbit. `ready` = the page exists.
 const menu = [
-  { title: "about me", links: ["introduction", "interests", "hobbies", "skills"] },
-  { title: "achievements", href: "/achievements", links: ["leadership", "competition", "award", "scholarship"] },
-  { title: "certifications", href: "/", links: [] as string[] },
-  { title: "projects", href: "/", links: [] as string[] },
-  { title: "tech stack", href: "/", links: [] as string[] },
+  { title: "about me", href: "/about", ready: true, links: ["introduction", "interests", "hobbies", "skills"] },
+  { title: "achievements", href: "/achievements", ready: true, links: ["leadership"] },
+  { title: "certifications", href: "/", ready: false, links: [] as string[] },
+  { title: "projects", href: "/", ready: false, links: [] as string[] },
+  { title: "tech stack", href: "/", ready: false, links: [] as string[] },
 ];
 
 export default function MenuPage() {
@@ -45,11 +45,11 @@ export default function MenuPage() {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 1.1 }}
           >
-            {item?.title ?? "menu"}
+            {item?.ready ? <Link href={item.href}>{item.title}</Link> : (item?.title ?? "menu")}
           </motion.h1>
         </AnimatePresence>
 
-        {/* stars orbit the circle; hovering pauses them so they're easy to click */}
+        {/* the five menu buttons orbit the circle; hover shows the name on the outer side */}
         <div className="star-ring">
           {menu.map((m, i) => (
             <button
@@ -58,15 +58,15 @@ export default function MenuPage() {
               style={{ "--a": `${i * 72}deg` } as React.CSSProperties}
               onClick={() => pick(i)}
               aria-label={`Open ${m.title}`}
-              title={m.title}
             >
               <span className="star-mask" style={{ "--m": `url(${ICONS.menuStar.light})` } as React.CSSProperties} />
+              <span className="star-label">{m.title}</span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* subcategories: rise from the bottom, lower-left corner */}
+      {/* subcategories: rise from the bottom, lower-left */}
       <AnimatePresence mode="wait">
         {item && item.links.length > 0 && (
           <motion.nav
@@ -76,13 +76,13 @@ export default function MenuPage() {
             exit={{ opacity: 0, transition: { duration: 0.4 } }}
           >
             {item.links.map((link, i) => (
-               <motion.div
-                  key={link}
-                  initial={{ opacity: 0, y: 90 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9 + i * 0.18, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                  <Link href={`${item.href}#${link}`}>{link}</Link>
+              <motion.div
+                key={link}
+                initial={{ opacity: 0, y: 90 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9 + i * 0.18, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Link href={`${item.href}#${link}`}>{link}</Link>
               </motion.div>
             ))}
           </motion.nav>
