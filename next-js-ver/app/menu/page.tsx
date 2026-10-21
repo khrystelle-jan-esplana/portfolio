@@ -1,101 +1,76 @@
 'use client';
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import MovingStars from '@/components/movingStars';
-import { StarIcon, CrosshairIcon } from '@/components/Icons';
-import { useRouter } from 'next/navigation';
 
-const menuItems = ["introduction", "hobbies", "interests", "skills"];
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import MovingStars from '@/components/movingStars';
+
+const menuItems = [
+  { title: 'introduction', links: ['about me', 'my journey', 'currently'] },
+  { title: 'hobbies', links: ['what I make', 'what I read', 'little joys'] },
+  { title: 'interests', links: ['design', 'technology', 'the cosmos'] },
+  { title: 'skills', links: ['creative', 'technical', 'in progress'] },
+];
+const starIcon = (dark: boolean) => `/svg-icons/${dark ? 'darkMode/line-star-dark.svg' : 'menuIcons/menu-star-icon-light.svg'}`;
 
 export default function MenuPage() {
   const router = useRouter();
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [isDark, setIsDark] = useState(false);
+  const [revealFrom, setRevealFrom] = useState<boolean | null>(null);
+  const [selectedItem, setSelectedItem] = useState<(typeof menuItems)[number] | null>(null);
+
+  useEffect(() => { setIsDark(localStorage.getItem('portfolio-theme') === 'dark'); }, []);
+  const toggleTheme = () => {
+    setRevealFrom(isDark);
+    const next = !isDark;
+    setIsDark(next);
+    localStorage.setItem('portfolio-theme', next ? 'dark' : 'light');
+  };
 
   return (
-    <main className="relative w-screen h-screen overflow-hidden bg-light-mode text-[#460C3F]">
-      
-      {/* Texture & Moving Stars */}
-      <div className="absolute inset-0 star-pattern-overlay pointer-events-none z-0" />
-      <MovingStars />
+    <main className={`portfolio-scene menu-scene ${isDark ? 'theme-dark' : 'theme-light'} ${selectedItem ? 'has-selection' : ''}`}>
+      <div className="scene-gradient" />
+      {revealFrom !== null && <motion.div key={`${revealFrom}-${isDark}`} className={`theme-reveal ${revealFrom ? 'theme-reveal-dark' : 'theme-reveal-light'}`} initial={{ clipPath: 'circle(150% at 40px 40px)' }} animate={{ clipPath: 'circle(0% at 40px 40px)' }} transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }} onAnimationComplete={() => setRevealFrom(null)} />}
+      <div className="star-pattern-overlay" />
+      <MovingStars isDark={isDark} />
 
-      {/* Back Button */}
-      <div className="absolute top-8 left-8 z-50 cursor-pointer flex gap-2 opacity-70 hover:opacity-100 transition-opacity" onClick={() => router.push('/')}>
-         <CrosshairIcon className="w-6 h-6" />
-      </div>
+      <button className="theme-toggle" aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`} onClick={toggleTheme}>
+        <img src={`/svg-icons/${isDark ? 'darkMode/toggle-darkMode-icon.svg' : 'lightMode/toggle-light-mode-icon.svg'}`} alt="" />
+      </button>
+      <button className="menu-back" onClick={() => router.push('/')} aria-label="Back to home"><span>←</span><span>home</span></button>
 
-      <div className="relative z-10 w-full h-full flex justify-between items-center px-16 border-[1px] border-current m-4 p-4 max-w-[calc(100vw-32px)] max-h-[calc(100vh-32px)] shadow-lg backdrop-blur-sm bg-white/5">
-        
-        {/* Left Side - Menu Items */}
-        <div className="flex flex-col gap-4 z-20">
-          {menuItems.map((item) => (
-            <motion.h2
-              key={item}
-              onMouseEnter={() => setHoveredItem(item)}
-              onMouseLeave={() => setHoveredItem(null)}
-              onClick={() => setSelectedItem(item)}
-              className={`text-7xl cursor-pointer transition-all duration-300 ${hoveredItem && hoveredItem !== item ? 'opacity-30' : 'opacity-100'}`}
-              animate={hoveredItem === item ? { x: 20 } : { x: 0 }}
-            >
-              {item}
-            </motion.h2>
-          ))}
+      <section className="menu-frame">
+        <div className="menu-corner menu-corner-tl">✧</div><div className="menu-corner menu-corner-tr">✧</div>
+        <div className="menu-corner menu-corner-bl">✧</div><div className="menu-corner menu-corner-br">✧</div>
+
+        <div className="menu-left-decor" aria-hidden="true"><div className="sunburst" /></div>
+        <div className="menu-right-decor" aria-hidden="true"><div className="sunburst" /></div>
+
+        <div className="orbit-stage" aria-label="Portfolio menu">
+          <motion.div className="orbit orbit-outer" animate={{ rotate: 360 }} transition={{ duration: 72, repeat: Infinity, ease: 'linear' }} />
+          <motion.div className="orbit orbit-middle" animate={{ rotate: -360 }} transition={{ duration: 58, repeat: Infinity, ease: 'linear' }} />
+          <motion.div className="orbit orbit-inner" animate={{ rotate: 360 }} transition={{ duration: 42, repeat: Infinity, ease: 'linear' }} />
+          <motion.div className="planet-orbit" animate={{ rotate: 360 }} transition={{ duration: 19, repeat: Infinity, ease: 'linear' }}><span className="orbit-planet" /></motion.div>
+          <motion.div className="planet-orbit planet-orbit-two" animate={{ rotate: -360 }} transition={{ duration: 27, repeat: Infinity, ease: 'linear' }}><span className="orbit-planet" /></motion.div>
+          <AnimatePresence mode="wait">
+            <motion.h1 key={selectedItem?.title ?? 'menu'} className="orbit-label" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.55 }}>
+              {selectedItem?.title ?? 'menu'}
+            </motion.h1>
+          </AnimatePresence>
         </div>
 
-        {/* Center - Orbiting Menu Graphic (Original) */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center">
-           <motion.div 
-             animate={{ rotate: 360 }}
-             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-             className="absolute w-[400px] h-[400px] border border-dashed border-current rounded-full opacity-50"
-           />
-           <motion.div 
-             animate={{ rotate: -360 }}
-             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-             className="absolute w-[300px] h-[300px] border border-current rounded-full opacity-70"
-           />
-           
-           {/* Orbiting Planet */}
-           <motion.div
-             animate={{ rotate: 360 }}
-             transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-             className="absolute w-[400px] h-[400px]"
-           >
-             <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-300 to-white shadow-[0_0_15px_rgba(255,255,255,0.8)] absolute -top-4 left-1/2 -ml-4" />
-           </motion.div>
-           
-           <h1 className="font-italiana text-6xl z-10 pointer-events-none">menu</h1>
-        </div>
-
-        {/* Selected Menu Star Fade-In Overlay (Original) */}
         <AnimatePresence>
-          {selectedItem && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-white/60 backdrop-blur-md z-50 flex flex-col items-center justify-center pointer-events-auto cursor-pointer"
-              onClick={() => setSelectedItem(null)}
-            >
-              <motion.div
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                className="flex flex-col items-center gap-8"
-              >
-                <StarIcon className="w-16 h-16" />
-                <h1 className="text-6xl capitalize">{selectedItem}</h1>
-                
-                <div className="flex gap-6 opacity-70 text-2xl mt-4">
-                  <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}>Detail 1</motion.span>
-                  <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 }}>Detail 2</motion.span>
-                  <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4 }}>Detail 3</motion.span>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
+          {selectedItem && <motion.nav className="subcategory-list" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 18 }} transition={{ delay: 0.35, duration: 0.7 }} aria-label={`${selectedItem.title} sections`}>
+            {selectedItem.links.map((link, index) => <motion.a key={link} href={`#${link.replaceAll(' ', '-')}`} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.52 + index * 0.12, duration: 0.6 }}>{link}<span>↗</span></motion.a>)}
+          </motion.nav>}
         </AnimatePresence>
-      </div>
+
+        <div className="menu-stars" role="group" aria-label="Choose a menu section">
+          {menuItems.map((item, i) => <motion.button key={item.title} className={`menu-star ${selectedItem?.title === item.title ? 'is-selected' : ''}`} aria-label={`Open ${item.title}`} onClick={() => setSelectedItem(selectedItem?.title === item.title ? null : item)} whileHover={{ scale: 1.25, rotate: 45 }} whileTap={{ scale: 0.85 }} style={{ '--star-index': i } as React.CSSProperties}><img src={starIcon(isDark)} alt="" /><span>{item.title}</span></motion.button>)}
+        </div>
+
+        <div className="menu-progress" aria-hidden="true">{[0, 1, 2, 3, 4].map((i) => <span key={i}>✦</span>)}</div>
+      </section>
     </main>
   );
 }

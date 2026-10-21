@@ -1,22 +1,39 @@
 'use client';
+
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { StarIcon, SparkleIcon } from './Icons';
 
-export default function MovingStars() {
-  // useMemo ensures the random positions are only calculated ONCE on load
-  const stars = useMemo(() => {
-    return Array.from({ length: 40 }).map((_, i) => ({
-      id: i,
-      startX: Math.random() * 100,
-      startY: Math.random() * 100,
-      duration: Math.random() * 30 + 20,
-      delay: Math.random() * 5,
-      scale: Math.random() * 0.5 + 0.2,
-      yMove: Math.random() * -100 - 50,
-      xMove: Math.random() * 50 - 25,
+interface Star {
+  id: number;
+  startX: number;
+  startY: number;
+  duration: number;
+  delay: number;
+  scale: number;
+  yMove: number;
+  xMove: number;
+  iconName: string;
+}
+
+interface MovingStarsProps {
+  isDark: boolean;
+}
+
+export default function MovingStars({ isDark }: MovingStarsProps) {
+  const stars: Star[] = Array.from({ length: 40 }, (_, i) => ({
+        id: i,
+        startX: (i * 37) % 100,
+        startY: (i * 61) % 100,
+        duration: 20 + ((i * 7) % 30),
+        delay: (i * 3) % 5,
+        scale: 0.2 + ((i * 13) % 50) / 100,
+        yMove: -50 - ((i * 17) % 100),
+        xMove: ((i * 23) % 50) - 25,
+        iconName: i % 2 === 0 ? 'star-combo-6' : 'crossStar',
     }));
-  }, []);
+
+  const folder = isDark ? 'darkMode' : 'lightMode';
+  const theme = isDark ? 'dark' : 'light';
 
   return (
     <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
@@ -24,21 +41,29 @@ export default function MovingStars() {
         <motion.div
           key={star.id}
           className="absolute opacity-40"
-          initial={{ top: `${star.startY}%`, left: `${star.startX}%`, scale: star.scale }}
+          initial={{
+            top: `${star.startY}%`,
+            left: `${star.startX}%`,
+            scale: star.scale,
+          }}
           animate={{
-            y: [0, star.yMove], 
-            x: [0, star.xMove],   
+            y: [0, star.yMove],
+            x: [0, star.xMove],
             rotate: [0, 180],
-            opacity: [0.2, 0.6, 0.2] 
+            opacity: [0.2, 0.6, 0.2],
           }}
           transition={{
             duration: star.duration,
             repeat: Infinity,
-            ease: "linear",
-            delay: star.delay
+            ease: 'linear',
+            delay: star.delay,
           }}
         >
-          {star.id % 3 === 0 ? <StarIcon className="w-6 h-6" /> : <SparkleIcon className="w-4 h-4" />}
+          <img
+            src={`/svg-icons/${folder}/${star.iconName}-${theme}.svg`}
+            alt=""
+            className="w-6 h-6"
+          />
         </motion.div>
       ))}
     </div>

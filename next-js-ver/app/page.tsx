@@ -1,83 +1,72 @@
 'use client';
-import { useState } from 'react';
+
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import MovingStars from '@/components/movingStars';
-import { CrosshairIcon, OrbitIcon, StarIcon } from '@/components/Icons';
+
+const icons = {
+  toggle: (dark: boolean) => `/svg-icons/${dark ? 'darkMode/toggle-darkMode-icon.svg' : 'lightMode/toggle-light-mode-icon.svg'}`,
+  ornament: (dark: boolean, name: string) => `/svg-icons/${dark ? 'darkMode' : 'lightMode'}/${name}-${dark ? 'dark' : 'light'}.svg`,
+};
 
 export default function LandingPage() {
   const router = useRouter();
   const [isDark, setIsDark] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [revealFrom, setRevealFrom] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    setIsDark(localStorage.getItem('portfolio-theme') === 'dark');
+  }, []);
 
   const toggleTheme = () => {
-    setIsDark(!isDark);
+    setRevealFrom(isDark);
+    const next = !isDark;
+    setIsDark(next);
+    localStorage.setItem('portfolio-theme', next ? 'dark' : 'light');
   };
 
   const handleExplore = () => {
     if (isLoading) return;
     setIsLoading(true);
-    setTimeout(() => {
-      router.push('/menu');
-    }, 2500); 
+    window.setTimeout(() => router.push('/menu'), 2500);
   };
 
   return (
-    <main className={`relative w-screen h-screen overflow-hidden transition-colors duration-1000 ${isDark ? 'bg-dark-mode' : 'bg-light-mode'}`}>
-      
-      {/* Adds the subtle texture over your gradients */}
-      <div className="absolute inset-0 star-pattern-overlay pointer-events-none z-0" />
-      
-      {/* Moving animated stars */}
-      <MovingStars />
+    <main className={`portfolio-scene landing-scene ${isDark ? 'theme-dark' : 'theme-light'}`}>
+      <div className="scene-gradient" />
+      {revealFrom !== null && <motion.div key={`${revealFrom}-${isDark}`} className={`theme-reveal ${revealFrom ? 'theme-reveal-dark' : 'theme-reveal-light'}`} initial={{ clipPath: 'circle(150% at 40px 40px)' }} animate={{ clipPath: 'circle(0% at 40px 40px)' }} transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }} onAnimationComplete={() => setRevealFrom(null)} />}
+      <div className="star-pattern-overlay" />
+      <MovingStars isDark={isDark} />
 
-      {/* Top Left Theme Toggle */}
-      <motion.button 
+      <motion.button
+        aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
         onClick={toggleTheme}
-        whileTap={{ scale: 0.9, rotate: 180 }}
-        className="absolute top-8 left-8 z-50 cursor-pointer"
+        whileTap={{ scale: 0.86, rotate: 180 }}
+        className="theme-toggle"
       >
-        <StarIcon className="w-10 h-10" />
+        <img src={icons.toggle(isDark)} alt="" />
       </motion.button>
 
-      {/* Main Content Container (Your Original Layout) */}
-      <div className="relative z-10 w-full h-full flex flex-col justify-center items-center border-[1px] border-current m-4 p-4 max-w-[calc(100vw-32px)] max-h-[calc(100vh-32px)] shadow-lg backdrop-blur-sm bg-white/5">
-        
-        {/* Top Right Decor */}
-        <div className="absolute top-10 right-10 flex gap-2 opacity-70">
-           <OrbitIcon className="w-16 h-8" />
-        </div>
+      <div className="ornament ornament-corner" aria-hidden="true"><span /><img src={icons.ornament(isDark, 'crossStar')} alt="" /></div>
+      <img className="ornament ornament-top-right" src={icons.ornament(isDark, 'star-raydown')} alt="" />
+      <img className="ornament ornament-left-bottom" src={icons.ornament(isDark, 'star-combo-6')} alt="" />
 
-        {/* Text Content */}
-        <div className="text-center relative">
-          <p className="text-2xl italic absolute -left-32 top-10 opacity-70">portfolio</p>
-          
-          <h1 className="font-italiana text-[12vw] leading-none tracking-tight flex flex-col items-center">
-            khrystelle
-            <span className="flex items-center gap-6">
-              <OrbitIcon className="w-24 h-24 opacity-80" />
-              jan
-            </span>
-          </h1>
+      <section className="landing-frame">
+        <div className="landing-rule" aria-hidden="true"><span /></div>
+        <div className="landing-title-wrap">
+          <p className="portfolio-label">portfolio</p>
+          <h1 className="landing-title">khrystelle<span className="name-last"><img src={icons.ornament(isDark, 'star-filledCircle')} alt="" />jan</span></h1>
         </div>
-
-        {/* Bottom Right Explore */}
-        <div className="absolute bottom-10 right-10 flex flex-col items-center gap-4 cursor-pointer" onClick={handleExplore}>
-          <h2 className="text-4xl italic hover:opacity-70 transition-opacity">explore</h2>
-          
-          <div className="flex gap-2">
-            {[0, 1, 2, 3, 4].map((i) => (
-              <motion.div
-                key={i}
-                animate={isLoading ? { scale: [1, 1.5, 1], opacity: [0.3, 1, 0.3] } : {}}
-                transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
-              >
-                <CrosshairIcon className="w-5 h-5" />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
+        <motion.button className="explore-button" onClick={handleExplore} whileHover={{ y: -4 }} whileTap={{ scale: 0.96 }}>
+          <span>{isLoading ? 'entering' : 'explore'}</span>
+          <span className="countdown-stars" aria-label={isLoading ? 'Opening menu' : 'Explore the portfolio'}>
+            {[0, 1, 2, 3, 4].map((i) => <motion.img key={i} src={icons.ornament(isDark, 'line-star')} alt="" animate={isLoading ? { scale: [1, 1.35, 1], opacity: [0.35, 1, 0.35] } : { opacity: [0.65, 1, 0.65] }} transition={{ duration: isLoading ? 0.75 : 2.2, repeat: Infinity, delay: i * (isLoading ? 0.32 : 0.24) }} />)}
+          </span>
+        </motion.button>
+      </section>
+      <AnimatePresence>{isLoading && <motion.div className="launch-flash" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />}</AnimatePresence>
     </main>
   );
 }
