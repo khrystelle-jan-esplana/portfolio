@@ -6,6 +6,7 @@ import StarField from "@/components/starField";
 import ThemeToggle from "@/components/themeToggle";
 import TypingText from "@/components/typingText";
 import Navbar from "@/components/navbar";
+import Logo from "@/components/logo";
 
 const SUN = "/svg-icons/sun-icon.svg";
 
@@ -56,6 +57,8 @@ const ChipIcon = () => (
     <path d="M12 4Q12.6 11.4 20 12Q12.6 12.6 12 20Q11.4 12.6 4 12Q11.4 11.4 12 4Z" fill="currentColor" />
   </svg>
 );
+
+const IDS = ["migs", "capstone", "iot"];
 
 export default function ProjectsPage() {
   const [sel, setSel] = useState(0);

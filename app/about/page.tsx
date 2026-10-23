@@ -6,6 +6,7 @@ import StarField from "@/components/starField";
 import ThemeToggle from "@/components/themeToggle";
 import TypingText from "@/components/typingText";
 import Navbar from "@/components/navbar"; 
+import Logo from "@/components/logo";
 
 const SUN = "/svg-icons/sun-icon.svg";
 

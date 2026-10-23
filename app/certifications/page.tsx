@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import StarField from "@/components/starField";
 import ThemeToggle from "@/components/themeToggle";
 import Navbar from "@/components/navbar";
+import Logo from "@/components/logo";
+
 
 const CERTS = [
   { src: "/certifications/dsdap-cert.png", title: "DSDAP Certificate" },

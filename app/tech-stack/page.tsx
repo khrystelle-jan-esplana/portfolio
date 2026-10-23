@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import StarField from "@/components/starField";
 import ThemeToggle from "@/components/themeToggle";
 import Navbar from "@/components/navbar";
+import Logo from "@/components/logo";
 
 type Item = { name: string; x: number; y: number; below?: boolean };
 type Cat = { title: string; side: "left" | "right"; stars: number; ar: number; items: Item[] };
@@ -60,7 +61,7 @@ function Section({ c }: { c: Cat }) {
   const [on, setOn] = useState(false);
   const t0 = 0.7 + c.title.length * 0.06; // items start after the title has typed
   return (
-    <motion.section className={`tk-sec ${c.side}`} initial="h" whileInView="v" viewport={{ amount: 0.3 }}
+    <motion.section id={c.title.toLowerCase().replace(/\s+/g, "-")} className={`tk-sec ${c.side}`} initial="h" whileInView="v" viewport={{ amount: 0.3 }}
       onViewportEnter={() => setOn(true)} onViewportLeave={() => setOn(false)}>
       <div className="tk-title">
         <motion.span className="tp" variants={pop(0)}>
@@ -100,6 +101,13 @@ function Section({ c }: { c: Cat }) {
 }
 
 export default function TechStackPage() {
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const id = location.hash.slice(1);
+      if (id) document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 1300);
+    return () => clearTimeout(t);
+  }, []);
   return (
     <main className="stage about compact ach tech">
       <div className="bg" /><StarField count={200} />
