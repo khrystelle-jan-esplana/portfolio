@@ -525,3 +525,25 @@ html { background-color: var(--base); }
 .cert-modal-close:hover {
   opacity: 1;
 }
+
+
+/* ---------- projects page  ---------- */
+.proj-orbit { --S: min(88vh, 52vw); position: absolute; right: calc(var(--S) / -2); top: 54%; width: var(--S); height: var(--S); margin-top: calc(var(--S) / -2); z-index: 1; }
+
+.proj-content { position: absolute; left: 5vw; right: 30vw; top: 19vh; max-height: 66vh; overflow-y: auto; z-index: 2; }
+.proj-content h1 { font: 600 clamp(1.5rem, 2.8vw, 3rem)/1.12 var(--font-text); }
+.proj-content p { margin-top: 1.6rem; text-align: justify; font: 400 clamp(.95rem, 1.45vw, 1.65rem)/1.95 var(--font-text); opacity: .8; }
+
+.chips { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: .8rem 1rem; margin-top: 1.8rem; }
+.chip { display: inline-flex; align-items: center; gap: .7rem; padding: .55rem 1.3rem .55rem .6rem; border: 1px solid var(--ink); border-radius: 99px;
+  background: color-mix(in srgb, var(--g1) 40%, transparent); font: 500 clamp(.8rem, 1.2vw, 1.3rem)/1 var(--font-text); letter-spacing: .03em; text-transform: uppercase; white-space: nowrap; }
+.chip svg { width: 1.7em; height: 1.7em; flex: none; }
+
+.proj-label { position: fixed; left: 5vw; bottom: 4vh; z-index: 2; font: 400 clamp(2rem, 3.4vw, 3.6rem)/1 var(--font-name); }
+.proj-tag { position: fixed; right: 29vw; bottom: 4vh; z-index: 2; text-align: right; min-height: 1.1em; font: 600 clamp(1.8rem, 3vw, 3.2rem)/1 var(--font-text); }
+
+@media (max-width: 900px) {
+  .proj-orbit { --S: 80vw; opacity: .3; }
+  .proj-content { right: 6vw; left: 6vw; top: 24vh; max-height: 58vh; }
+  .proj-tag { right: 6vw; }
+}

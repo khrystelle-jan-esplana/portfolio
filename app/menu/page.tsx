@@ -11,7 +11,7 @@ const menu = [
   { title: "about me", href: "/about", ready: true, links: ["introduction", "interests", "hobbies", "skills"] },
   { title: "achievements", href: "/achievements", ready: true, links: ["leadership"] },
   { title: "certifications", href: "/certifications", ready: true, links: [] as string[] },
-  { title: "projects", href: "/", ready: false, links: [] as string[] },
+  { title: "projects", href: "/projects", ready: true, links: [] as string[] },
   { title: "tech stack", href: "/", ready: false, links: [] as string[] },
 ];
 
