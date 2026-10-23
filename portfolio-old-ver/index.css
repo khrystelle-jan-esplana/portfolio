@@ -1,0 +1,592 @@
+:root {
+  --bg: #faf9fe;
+  --accent: #afa4cf;
+  --glow: rgba(175, 164, 207, 0.55);
+  --bgstar-fill: #eed2ff;
+  --bgstar-stroke: #afa4cf;
+  --bgstar-op: 0.6;
+  --word-a: #e1ddef;
+  --word-b: #d6cce5;
+  --word-c: #c9b9d6;
+  --word-op: 0.5;
+  --word-stroke: rgba(150, 140, 185, 0.22);
+  --arch: #d9d9d9;
+
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-glide: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* scale values are filled in by landing.js */
+  --s: 0.5;
+  --u: 0.5;
+}
+
+:root[data-theme='dark'] {
+  --bg: #5c4468;
+  --accent: #f4c6d1;
+  --glow: rgba(244, 198, 209, 0.6);
+  --bgstar-fill: #e797d6;
+  --bgstar-stroke: #e9a9dc;
+  --bgstar-op: 0.65;
+  --word-a: #b8689f;
+  --word-b: #c877b8;
+  --word-c: #b263a3;
+  --word-stroke: rgba(236, 160, 222, 0.3);
+}
+
+/* ---------- base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+body {
+  font-family: 'Caveat Brush', 'Comic Sans MS', cursive;
+  -webkit-font-smoothing: antialiased;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.svg-defs {
+  position: absolute;
+  pointer-events: none;
+}
+
+.viewport {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* hold every intro animation until fonts are ready (landing.js adds .go) */
+.js:not(.go) .viewport * {
+  animation-play-state: paused !important;
+}
+
+/* smooth cross-fade between themes (View Transitions API) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.8s;
+  animation-timing-function: ease;
+}
+
+/* ---------- blurry background stars ---------- */
+.bg-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-star {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: calc(var(--w) * var(--u) * 1px);
+  translate: -50% -50%;
+  animation: bg-pop 2.4s var(--ease-soft) both;
+  animation-delay: calc(var(--i) * 0.12s);
+}
+
+.bg-star svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  will-change: transform, opacity;
+  animation: breathe calc(var(--d) * 0.55) ease-in-out infinite alternate; /* about 4–6.5s per breath */
+  animation-delay: var(--bd);
+}
+
+@keyframes bg-pop {
+  from { transform: scale(0.2); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* the "breathing" loop */
+@keyframes breathe {
+  0%   { transform: scale(0.78) rotate(-6deg) translateY(12px);  opacity: 0.3; }
+  100% { transform: scale(1.3)  rotate(6deg)  translateY(-16px); opacity: 1; }
+}
+
+/* ---------- theme toggle (moon / sun) ---------- */
+.theme-toggle {
+  position: fixed;
+  z-index: 20;
+  top: max(18px, 6.5vh);
+  left: max(20px, 5vw);
+  width: clamp(48px, 4.2vw, 80px);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--accent);
+  cursor: pointer;
+  animation: toggle-pop 1.2s var(--ease-pop) 0.2s both;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle .icon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 8px var(--glow));
+  transition: opacity 0.6s ease, transform 0.8s var(--ease-pop);
+}
+
+.theme-toggle:hover .icon,
+.theme-toggle:focus-visible .icon {
+  filter: drop-shadow(0 0 14px var(--glow));
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px dashed var(--accent);
+  outline-offset: 6px;
+}
+
+/* light mode shows the moon, dark mode shows the sun */
+.icon--sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.3);
+}
+
+:root[data-theme='dark'] .icon--moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.3);
+}
+
+:root[data-theme='dark'] .icon--sun {
+  opacity: 1;
+  transform: none;
+}
+
+.theme-toggle:hover .icon--moon { transform: rotate(-14deg) scale(1.08); }
+.theme-toggle:hover .icon--sun  { transform: rotate(30deg) scale(1.08); }
+:root[data-theme='dark'] .theme-toggle:hover .icon--moon { transform: rotate(90deg) scale(0.3); }
+:root:not([data-theme='dark']) .theme-toggle:hover .icon--sun { transform: rotate(-90deg) scale(0.3); }
+
+@keyframes toggle-pop {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- stage ---------- */
+.stage {
+  --ox: 960;   /* centre of the layout; the stars are placed relative to it */
+  --oy: 540;
+  --cx0: 945;  /* where the stars pop before they glide to their spots */
+  --cy0: 520;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: calc(100vw / var(--s));
+  height: calc(100vh / var(--s));
+  transform: scale(var(--s));
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+/* ---------- giant welcome / portfolio words ---------- */
+.word {
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 300px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: transparent;
+  background: linear-gradient(90deg, var(--word-a) 0%, var(--word-b) 50%, var(--word-c) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-stroke: 2px var(--word-stroke);
+  pointer-events: none;
+  user-select: none;
+}
+
+.word--welcome {
+  right: -40px;     /* upper-right corner, the last letter bleeds off a little like your mockup */
+  top: -39px;
+  animation: slide-from-left 2.2s var(--ease-soft) 0.2s both;
+}
+
+.word--portfolio {
+  left: -40px; 
+  bottom: -25px;   /* lower-left corner */            
+  animation: slide-from-right 2.2s var(--ease-soft) 1.2s both;
+}
+
+@keyframes slide-from-left {
+  from { transform: translateX(-2300px); opacity: 0; }
+  25%  { opacity: var(--word-op); }
+  to   { transform: translateX(0); opacity: var(--word-op); }
+}
+
+@keyframes slide-from-right {
+  from { transform: translateX(2300px); opacity: 0; }
+  25%  { opacity: var(--word-op); }
+  to   { transform: translateX(0); opacity: var(--word-op); }
+}
+
+/* ---------- profile picture placeholder ---------- */
+.arch {
+  position: absolute;
+  z-index: 2;
+  left: calc(50% - 195px);
+  bottom: 0;
+  width: 361px;
+  height: 621px;
+  border-radius: 50% 50% 0 0 / 110px 110px 0 0;
+  background: var(--arch) url('Images/profile.jpg') center / cover no-repeat;
+  animation: arch-rise 2s var(--ease-soft) 3.4s both;
+}
+
+@keyframes arch-rise {
+  from { transform: translateY(105%); opacity: 0; }
+  30%  { opacity: 1; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* ---------- constellation clusters ---------- */
+.constellation {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* star centres in stage coordinates */
+.cluster[data-id='about']          { --x: 587;  --y: 938; --k: 0; }
+.cluster[data-id='achievements']   { --x: 560;  --y: 577; --k: 1; }
+.cluster[data-id='certifications'] { --x: 960;  --y: 320; --k: 2; }
+.cluster[data-id='projects']       { --x: 1290; --y: 590; --k: 3; }
+.cluster[data-id='goals']          { --x: 1315; --y: 928; --k: 4; }
+
+.cluster {
+  --tx0: calc((var(--cx0) - var(--x)) * 1px);
+  --ty0: calc((var(--cy0) - var(--y)) * 1px);
+  position: absolute;
+  left: calc(50% + (var(--x) - var(--ox)) * 1px);
+  top: calc(50% + (var(--y) - var(--oy)) * 1px);
+  width: 0;
+  height: 0;
+  /* pop in the middle (~1.5s) -> short pause -> glide to its spot */
+  animation: star-travel 3.6s both;
+  animation-delay: calc(1.4s + var(--k) * 0.22s);
+}
+
+.cluster.open,
+.cluster:has(:focus-visible) {
+  z-index: 5;
+}
+
+@keyframes star-travel {
+  0% {
+    transform: translate(var(--tx0), var(--ty0)) scale(0) rotate(-120deg);
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1.1);
+  }
+  18% {
+    opacity: 1;
+  }
+  26% {
+    transform: translate(var(--tx0), var(--ty0)) scale(1.4) rotate(12deg);
+    opacity: 1;
+    animation-timing-function: ease-in-out;
+  }
+  42% {
+    transform: translate(var(--tx0), var(--ty0)) scale(1) rotate(0deg);
+    animation-timing-function: linear;
+  }
+  50% {
+    transform: translate(var(--tx0), var(--ty0)) scale(1) rotate(0deg);
+    animation-timing-function: var(--ease-glide);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* the star button */
+.star {
+  position: absolute;
+  left: -48.5px;
+  top: -48.5px;
+  width: 97px;
+  height: 97px;
+  display: block;
+  pointer-events: auto;
+  border-radius: 50%;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* generous hit area, a little bigger than the star itself */
+.star::after {
+  content: '';
+  position: absolute;
+  inset: -16px;
+  border-radius: 50%;
+}
+
+.star-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 6px var(--glow));
+  transition: transform 0.5s var(--ease-pop), filter 0.4s ease;
+  animation: twinkle 4.5s ease-in-out infinite;
+  animation-delay: calc(var(--k) * -0.9s);
+}
+
+.cluster:hover .star-art,
+.cluster.open .star-art,
+.star:focus-visible .star-art {
+  transform: scale(1.22) rotate(8deg);
+  filter: drop-shadow(0 0 16px var(--glow));
+  animation-play-state: paused;
+}
+
+.star:focus-visible::after {
+  outline: 2px dashed var(--accent);
+  outline-offset: 2px;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1;    scale: 1; }
+  50%      { opacity: 0.78; scale: 0.92; }
+}
+
+/* ---------- hover reveal: title (fade + slide from the left) ---------- */
+.title {
+  position: absolute;
+  left: -140px;
+  top: -140px;
+  width: 280px;
+  height: 280px;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-26px);
+  transition: opacity 0.45s ease, transform 0.7s var(--ease-soft);
+}
+
+.title text {
+  font-family: 'Caveat Brush', cursive;
+  font-size: 32px;
+  letter-spacing: 0.02em;
+  fill: var(--accent);
+}
+
+.cluster.open .title,
+.cluster:has(:focus-visible) .title {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ---------- hover reveal: lines + sub-categories (fade + slide from the right) ---------- */
+.slide {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transform: translateX(28px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.cluster.open .slide,
+.cluster:has(:focus-visible) .slide {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.55s ease, transform 0.8s var(--ease-soft);
+  /* titles first, then each line, then its text */
+  transition-delay: calc(0.3s + var(--i) * 0.16s);
+}
+
+.cluster.open .slide--label,
+.cluster:has(:focus-visible) .slide--label {
+  transition-delay: calc(0.42s + var(--i) * 0.16s);
+}
+
+.bar {
+  position: absolute;
+  left: calc(var(--lx) * 1px);
+  top: calc(var(--ly) * 1px);
+  width: calc(var(--ll) * 1px);
+  height: 10px;
+  margin-top: -5px;
+  border-radius: 10px;
+  background: var(--accent);
+  transform-origin: 0 5px;
+  transform: rotate(calc(var(--la) * 1deg));
+  filter: blur(0.5px) drop-shadow(0 3px 3px var(--glow));
+}
+
+.label {
+  position: absolute;
+  left: calc(var(--tx) * 1px);
+  top: calc(var(--ty) * 1px);
+  margin-top: -0.55em;
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: var(--accent);
+  text-decoration: none;
+  transform-origin: 0 0.55em;
+  transform: rotate(calc(var(--ta) * 1deg));
+  transition: text-shadow 0.3s ease, color 0.3s ease;
+}
+
+.cluster.open .label,
+.cluster:has(:focus-visible) .label {
+  pointer-events: auto;
+}
+
+.label:hover,
+.label:focus-visible {
+  text-shadow: 0 0 14px var(--glow), 0 0 4px var(--glow);
+  outline: none;
+}
+
+/* ---------- little star that lands after everything has shown ---------- */
+.mini-star {
+  position: absolute;
+  left: calc(var(--mx) * 1px - 15px);
+  top: calc(var(--my) * 1px - 15px);
+  width: 30px;
+  height: 30px;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0) rotate(-120deg);
+  transition: opacity 0.2s ease, transform 0.25s ease;
+  filter: drop-shadow(0 0 5px var(--glow));
+}
+
+.cluster.open .mini-star,
+.cluster:has(:focus-visible) .mini-star {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  transition: opacity 0.4s ease, transform 0.9s var(--ease-pop);
+  transition-delay: calc(0.5s + var(--n) * 0.16s + 0.45s);
+}
+
+/*   Tall phones: same design on an 800x1400 canvas */
+@media (max-aspect-ratio: 5/6) {
+  .stage {
+    --ox: 400;
+    --oy: 700;
+    --cx0: 400;
+    --cy0: 760;
+  }
+
+  .word { font-size: 150px; }
+
+  .word--welcome   { top: 60px; right: -20px; }
+  .word--portfolio { left: -10px; bottom: -12px; }
+
+  .arch {
+    left: calc(50% - 150px);
+    width: 300px;
+    height: 600px;
+    border-radius: 50% 50% 0 0 / 95px 95px 0 0;
+  }
+
+  .cluster[data-id='certifications'] { --x: 400; --y: 350; }
+  .cluster[data-id='achievements']   { --x: 430; --y: 650; }
+  .cluster[data-id='projects']       { --x: 200; --y: 940; }
+  .cluster[data-id='about']          { --x: 440; --y: 1160; }
+  .cluster[data-id='goals']          { --x: 200; --y: 1290; }
+}
+
+/* ==========================================================
+   Reduced motion: skip the show, keep the final layout
+   ========================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}
+
+/* old single star: replaced by one star per sub-category */
+.mini-star { display: none; }
+
+.dot-star {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  margin-left: 6px;
+  vertical-align: -4px;
+  overflow: visible;
+  opacity: 0;
+  transform: scale(0) rotate(-120deg);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  filter: drop-shadow(0 0 4px var(--glow));
+}
+
+/* pops in right after its own text has appeared, then twinkles */
+.cluster.open .dot-star,
+.cluster:has(:focus-visible) .dot-star {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  transition: opacity 0.4s ease, transform 0.9s var(--ease-pop);
+  transition-delay: calc(0.42s + var(--i) * 0.16s + 0.55s);
+  animation: dot-twinkle 2.6s ease-in-out infinite;
+  animation-delay: calc(1.6s + var(--i) * 0.16s);
+}
+
+@keyframes dot-twinkle {
+  0%, 100% { scale: 1;    opacity: 1; }
+  50%      { scale: 0.75; opacity: 0.7; }
+}
+
+/* about me + achievements: star sits on the opposite side of the word */
+.cluster[data-id='about'] .label,
+.cluster[data-id='achievements'] .label {
+  display: flex;
+  flex-direction: row-reverse;   /* star first, then the word */
+  align-items: center;
+  transform: rotate(calc(var(--ta) * 1deg)) translateX(-28px); /* 28px = star width + gap */
+}
+
+.cluster[data-id='about'] .dot-star,
+.cluster[data-id='achievements'] .dot-star {
+  margin-left: 0;
+  margin-right: 6px;
+  vertical-align: baseline;
+}

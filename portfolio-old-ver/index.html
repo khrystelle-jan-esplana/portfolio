@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Khrystelle Jan Esplana</title>
+  <meta name="theme-color" content="#FAF9FE" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Montserrat:wght@700&display=swap">
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" type="image/png" href="Images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="Images/favicon.svg" />
+  <link rel="shortcut icon" href="Images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="Images/apple-touch-icon.png" />
+  <link rel="manifest" href="Images/site.webmanifest" />
+  <script>
+    /* set theme + js flag before first paint so there is no flash */
+    (function () {
+      var r = document.documentElement;
+      r.classList.add('js');
+      var t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      r.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+    })();
+
+    
+  </script>
+</head>
+<body>
+
+  <!-- shared SVG shapes (taken from star_button.svg and star_forbg_blurred.svg) -->
+  <svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="blur-btn" x="0" y="0" width="96.54" height="96.55" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        <feGaussianBlur stdDeviation="4.45"/>
+      </filter>
+      <g id="star-g" filter="url(#blur-btn)">
+        <path d="M9.11576 58.8953C35.1032 46.4658 42.3067 41.7809 40.6158 9.06138C51.1442 39.9085 60.9791 39.1375 87.5078 42.9366C61.566 49.8446 56.8151 61.2148 56.5745 87.4532C46.9828 65.2039 38.5477 56.5178 9.11576 58.8953Z" style="fill:var(--accent);stroke:var(--accent)"/>
+      </g>
+
+      <filter id="blur-bg" x="0" y="-135.654" width="540.854" height="588.194" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        <feGaussianBlur stdDeviation="21.25"/>
+      </filter>
+      <g id="bgstar-g" filter="url(#blur-bg)" style="opacity:var(--bgstar-op)">
+        <path d="M42.6332 174.455C201.756 130.467 247.272 110.637 275.003 -93.0866C298.71 110.185 354.462 117.771 498.17 174.455C345.574 184.48 306.15 248.578 275.003 409.945C246.756 260.824 209.557 196.724 42.6332 174.455Z" style="fill:var(--bgstar-fill);stroke:var(--bgstar-stroke)"/>
+      </g>
+    </defs>
+  </svg>
+
+  <div class="viewport">
+
+    <!-- blurry background stars that slowly breathe -->
+    <div class="bg-stars" aria-hidden="true">
+    <div class="bg-star" style="--x:5.73;--y:46.30;--w:520;--d:9s;--bd:-1s;--i:0"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+    <div class="bg-star" style="--x:25.52;--y:13.89;--w:540;--d:11s;--bd:-4s;--i:1"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+    <div class="bg-star" style="--x:42.19;--y:37.04;--w:520;--d:10s;--bd:-7s;--i:2"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+    <div class="bg-star" style="--x:67.19;--y:15.74;--w:430;--d:8s;--bd:-2s;--i:3"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+    <div class="bg-star" style="--x:83.33;--y:43.52;--w:430;--d:12s;--bd:-6s;--i:4"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+    <div class="bg-star" style="--x:96.35;--y:7.41;--w:300;--d:9s;--bd:-3s;--i:5"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+    <div class="bg-star" style="--x:21.35;--y:74.07;--w:420;--d:10s;--bd:-8s;--i:6"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+    <div class="bg-star" style="--x:68.23;--y:79.63;--w:430;--d:11s;--bd:-5s;--i:7"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+    <div class="bg-star" style="--x:95.31;--y:86.11;--w:440;--d:8s;--bd:-9s;--i:8"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+    </div>
+
+    <!-- light / dark toggle: moon in light mode, sun in dark mode -->
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
+      <svg class="icon icon--moon" viewBox="0 0 80 80" aria-hidden="true"><path d="M71.7667 53.1002C71.2333 52.2002 69.7333 50.8002 66 51.4669C63.9333 51.8336 61.8333 52.0002 59.7333 51.9002C51.9667 51.5669 44.9333 48.0002 40.0333 42.5002C35.7 37.6669 33.0333 31.3669 33 24.5669C33 20.7669 33.7333 17.1002 35.2333 13.6336C36.7 10.2669 35.6667 8.50023 34.9333 7.76689C34.1667 7.00023 32.3667 5.93356 28.8333 7.40023C15.2 13.1336 6.76667 26.8002 7.76667 41.4336C8.76667 55.2002 18.4333 66.9669 31.2333 71.4002C34.3 72.4669 37.5333 73.1002 40.8667 73.2336C41.4 73.2669 41.9333 73.3002 42.4667 73.3002C53.6333 73.3002 64.1 68.0336 70.7 59.0669C72.9333 55.9669 72.3333 54.0002 71.7667 53.1002Z" fill="currentColor"/></svg>
+      <svg class="icon icon--sun" viewBox="0 0 80 80" aria-hidden="true"><path d="M40 63.3332C52.8866 63.3332 63.3333 52.8865 63.3333 39.9998C63.3333 27.1132 52.8866 16.6665 40 16.6665C27.1133 16.6665 16.6666 27.1132 16.6666 39.9998C16.6666 52.8865 27.1133 63.3332 40 63.3332Z" fill="currentColor"/><path d="M40 76.5335C38.1667 76.5335 36.6667 75.1668 36.6667 73.3335V73.0668C36.6667 71.2335 38.1667 69.7335 40 69.7335C41.8334 69.7335 43.3334 71.2335 43.3334 73.0668C43.3334 74.9002 41.8334 76.5335 40 76.5335ZM63.8 67.1335C62.9334 67.1335 62.1 66.8002 61.4334 66.1668L61 65.7335C59.7 64.4335 59.7 62.3335 61 61.0335C62.3 59.7335 64.4 59.7335 65.7 61.0335L66.1334 61.4668C67.4334 62.7668 67.4334 64.8668 66.1334 66.1668C65.5 66.8002 64.6667 67.1335 63.8 67.1335ZM16.2 67.1335C15.3334 67.1335 14.5 66.8002 13.8334 66.1668C12.5334 64.8668 12.5334 62.7668 13.8334 61.4668L14.2667 61.0335C15.5667 59.7335 17.6667 59.7335 18.9667 61.0335C20.2667 62.3335 20.2667 64.4335 18.9667 65.7335L18.5334 66.1668C17.9 66.8002 17.0334 67.1335 16.2 67.1335ZM73.3334 43.3335H73.0667C71.2334 43.3335 69.7334 41.8335 69.7334 40.0002C69.7334 38.1668 71.2334 36.6668 73.0667 36.6668C74.9 36.6668 76.5334 38.1668 76.5334 40.0002C76.5334 41.8335 75.1667 43.3335 73.3334 43.3335ZM6.93337 43.3335H6.66671C4.83337 43.3335 3.33337 41.8335 3.33337 40.0002C3.33337 38.1668 4.83337 36.6668 6.66671 36.6668C8.50004 36.6668 10.1334 38.1668 10.1334 40.0002C10.1334 41.8335 8.76671 43.3335 6.93337 43.3335ZM63.3667 19.9668C62.5 19.9668 61.6667 19.6335 61 19.0002C59.7 17.7002 59.7 15.6002 61 14.3002L61.4334 13.8668C62.7334 12.5668 64.8334 12.5668 66.1334 13.8668C67.4334 15.1668 67.4334 17.2668 66.1334 18.5668L65.7 19.0002C65.0667 19.6335 64.2334 19.9668 63.3667 19.9668ZM16.6334 19.9668C15.7667 19.9668 14.9334 19.6335 14.2667 19.0002L13.8334 18.5335C12.5334 17.2335 12.5334 15.1335 13.8334 13.8335C15.1334 12.5335 17.2334 12.5335 18.5334 13.8335L18.9667 14.2668C20.2667 15.5668 20.2667 17.6668 18.9667 18.9668C18.3334 19.6335 17.4667 19.9668 16.6334 19.9668ZM40 10.1335C38.1667 10.1335 36.6667 8.76683 36.6667 6.9335V6.66683C36.6667 4.8335 38.1667 3.3335 40 3.3335C41.8334 3.3335 43.3334 4.8335 43.3334 6.66683C43.3334 8.50016 41.8334 10.1335 40 10.1335Z" fill="currentColor"/></svg>
+    </button>
+
+    <main class="stage">
+      <h1 class="sr-only">Khrystelle Jan Esplana &mdash; welcome to my portfolio</h1>
+      <p class="word word--welcome" aria-hidden="true">welcome</p>
+      <p class="word word--portfolio" aria-hidden="true">portfolio</p>
+
+      <!-- placeholder for the profile picture: drop your photo at Images/profile.jpg -->
+      <div class="arch" role="img" aria-label="Picture of Khrystelle"></div>
+
+      <nav class="constellation" aria-label="Portfolio sections">
+      <div class="cluster" data-id="about" style="--n:3">
+        <svg class="title" viewBox="-140 -140 280 280" aria-hidden="true"><defs><path id="arc-about" d="M -87.9 -3.1 A 88 88 0 0 1 27.2 -83.7"/></defs><text><textPath href="#arc-about">about me</textPath></text></svg>
+        <div class="slide slide--bar" style="--i:0"><span class="bar" style="--lx:-208;--ly:-3;--ll:65;--la:-8.9"></span></div>
+        <div class="slide slide--label" style="--i:0"><a class="label" href="about.html#introduction" tabindex="-1" style="--tx:-397;--ty:4;--ta:-6">introduction</a></div>
+        <div class="slide slide--bar" style="--i:1"><span class="bar" style="--lx:-198;--ly:-87;--ll:67;--la:8.6"></span></div>
+        <div class="slide slide--label" style="--i:1"><a class="label" href="about.html#interests" tabindex="-1" style="--tx:-366;--ty:-112;--ta:9">interests</a></div>
+        <div class="slide slide--bar" style="--i:2"><span class="bar" style="--lx:-152;--ly:-155;--ll:69;--la:33.2"></span></div>
+        <div class="slide slide--label" style="--i:2"><a class="label" href="about.html#hobbies" tabindex="-1" style="--tx:-279;--ty:-200;--ta:24">hobbies</a></div>
+        <svg class="mini-star" viewBox="0 0 97 97" aria-hidden="true" style="--mx:-315;--my:-225"><use href="#star-g"/></svg>
+        <a class="star" href="about.html" aria-label="about me"><svg class="star-art" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg></a>
+      </div>
+      <div class="cluster" data-id="achievements" style="--n:4">
+        <svg class="title" viewBox="-140 -140 280 280" aria-hidden="true"><defs><path id="arc-achievements" d="M -85.4 -21.3 A 88 88 0 0 1 69.3 -54.2"/></defs><text><textPath href="#arc-achievements">achievements</textPath></text></svg>
+        <div class="slide slide--bar" style="--i:0"><span class="bar" style="--lx:-242;--ly:-86;--ll:87;--la:24.5"></span></div>
+        <div class="slide slide--label" style="--i:0"><a class="label" href="achievements.html#officer" tabindex="-1" style="--tx:-347;--ty:-139;--ta:24">officer</a></div>
+        <div class="slide slide--bar" style="--i:1"><span class="bar" style="--lx:-189;--ly:-154;--ll:77;--la:44.5"></span></div>
+        <div class="slide slide--label" style="--i:1"><a class="label" href="achievements.html#competitions" tabindex="-1" style="--tx:-353;--ty:-227;--ta:24">competitions</a></div>
+        <div class="slide slide--bar" style="--i:2"><span class="bar" style="--lx:-125;--ly:-214;--ll:79;--la:57.9"></span></div>
+        <div class="slide slide--label" style="--i:2"><a class="label" href="achievements.html#awards" tabindex="-1" style="--tx:-225;--ty:-265;--ta:24">awards</a></div>
+        <div class="slide slide--bar" style="--i:3"><span class="bar" style="--lx:-42;--ly:-247;--ll:81;--la:74.2"></span></div>
+        <div class="slide slide--label" style="--i:3"><a class="label" href="achievements.html#scholarships" tabindex="-1" style="--tx:-202;--ty:-341;--ta:24">scholarships</a></div>
+        <svg class="mini-star" viewBox="0 0 97 97" aria-hidden="true" style="--mx:-232;--my:-355"><use href="#star-g"/></svg>
+        <a class="star" href="achievements.html" aria-label="achievements"><svg class="star-art" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg></a>
+      </div>
+      <div class="cluster" data-id="certifications" style="--n:0">
+        <svg class="title" viewBox="-140 -140 280 280" aria-hidden="true"><defs><path id="arc-certifications" d="M -78.4 -40.0 A 88 88 0 0 1 85.4 -21.3"/></defs><text><textPath href="#arc-certifications">certifications</textPath></text></svg>
+        <a class="star" href="certifications.html" aria-label="certifications"><svg class="star-art" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg></a>
+      </div>
+      <div class="cluster" data-id="projects" style="--n:3">
+        <svg class="title" viewBox="-140 -140 280 280" aria-hidden="true"><defs><path id="arc-projects" d="M -27.2 -83.7 A 88 88 0 0 1 85.4 -21.3"/></defs><text><textPath href="#arc-projects">projects</textPath></text></svg>
+        <div class="slide slide--bar" style="--i:0"><span class="bar" style="--lx:62;--ly:-141;--ll:89;--la:-40.5"></span></div>
+        <div class="slide slide--label" style="--i:0"><a class="label" href="projects.html#iot" tabindex="-1" style="--tx:155;--ty:-225;--ta:-18">IoT project</a></div>
+        <div class="slide slide--bar" style="--i:1"><span class="bar" style="--lx:105;--ly:-116;--ll:95;--la:-17.1"></span></div>
+        <div class="slide slide--label" style="--i:1"><a class="label" href="projects.html#capstone" tabindex="-1" style="--tx:223;--ty:-165;--ta:-13.5">capstone project</a></div>
+        <div class="slide slide--bar" style="--i:2"><span class="bar" style="--lx:147;--ly:-73;--ll:83;--la:-4.8"></span></div>
+        <div class="slide slide--label" style="--i:2"><a class="label" href="projects.html#courses" tabindex="-1" style="--tx:260;--ty:-87;--ta:-3">course completions</a></div>
+        <svg class="mini-star" viewBox="0 0 97 97" aria-hidden="true" style="--mx:535;--my:-103"><use href="#star-g"/></svg>
+        <a class="star" href="projects.html" aria-label="projects"><svg class="star-art" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg></a>
+      </div>
+      <div class="cluster" data-id="goals" style="--n:2">
+        <svg class="title" viewBox="-140 -140 280 280" aria-hidden="true"><defs><path id="arc-techstack" d="M -50.5 -72.1 A 88 88 0 0 1 77.7 -41.3"/></defs><text><textPath href="#arc-techstack">tech stack</textPath></text></svg>
+        <div class="slide slide--bar" style="--i:0"><span class="bar" style="--lx:83;--ly:0;--ll:68;--la:-11.8"></span></div>
+        <div class="slide slide--label" style="--i:0"><a class="label" href="tech-stack.html#languages" tabindex="-1" style="--tx:185;--ty:-20;--ta:-11">programming language</a></div>
+        <div class="slide slide--bar" style="--i:1"><span class="bar" style="--lx:85;--ly:35;--ll:70;--la:18.4"></span></div>
+        <div class="slide slide--label" style="--i:1"><a class="label" href="tech-stack.html#tools" tabindex="-1" style="--tx:175;--ty:56;--ta:-6">programming tool</a></div>
+        <a class="star" href="tech-stack.html" aria-label="tech stack"><svg class="star-art" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg></a>
+      </div>
+      </nav>
+    </main>
+  </div>
+
+  <script src="landing.js"></script>
+  <script>
+  (function () {
+    document.querySelectorAll('.constellation a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        try { sessionStorage.setItem('fromLanding', '1'); } catch (e) {}
+      });
+    });
+  })();
+</script>
+</body>
+</html>

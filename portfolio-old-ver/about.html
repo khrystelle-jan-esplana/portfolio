@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Me | Khrystelle Jan Esplana</title>
+  <meta name="theme-color" content="#f9f8fe" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Kalam:wght@300;400&family=Montserrat:wght@800&family=Poppins:wght@600;700&display=swap">
+  <link rel="stylesheet" href="about.css">
+  <link rel="stylesheet" href="intro.css">
+  <!-- favicon -->
+  <link rel="icon" type="image/png" href="Images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="Images/favicon.svg" />
+  <link rel="shortcut icon" href="Images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="Images/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+  <link rel="manifest" href="Images/site.webmanifest" />
+  <script>
+    /* set theme + js flag before first paint so there is no flash (same key as the landing page) */
+    (function () {
+      var r = document.documentElement;
+      r.classList.add('js');
+      var t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      r.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+
+      /* only play the intro when we arrived from a landing-page star */
+      try {
+        if (sessionStorage.getItem('fromLanding') === '1') {
+          sessionStorage.removeItem('fromLanding');
+          var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (!reduce) {
+            r.classList.add('intro-active', 'from-landing');
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- shared SVG shapes -->
+  <svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="blur-btn" x="0" y="0" width="96.54" height="96.55" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="4.45"/></filter>
+      <g id="star-g" filter="url(#blur-btn)"><path d="M9.11576 58.8953C35.1032 46.4658 42.3067 41.7809 40.6158 9.06138C51.1442 39.9085 60.9791 39.1375 87.5078 42.9366C61.566 49.8446 56.8151 61.2148 56.5745 87.4532C46.9828 65.2039 38.5477 56.5178 9.11576 58.8953Z" style="fill:currentColor;stroke:currentColor"/></g>
+      <filter id="blur-bg" x="0" y="-135.654" width="540.854" height="588.194" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="21.25"/></filter>
+      <g id="bgstar-g" filter="url(#blur-bg)" style="opacity:var(--bgstar-op)"><path d="M42.6332 174.455C201.756 130.467 247.272 110.637 275.003 -93.0866C298.71 110.185 354.462 117.771 498.17 174.455C345.574 184.48 306.15 248.578 275.003 409.945C246.756 260.824 209.557 196.724 42.6332 174.455Z" style="fill:var(--bgstar-fill);stroke:var(--bgstar-stroke)"/></g>
+    </defs>
+  </svg>
+
+  <!-- header: logo + moon/sun on the left, star navigation on the right -->
+  <header class="site-header">
+    <div class="brand">
+      <a class="logo" href="index.html" aria-label="khrystelle &ndash; home">
+  <svg viewBox="0 -2 415 120" role="img" aria-label="khrystelle, written in cursive with a star and a heart">
+    <g transform="translate(26 0) skewX(-10)">
+      <path class="w" pathLength="1" style="--t:0s;--dur:2.6s" d="M-2.3 94.0 C-2.3 94.0 2.6 88.1 4.6 84.0 C7.4 78.6 9.4 71.0 11.6 64.0 C14.0 56.4 16.4 47.8 18.6 40.0 C20.6 32.5 22.6 23.9 24.4 18.0 C25.6 14.0 28.3 10.5 27.8 8.0 C27.5 6.2 25.8 4.2 24.4 4.0 C22.5 3.7 19.0 5.9 17.4 8.0 C15.6 10.4 15.3 14.0 15.1 18.0 C14.7 23.9 16.4 32.7 17.4 40.0 C18.4 47.3 19.9 55.0 20.9 62.0 C21.8 68.3 22.0 79.9 23.2 80.0 C24.1 80.1 24.9 73.2 26.7 70.0 C28.6 66.5 32.0 62.4 34.8 60.0 C37.0 58.1 41.1 55.5 41.8 56.0 C42.3 56.5 40.9 60.3 39.4 62.0 C37.7 64.1 33.1 65.4 31.3 67.0 C30.2 68.0 29.0 68.8 29.0 70.0 C29.0 72.0 32.3 76.3 34.8 78.0 C37.1 79.5 40.5 80.1 42.9 80.0 C45.0 79.9 47.1 79.4 48.7 78.0 C50.9 76.1 51.9 72.1 53.4 68.0 C55.5 61.8 57.2 52.0 59.2 44.0 C61.1 36.0 63.2 26.6 65.0 20.0 C66.2 15.3 69.1 10.8 68.4 8.0 C68.0 6.2 66.4 4.2 65.0 4.0 C63.1 3.7 59.6 5.9 58.0 8.0 C56.2 10.4 56.0 13.9 55.7 18.0 C55.1 24.2 56.4 34.2 56.8 42.0 C57.2 49.5 57.6 57.3 58.0 64.0 C58.4 69.8 58.8 80.0 59.2 80.0 C59.5 80.0 58.9 70.2 60.3 66.0 C61.7 61.9 64.4 57.1 67.3 55.0 C69.6 53.3 73.0 52.4 75.4 53.0 C77.7 53.5 80.1 55.7 81.2 58.0 C82.5 60.9 81.2 66.2 81.2 70.0 C81.2 73.5 79.8 78.6 81.2 80.0 C82.3 81.1 85.4 81.0 87.0 80.0 C89.2 78.6 90.1 73.5 91.6 70.0 C93.3 66.2 94.2 61.0 96.3 58.0 C97.9 55.7 100.0 53.4 102.1 53.0 C103.9 52.6 106.5 54.0 107.9 55.0 C109.0 55.8 109.2 57.7 110.2 58.0 C111.4 58.3 113.4 55.9 114.8 56.0 C116.1 56.1 117.3 56.8 118.3 58.0 C120.0 60.2 120.3 66.4 121.8 70.0 C123.1 73.3 124.2 77.6 126.4 79.0 C128.3 80.1 131.4 80.1 133.4 79.0 C135.9 77.7 137.7 73.6 139.2 70.0 C141.0 65.6 141.6 56.7 142.7 54.0 C143.1 53.0 143.6 51.9 143.8 52.0 C144.5 52.2 143.4 63.7 142.7 70.0 C141.9 77.0 141.3 85.4 139.2 92.0 C137.3 97.9 134.6 104.7 131.1 108.0 C128.4 110.5 124.6 112.3 121.8 112.0 C119.2 111.7 115.7 109.3 114.8 107.0 C114.0 104.6 115.4 100.5 117.2 98.0 C119.3 95.0 123.7 93.2 127.6 91.0 C132.1 88.5 138.7 86.5 142.7 84.0 C145.6 82.1 148.8 77.6 149.6 78.0 C150.1 78.2 149.4 80.9 149.6 81.0 C150.2 81.1 153.1 72.3 155.4 68.0 C158.0 63.3 161.7 57.1 164.7 54.0 C166.7 52.0 170.2 49.7 170.5 50.0 C170.8 50.3 168.6 53.5 167.0 55.0 C165.0 56.9 161.2 58.2 158.9 60.0 C157.0 61.5 154.2 63.4 154.3 65.0 C154.4 66.7 157.8 68.4 160.1 70.0 C162.7 71.8 167.2 73.0 169.4 75.0 C171.0 76.5 173.1 78.5 172.8 80.0 C172.6 81.6 169.3 83.5 167.0 84.0 C164.4 84.5 159.7 83.5 157.8 82.0 C156.3 80.8 155.2 78.6 155.4 77.0 C155.8 75.0 158.9 73.0 161.2 71.0 C164.1 68.6 168.9 66.7 171.7 64.0 C174.2 61.6 176.1 58.6 177.5 56.0 C178.6 53.9 179.0 52.7 179.8 50.0 C181.5 44.7 183.6 32.9 185.6 26.0 C187.1 20.7 188.2 14.4 190.2 12.0 C191.3 10.7 192.9 9.6 193.7 10.0 C194.7 10.4 194.7 13.4 194.9 16.0 C195.2 20.7 194.2 28.9 193.7 36.0 C193.1 44.1 192.0 54.4 191.4 62.0 C190.9 68.0 189.0 74.9 190.2 78.0 C190.9 79.6 192.3 80.7 193.7 81.0 C195.3 81.3 197.7 80.1 199.5 79.0 C201.6 77.8 205.3 74.0 205.3 74.0"/>
+      <path class="w" pathLength="1" style="--t:2.6s;--dur:.2s" d="M174.0 46.0 C174.0 46.0 181.9 45.0 185.6 44.0 C189.2 43.0 192.8 41.6 196.0 40.0 C199.0 38.5 201.7 35.7 204.2 35.0 C206.0 34.5 209.3 34.9 209.3 34.9"/>
+      <path class="w star" pathLength="1" style="--t:2.8s;--dur:.5s" d="M209.3 34.9 L211.4 27.4 L205.3 22.6 L213.1 22.3 L215.8 15.0 L218.5 22.3 L226.2 22.6 L220.1 27.4 L222.2 34.9 L215.8 30.6 L209.3 34.9"/>
+      <path class="w" pathLength="1" style="--t:3.3s;--dur:1.4s" d="M205.3 74.0 C205.3 74.0 210.9 68.7 213.4 66.0 C215.9 63.4 220.2 60.6 220.4 58.0 C220.6 55.9 218.6 52.5 216.9 52.0 C214.9 51.4 210.7 53.8 208.8 56.0 C206.7 58.4 205.4 62.5 205.3 66.0 C205.2 69.8 206.4 75.5 208.8 78.0 C210.9 80.2 215.0 81.3 218.1 81.0 C221.2 80.7 224.8 78.0 227.4 76.0 C229.7 74.2 231.7 72.5 233.2 70.0 C234.9 67.2 235.4 64.1 236.6 60.0 C238.5 53.8 240.4 43.6 242.4 36.0 C244.3 29.0 246.4 21.1 248.2 16.0 C249.4 12.7 252.0 10.1 251.7 8.0 C251.5 6.3 249.7 4.2 248.2 4.0 C246.4 3.7 242.8 5.9 241.3 8.0 C239.5 10.4 239.2 14.0 239.0 18.0 C238.6 23.9 240.3 32.7 241.3 40.0 C242.2 47.3 243.7 55.2 244.8 62.0 C245.6 67.8 245.3 75.3 247.1 78.0 C248.0 79.3 249.3 80.1 250.6 80.0 C252.5 79.8 255.6 76.5 257.5 74.0 C259.6 71.3 260.7 67.5 262.2 64.0 C263.8 60.2 265.4 56.7 266.8 52.0 C268.6 45.8 269.8 36.7 271.4 30.0 C272.9 24.2 274.4 18.0 276.1 14.0 C277.2 11.4 279.7 9.7 279.6 8.0 C279.4 6.5 277.6 4.2 276.1 4.0 C274.3 3.7 270.7 5.9 269.1 8.0 C267.4 10.4 267.0 14.0 266.8 18.0 C266.4 23.9 268.2 32.7 269.1 40.0 C270.1 47.3 271.6 55.2 272.6 62.0 C273.5 67.8 273.1 75.3 274.9 78.0 C275.8 79.3 277.1 80.1 278.4 80.0 C280.4 79.8 283.1 76.2 285.4 74.0 C287.8 71.6 290.0 68.7 292.3 66.0 C294.6 63.3 299.0 60.6 299.3 58.0 C299.5 55.9 297.5 52.5 295.8 52.0 C293.8 51.4 289.4 53.8 287.7 56.0 C285.8 58.3 285.3 62.5 285.4 66.0 C285.5 69.8 286.4 75.5 288.8 78.0 C291.0 80.2 295.1 81.3 298.1 81.0 C301.3 80.7 304.7 77.6 307.4 76.0 C309.6 74.7 313.2 72.0 313.2 72.0"/>
+      <path class="w heart" pathLength="1" style="--t:4.7s;--dur:.5s" d="M313.2 72 C317.8 74 322.5 75 327.1 74 C305.1 58 309.1 38 319.1 40 C324.1 41 326.1 46 327.1 49 C328.1 46 330.1 41 335.1 40 C345.1 38 349.1 58 327.1 74"/>
+      <path class="w" pathLength="1" style="--t:5.2s;--dur:.3s" d="M327.1 74.0 C327.2 74.0 333.4 78.4 337.1 80.0 C341.3 81.8 346.3 83.6 351.1 84.0 C356.2 84.4 362.1 83.7 367.1 82.0 C372.1 80.3 376.9 76.8 381.1 74.0 C384.8 71.5 391.1 66.0 391.1 66.0"/>
+    </g>
+  </svg>
+</a>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
+        <svg class="icon icon--moon" viewBox="0 0 80 80" aria-hidden="true"><path d="M71.7667 53.1002C71.2333 52.2002 69.7333 50.8002 66 51.4669C63.9333 51.8336 61.8333 52.0002 59.7333 51.9002C51.9667 51.5669 44.9333 48.0002 40.0333 42.5002C35.7 37.6669 33.0333 31.3669 33 24.5669C33 20.7669 33.7333 17.1002 35.2333 13.6336C36.7 10.2669 35.6667 8.50023 34.9333 7.76689C34.1667 7.00023 32.3667 5.93356 28.8333 7.40023C15.2 13.1336 6.76667 26.8002 7.76667 41.4336C8.76667 55.2002 18.4333 66.9669 31.2333 71.4002C34.3 72.4669 37.5333 73.1002 40.8667 73.2336C41.4 73.2669 41.9333 73.3002 42.4667 73.3002C53.6333 73.3002 64.1 68.0336 70.7 59.0669C72.9333 55.9669 72.3333 54.0002 71.7667 53.1002Z" fill="currentColor"/></svg>
+        <svg class="icon icon--sun" viewBox="0 0 80 80" aria-hidden="true"><path d="M40 63.3332C52.8866 63.3332 63.3333 52.8865 63.3333 39.9998C63.3333 27.1132 52.8866 16.6665 40 16.6665C27.1133 16.6665 16.6666 27.1132 16.6666 39.9998C16.6666 52.8865 27.1133 63.3332 40 63.3332Z" fill="currentColor"/><path d="M40 76.5335C38.1667 76.5335 36.6667 75.1668 36.6667 73.3335V73.0668C36.6667 71.2335 38.1667 69.7335 40 69.7335C41.8334 69.7335 43.3334 71.2335 43.3334 73.0668C43.3334 74.9002 41.8334 76.5335 40 76.5335ZM63.8 67.1335C62.9334 67.1335 62.1 66.8002 61.4334 66.1668L61 65.7335C59.7 64.4335 59.7 62.3335 61 61.0335C62.3 59.7335 64.4 59.7335 65.7 61.0335L66.1334 61.4668C67.4334 62.7668 67.4334 64.8668 66.1334 66.1668C65.5 66.8002 64.6667 67.1335 63.8 67.1335ZM16.2 67.1335C15.3334 67.1335 14.5 66.8002 13.8334 66.1668C12.5334 64.8668 12.5334 62.7668 13.8334 61.4668L14.2667 61.0335C15.5667 59.7335 17.6667 59.7335 18.9667 61.0335C20.2667 62.3335 20.2667 64.4335 18.9667 65.7335L18.5334 66.1668C17.9 66.8002 17.0334 67.1335 16.2 67.1335ZM73.3334 43.3335H73.0667C71.2334 43.3335 69.7334 41.8335 69.7334 40.0002C69.7334 38.1668 71.2334 36.6668 73.0667 36.6668C74.9 36.6668 76.5334 38.1668 76.5334 40.0002C76.5334 41.8335 75.1667 43.3335 73.3334 43.3335ZM6.93337 43.3335H6.66671C4.83337 43.3335 3.33337 41.8335 3.33337 40.0002C3.33337 38.1668 4.83337 36.6668 6.66671 36.6668C8.50004 36.6668 10.1334 38.1668 10.1334 40.0002C10.1334 41.8335 8.76671 43.3335 6.93337 43.3335ZM63.3667 19.9668C62.5 19.9668 61.6667 19.6335 61 19.0002C59.7 17.7002 59.7 15.6002 61 14.3002L61.4334 13.8668C62.7334 12.5668 64.8334 12.5668 66.1334 13.8668C67.4334 15.1668 67.4334 17.2668 66.1334 18.5668L65.7 19.0002C65.0667 19.6335 64.2334 19.9668 63.3667 19.9668ZM16.6334 19.9668C15.7667 19.9668 14.9334 19.6335 14.2667 19.0002L13.8334 18.5335C12.5334 17.2335 12.5334 15.1335 13.8334 13.8335C15.1334 12.5335 17.2334 12.5335 18.5334 13.8335L18.9667 14.2668C20.2667 15.5668 20.2667 17.6668 18.9667 18.9668C18.3334 19.6335 17.4667 19.9668 16.6334 19.9668ZM40 10.1335C38.1667 10.1335 36.6667 8.76683 36.6667 6.9335V6.66683C36.6667 4.8335 38.1667 3.3335 40 3.3335C41.8334 3.3335 43.3334 4.8335 43.3334 6.66683C43.3334 8.50016 41.8334 10.1335 40 10.1335Z" fill="currentColor"/></svg>
+      </button>
+    </div>
+    <nav class="star-nav" aria-label="Pages">
+      <a class="nav-item is-active" href="about.html" aria-current="page"><span class="nav-label">about me</span><svg class="nav-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg></a>
+      <a class="nav-item" href="achievements.html"><span class="nav-label">achievements</span><svg class="nav-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg></a>
+      <a class="nav-item" href="certifications.html"><span class="nav-label">certifications</span><svg class="nav-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg></a>
+      <a class="nav-item" href="projects.html"><span class="nav-label">projects</span><svg class="nav-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg></a>
+      <a class="nav-item" href="tech-stack.html"><span class="nav-label">tech stack</span><svg class="nav-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg></a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- hero -->
+    <section class="hero">
+      <div class="name-wrap">
+        <svg class="cloud" viewBox="0 -20 760 340" aria-hidden="true">
+          <defs><filter id="blur-cloud" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur stdDeviation="13"/></filter></defs>
+          <g fill="var(--cloud)" filter="url(#blur-cloud)">
+            <circle cx="135" cy="205" r="88"/><circle cx="250" cy="140" r="98"/><circle cx="395" cy="112" r="112"/>
+            <circle cx="545" cy="138" r="100"/><circle cx="640" cy="205" r="84"/>
+            <rect x="135" y="160" width="505" height="130" rx="65"/>
+          </g>
+        </svg>
+        <svg class="name-arc" viewBox="0 -20 760 340" aria-hidden="true">
+          <defs><path id="arc-myname" d="M 128.3 107.4 A 126 126 0 0 1 276.2 16.8"/></defs>
+          <text><textPath href="#arc-myname">my name is</textPath></text>
+        </svg>
+        <h1 class="name">khrystelle</h1>
+      </div>
+
+      <p class="tagline">
+        <span>keeping it cute
+          <img class="ico ico--smile" data-icon="emoji-happy" alt="">
+        </span>
+        <span>and operational
+          <img class="ico ico--mug" data-icon="coffee" alt="">
+        </span>
+      </p>
+    </section>
+
+    <!-- about me panel: cloud-puff border on top, scrapbook animation when you scroll to it -->
+    <section class="panel" aria-labelledby="about-title">
+      <svg class="edge" viewBox="0 0 1440 90" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <defs>
+          <filter id="blur-edge" x="-5%" y="-40%" width="110%" height="260%"><feGaussianBlur stdDeviation="4"/></filter>
+          <filter id="blur-mist" x="-5%" y="-60%" width="110%" height="260%"><feGaussianBlur stdDeviation="16"/></filter>
+        </defs>
+        <g class="edge-drift">
+          <g fill="var(--panel)" opacity=".45" filter="url(#blur-mist)"><circle cx="50" cy="82" r="68"/><circle cx="154" cy="82" r="92"/><circle cx="258" cy="82" r="76"/><circle cx="362" cy="82" r="104"/><circle cx="466" cy="82" r="72"/><circle cx="570" cy="82" r="88"/><circle cx="674" cy="82" r="108"/><circle cx="778" cy="82" r="80"/><circle cx="882" cy="82" r="96"/><circle cx="986" cy="82" r="74"/><circle cx="1090" cy="82" r="100"/><circle cx="1194" cy="82" r="82"/><circle cx="1298" cy="82" r="106"/><circle cx="1402" cy="82" r="76"/><circle cx="1506" cy="82" r="90"/></g>
+          <g fill="var(--panel)" filter="url(#blur-edge)"><circle cx="20" cy="90" r="52"/><circle cx="124" cy="90" r="76"/><circle cx="228" cy="90" r="60"/><circle cx="332" cy="90" r="88"/><circle cx="436" cy="90" r="56"/><circle cx="540" cy="90" r="72"/><circle cx="644" cy="90" r="92"/><circle cx="748" cy="90" r="64"/><circle cx="852" cy="90" r="80"/><circle cx="956" cy="90" r="58"/><circle cx="1060" cy="90" r="84"/><circle cx="1164" cy="90" r="66"/><circle cx="1268" cy="90" r="90"/><circle cx="1372" cy="90" r="60"/><circle cx="1476" cy="90" r="74"/><rect x="-80" y="90" width="1600" height="420"/></g>
+        </g>
+      </svg>
+
+      <div class="panel-grid">
+        <div class="about-text">
+          <div class="doodle-cap" aria-hidden="true">
+            <svg class="arrow" viewBox="0 0 100 34"><path pathLength="1" d="M3 26 C 28 8, 60 30, 92 12" fill="none" stroke="var(--u1-doodle)" stroke-width="2.6" stroke-linecap="round"/><path pathLength="1" d="M80 8 L93 12 L84 22" fill="none" stroke="var(--u1-doodle)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <img class="cap" data-icon="graduation_hat" alt="">
+          </div>
+          <p class="scrap tape-1" style="--r0:-2.6deg;--d:.15s">I am an Information Technology 4th year student with experience in developing websites and applications, along with a strong interest in understanding how software and systems work. I enjoy exploring new technologies, solving technical problems, and continuously improving my skills.</p>
+          <p class="scrap tape-2" style="--r0:2.2deg;--d:.7s">My career goal is to begin as a <span class="hl hl-1">System Administrator,</span> where I can develop my expertise in system management, network administration, and technical troubleshooting. In the future, I also aspire to pursue <span class="hl hl-2">Quality Assurance (QA),</span> focusing on software reliability, functionality, and overall user experience. <img class="ico ico--flower" data-icon="flower3" alt=""></p>
+          <p class="scrap tape-3" style="--r0:-1.8deg;--d:1.25s">I believe that technology should not only be functional but also reliable and efficient. As I continue to grow in the IT field, I aim to build a strong technical foundation, gain practical experience, and contribute to developing and maintaining technology that people can depend on. <img class="ico ico--leaf" data-icon="leaf" alt=""></p>
+        </div>
+
+        <div class="about-side">
+          <h2 id="about-title" class="scrap" style="--r0:5deg;--d:.3s">about me</h2>
+          <figure class="polaroid">
+            <img class="clip" data-icon="paperclip" alt="">
+            <div class="photo-wrap"><img class="photo" data-photo="polaroid_img" alt="Photo of Khrystelle"></div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- interests + hobbies on a starry background -->
+    <section class="likes">
+      <div class="bg-stars" aria-hidden="true">
+      <div class="bgs" style="--x:52;--y:6;--w:440;--d:9s;--bd:-1s"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+      <div class="bgs" style="--x:80;--y:20;--w:360;--d:11s;--bd:-4s"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+      <div class="bgs" style="--x:94;--y:46;--w:300;--d:8s;--bd:-2s"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+      <div class="bgs" style="--x:6;--y:50;--w:380;--d:10s;--bd:-6s"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+      <div class="bgs" style="--x:46;--y:58;--w:300;--d:12s;--bd:-8s"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+      <div class="bgs" style="--x:70;--y:88;--w:420;--d:9s;--bd:-3s"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+      <div class="bgs" style="--x:10;--y:92;--w:360;--d:11s;--bd:-5s"><svg viewBox="0 -135 541 590" aria-hidden="true"><use href="#bgstar-g"/></svg></div>
+      </div>
+
+      <div class="likes-inner">
+        <h2 class="likes-title reveal">interests</h2>
+        <div class="likes-grid">
+          <article class="like reveal"><h3>volunteering</h3><p>Recently, I have taken interest in volunteering. With what is happening around the country right now, as a citizen, I want to help as I can even just a little bit.</p></article>
+          <article class="like reveal"><h3>hiking</h3><p>I&rsquo;ve always been to the beach when it comes to going on vacation which is why now, I have an interest in hiking especially as it encourages being physically active.</p></article>
+          <article class="like reveal"><h3>learning new languages</h3><p>I believe that learning new languages can be a good advantage especially when travelling. To add, I also think it would be great to interact with people with different languages.</p></article>
+          <article class="like reveal"><h3>stargazing</h3><p>As a kid, I have always been fascinated by the stars much more knowing their names. It feels like I&rsquo;m closer to them which is why I&rsquo;m interested in knowing more about constellations.</p></article>
+        </div>
+
+        <h2 class="likes-title likes-title--right reveal">hobbies</h2>
+        <div class="likes-grid">
+          <article class="like reveal"><h3>listening to music</h3><p>Listening to music has always been relaxing which is why it became a hobby of mine to create playlist and learn new songs.</p></article>
+          <article class="like reveal"><h3>cleaning the house</h3><p>It has become a hobby of mine to clean the house even though I am tired. I can&rsquo;t stand seeing my house not cleaned especially if we have visitors.</p></article>
+          <article class="like reveal"><h3>cooking</h3><p>As the eldest daughter, my parents taught me to cook our meals that it became a hobby of mine to cook meals as well as learning to cook something new to me.</p></article>
+          <article class="like reveal"><h3>swimming</h3><p>Ever since I was a child, we have been going to the beach every summer which is why every now and then, it became a hobby to always swim in the ocean and the pool.</p></article>
+        </div>
+
+        <!-- technical skills: words appear one by one, connected like a constellation -->
+        <div class="skills-wrap">
+          <h2 class="cloud-title skills-title reveal"><span>Technical Skills</span></h2>
+          <div class="skills" id="skills">
+            <svg class="skills-lines" aria-hidden="true"></svg>
+            <ul class="skills-list">
+          <li class="skill" data-pos="down"><svg class="sk-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg><span class="sk-label">HTML</span></li>
+          <li class="skill" data-pos="up"><svg class="sk-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg><span class="sk-label">CSS</span></li>
+          <li class="skill" data-pos="down"><svg class="sk-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg><span class="sk-label">JavaScript</span></li>
+          <li class="skill" data-pos="up"><svg class="sk-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg><span class="sk-label">Bootstrap</span></li>
+          <li class="skill" data-pos="down"><svg class="sk-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg><span class="sk-label">Java</span></li>
+          <li class="skill" data-pos="up"><svg class="sk-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg><span class="sk-label">Git</span></li>
+          <li class="skill" data-pos="down"><svg class="sk-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg><span class="sk-label">GitHub</span></li>
+          <li class="skill" data-pos="up"><svg class="sk-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg><span class="sk-label">MS Word</span></li>
+          <li class="skill" data-pos="down"><svg class="sk-star" viewBox="0 0 97 97" aria-hidden="true"><use href="#star-g"/></svg><span class="sk-label">MS PowerPoint</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="about.js"></script>
+  <script src="intro.js"></script>
+</body>
+</html>
