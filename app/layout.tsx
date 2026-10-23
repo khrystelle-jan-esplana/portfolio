@@ -1,29 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Italiana, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const italiana = Italiana({ weight: "400", subsets: ["latin"], variable: "--font-name" });
+const cormorant = Cormorant_Garamond({ weight: ["300", "400", "500"], subsets: ["latin"], variable: "--font-text" });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const metadata: Metadata = { title: "khrystelle jan | portfolio" };
 
-export const metadata: Metadata = {
-  title: "Khrystelle Jan | Portfolio",
-  description: "A little universe of Khrystelle Jan’s work, interests, and story.",
-};
+// Sets the saved theme before first paint (no flash)
+const themeInit = `try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"light"}catch(e){}`;
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" data-theme="light" suppressHydrationWarning className={`${italiana.variable} ${cormorant.variable}`}>
+      <head><script dangerouslySetInnerHTML={{ __html: themeInit }} /></head>
+      <body>{children}</body>
     </html>
   );
 }

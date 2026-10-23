@@ -1,72 +1,72 @@
-'use client';
+"use client";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Icon } from "@/components/icons";
+import TypingText from "@/components/typingText";
+import StarField from "@/components/starField";
+import ThemeToggle from "@/components/themeToggle";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { AnimatePresence, motion } from 'framer-motion';
-import MovingStars from '@/components/movingStars';
+const STARS = 5;
+const STEP_MS = 700; // time per star; total wait = STARS * STEP_MS
 
-const icons = {
-  toggle: (dark: boolean) => `/svg-icons/${dark ? 'darkMode/toggle-darkMode-icon.svg' : 'lightMode/toggle-light-mode-icon.svg'}`,
-  ornament: (dark: boolean, name: string) => `/svg-icons/${dark ? 'darkMode' : 'lightMode'}/${name}-${dark ? 'dark' : 'light'}.svg`,
-};
-
-export default function LandingPage() {
+export default function Landing() {
   const router = useRouter();
-  const [isDark, setIsDark] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [revealFrom, setRevealFrom] = useState<boolean | null>(null);
+  const [going, setGoing] = useState(false);
+  const [lit, setLit] = useState(0);
+  const tick = useRef<number | undefined>(undefined);
 
-  useEffect(() => {
-    setIsDark(localStorage.getItem('portfolio-theme') === 'dark');
-  }, []);
+  useEffect(() => () => window.clearInterval(tick.current), []);
 
-  const toggleTheme = () => {
-    setRevealFrom(isDark);
-    const next = !isDark;
-    setIsDark(next);
-    localStorage.setItem('portfolio-theme', next ? 'dark' : 'light');
-  };
-
-  const handleExplore = () => {
-    if (isLoading) return;
-    setIsLoading(true);
-    window.setTimeout(() => router.push('/menu'), 2500);
+  const explore = () => {
+    if (going) return;
+    setGoing(true);
+    let step = 0;
+    tick.current = window.setInterval(() => {
+      step += 1;
+      setLit(step);
+      if (step >= STARS) {
+        window.clearInterval(tick.current);
+        window.setTimeout(() => {
+          router.push("/menu");
+          // reset after leaving, so coming back home starts fresh
+          window.setTimeout(() => { setGoing(false); setLit(0); }, 1200);
+        }, 400);
+      }
+    }, STEP_MS);
   };
 
   return (
-    <main className={`portfolio-scene landing-scene ${isDark ? 'theme-dark' : 'theme-light'}`}>
-      <div className="scene-gradient" />
-      {revealFrom !== null && <motion.div key={`${revealFrom}-${isDark}`} className={`theme-reveal ${revealFrom ? 'theme-reveal-dark' : 'theme-reveal-light'}`} initial={{ clipPath: 'circle(150% at 40px 40px)' }} animate={{ clipPath: 'circle(0% at 40px 40px)' }} transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }} onAnimationComplete={() => setRevealFrom(null)} />}
-      <div className="star-pattern-overlay" />
-      <MovingStars isDark={isDark} />
+    <main className="stage">
+      <div className="bg" /><StarField /><div className="frame" />
+      <ThemeToggle />
 
-      <motion.button
-        aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-        onClick={toggleTheme}
-        whileTap={{ scale: 0.86, rotate: 180 }}
-        className="theme-toggle"
-      >
-        <img src={icons.toggle(isDark)} alt="" />
-      </motion.button>
+      <Icon name="starCombo" className="pos combo slide-lr" />
+      <Icon name="rayDown" className="pos ray slide-up" />
 
-      <div className="ornament ornament-corner" aria-hidden="true"><span /><img src={icons.ornament(isDark, 'crossStar')} alt="" /></div>
-      <img className="ornament ornament-top-right" src={icons.ornament(isDark, 'star-raydown')} alt="" />
-      <img className="ornament ornament-left-bottom" src={icons.ornament(isDark, 'star-combo-6')} alt="" />
-
-      <section className="landing-frame">
-        <div className="landing-rule" aria-hidden="true"><span /></div>
-        <div className="landing-title-wrap">
-          <p className="portfolio-label">portfolio</p>
-          <h1 className="landing-title">khrystelle<span className="name-last"><img src={icons.ornament(isDark, 'star-filledCircle')} alt="" />jan</span></h1>
+      <section className="hero">
+        <div className="line">
+          <Icon name="lineStar" className="l-a" />
+          <Icon name="lineStar" className="l-b" />
+          <Icon name="lineStar" className="l-c" />
         </div>
-        <motion.button className="explore-button" onClick={handleExplore} whileHover={{ y: -4 }} whileTap={{ scale: 0.96 }}>
-          <span>{isLoading ? 'entering' : 'explore'}</span>
-          <span className="countdown-stars" aria-label={isLoading ? 'Opening menu' : 'Explore the portfolio'}>
-            {[0, 1, 2, 3, 4].map((i) => <motion.img key={i} src={icons.ornament(isDark, 'line-star')} alt="" animate={isLoading ? { scale: [1, 1.35, 1], opacity: [0.35, 1, 0.35] } : { opacity: [0.65, 1, 0.65] }} transition={{ duration: isLoading ? 0.75 : 2.2, repeat: Infinity, delay: i * (isLoading ? 0.32 : 0.24) }} />)}
-          </span>
-        </motion.button>
+        <div className="portfolio"><TypingText text="portfolio" delay={900} /></div>
+        <h1 className="name">
+          <span className="first from-right">khrystelle</span>
+          <span className="second from-left">jan</span>
+        </h1>
+        <Icon name="crossStar" className="cross" />
       </section>
-      <AnimatePresence>{isLoading && <motion.div className="launch-flash" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />}</AnimatePresence>
+
+      <div className="explore">
+        <button className="explore-btn" onClick={explore} disabled={going}>
+          {going ? "entering" : <TypingText text="explore" delay={1400} />}
+        </button>
+        <div className="loader" role="progressbar" aria-valuemax={STARS} aria-valuenow={lit}>
+          {Array.from({ length: STARS }, (_, i) => (
+            <Icon key={i} name="filledCircle" className={`dot ${i < lit ? "on" : ""}`} />
+          ))}
+        </div>
+      </div>
     </main>
   );
 }
