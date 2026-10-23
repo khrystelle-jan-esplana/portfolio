@@ -1,10 +1,13 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Icon } from "@/next-js-ver/components/icons";
-import TypingText from "@/next-js-ver/components/typingText";
-import StarField from "@/next-js-ver/components/starField";
-import ThemeToggle from "@/next-js-ver/components/themeToggle";
+import StarField from "@/components/starField";
+import ThemeToggle from "@/components/themeToggle";
+import TypingText from "@/components/typingText";
+import Logo from "@/components/logo";
+import Navbar from "@/components/navbar";
+import { useHash } from "@/components/useHash";
+import { Icon } from "@/components/icons";
 
 const STARS = 5;
 const STEP_MS = 700; // time per star; total wait = STARS * STEP_MS

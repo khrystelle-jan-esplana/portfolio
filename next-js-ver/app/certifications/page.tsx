@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import StarField from "@/next-js-ver/components/starField";
-import ThemeToggle from "@/next-js-ver/components/themeToggle";
-import Navbar from "@/next-js-ver/components/navbar";
-import Logo from "@/next-js-ver/components/logo";
-
+import StarField from "@/components/starField";
+import ThemeToggle from "@/components/themeToggle";
+import TypingText from "@/components/typingText";
+import Logo from "@/components/logo";
+import Navbar from "@/components/navbar";
+import { useHash } from "@/components/useHash";
 
 const CERTS = [
   { src: "/certifications/dsdap-cert.png", title: "DSDAP Certificate" },

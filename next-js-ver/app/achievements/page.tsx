@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import StarField from "@/next-js-ver/components/starField";
-import ThemeToggle from "@/next-js-ver/components/themeToggle";
-import TypingText from "@/next-js-ver/components/typingText";
-import Logo from "@/next-js-ver/components/logo";
-import Navbar from "@/next-js-ver/components/navbar";
-import { useHash } from "@/next-js-ver/components/useHash";
+import StarField from "@/components/starField";
+import ThemeToggle from "@/components/themeToggle";
+import TypingText from "@/components/typingText";
+import Logo from "@/components/logo";
+import Navbar from "@/components/navbar";
+import { useHash } from "@/components/useHash";
 
 const SUN = "/svg-icons/sun-icon.svg";
 const IDS = ["leadership", "competitions", "award", "scholarships", "course-completions"];

@@ -1,10 +1,12 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import StarField from "@/next-js-ver/components/starField";
-import ThemeToggle from "@/next-js-ver/components/themeToggle";
-import Navbar from "@/next-js-ver/components/navbar";
-import Logo from "@/next-js-ver/components/logo";
+import StarField from "@/components/starField";
+import ThemeToggle from "@/components/themeToggle";
+import TypingText from "@/components/typingText";
+import Logo from "@/components/logo";
+import Navbar from "@/components/navbar";
+import { useHash } from "@/components/useHash";
 
 type Item = { name: string; x: number; y: number; below?: boolean };
 type Cat = { title: string; side: "left" | "right"; stars: number; ar: number; items: Item[] };

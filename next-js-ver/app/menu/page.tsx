@@ -2,10 +2,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { Icon, ICONS } from "@/next-js-ver/components/icons";
-import StarField from "@/next-js-ver/components/starField";
-import ThemeToggle from "@/next-js-ver/components/themeToggle";
-import { markFromMenu } from "@/next-js-ver/components/fromMenu";
+import StarField from "@/components/starField";
+import ThemeToggle from "@/components/themeToggle";
+import TypingText from "@/components/typingText";
+import Logo from "@/components/logo";
+import Navbar from "@/components/navbar";
+import { useHash } from "@/components/useHash";
+import { Icon } from "@/components/icons";
 
 type Sub = { label: string; id: string };
 // `id` is the #hash the destination page uses to open that section / planet.
