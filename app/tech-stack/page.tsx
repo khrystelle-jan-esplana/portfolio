@@ -1,7 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import StarField from "@/components/starField";
 import ThemeToggle from "@/components/themeToggle";
 import Navbar from "@/components/navbar";
@@ -37,6 +36,8 @@ const STAR_POS: number[][][] = [
   [[0, -1.05], [-1, 0.45], [1, 0.45], [0, 1.05]],
 ];
 
+const STEP = 0.85; // seconds between one item and the next
+const slug = (s: string) => s.toLowerCase().replace(/\s+/g, "-");
 const spring = { type: "spring" as const, stiffness: 240, damping: 13 };
 const pop = (d = 0) => ({ h: { scale: 0, opacity: 0 }, v: { scale: 1, opacity: 1, transition: { delay: d, ...spring } } });
 
@@ -57,19 +58,34 @@ function TypeIn({ text, from, delay = 300, speed = 60 }: { text: string; from: "
   return <>{from === "right" ? text.slice(text.length - n) : text.slice(0, n)}</>;
 }
 
-function Section({ c }: { c: Cat }) {
-  const [on, setOn] = useState(false);
-  const t0 = 0.7 + c.title.length * 0.06; // items start after the title has typed
+function Section({ c, index, unlocked, onDone }: { c: Cat; index: number; unlocked: boolean; onDone: (i: number) => void }) {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { amount: 0.3 });
+  const [started, setStarted] = useState(false); // first run begun (needs: previous category finished + on screen)
+  const [played, setPlayed] = useState(false);   // first run fully finished
+  if (!started && unlocked && inView) setStarted(true);
+
+  // first run: plays to the end even if you scroll away. Later: replays the subcategories every time they scroll into view.
+  const show = played ? inView : started;
+  const t0 = played ? 0.2 : 0.7 + c.title.length * 0.06; // first run waits for the title to finish typing
+  const total = 0.7 + c.title.length * 0.06 + (c.items.length - 1) * STEP + 1.4;
+
+  useEffect(() => {
+    if (!started || played) return;
+    const t = setTimeout(() => { setPlayed(true); onDone(index); }, total * 1000);
+    return () => clearTimeout(t);
+  }, [started, played, total, onDone, index]);
+
+  const planetStars = STAR_POS[c.stars - 1].map(([x, y], k) => (
+    <span key={k} className="pstar" style={{ "--x": x, "--y": y } as React.CSSProperties}><Spark /></span>
+  ));
+
   return (
-    <motion.section id={c.title.toLowerCase().replace(/\s+/g, "-")} className={`tk-sec ${c.side}`} initial="h" whileInView="v" viewport={{ amount: 0.3 }}
-      onViewportEnter={() => setOn(true)} onViewportLeave={() => setOn(false)}>
+    <motion.section ref={ref} id={slug(c.title)} className={`tk-sec ${c.side}`} initial="h" animate={show ? "v" : "h"}>
       <div className="tk-title">
-        <motion.span className="tp" variants={pop(0)}>
-          {STAR_POS[c.stars - 1].map(([x, y], k) => (
-            <span key={k} className="pstar" style={{ "--x": x, "--y": y } as React.CSSProperties}><Spark /></span>
-          ))}
-        </motion.span>
-        <h2>{on ? <TypeIn text={c.title} from={c.side} /> : "\u00a0"}</h2>
+        {/* title + planet animate only on the first run; afterwards they stay put */}
+        {played ? <span className="tp">{planetStars}</span> : <motion.span className="tp" variants={pop(0)}>{planetStars}</motion.span>}
+        <h2>{played ? c.title : started ? <TypeIn text={c.title} from={c.side} /> : "\u00a0"}</h2>
       </div>
 
       <div className="tk-box" style={{ aspectRatio: `1 / ${c.ar}` }}>
@@ -78,12 +94,12 @@ function Section({ c }: { c: Cat }) {
             const p = c.items[i];
             return (
               <motion.line key={m.name} x1={p.x} y1={p.y * c.ar} x2={m.x} y2={m.y * c.ar}
-                variants={{ h: { pathLength: 0, opacity: 0 }, v: { pathLength: 1, opacity: 0.75, transition: { delay: t0 + (i + 1) * 0.85, duration: 0.4, ease: "easeInOut" } } }} />
+                variants={{ h: { pathLength: 0, opacity: 0 }, v: { pathLength: 1, opacity: 0.75, transition: { delay: t0 + (i + 1) * STEP, duration: 0.4, ease: "easeInOut" } } }} />
             );
           })}
         </svg>
         {c.items.map((m, i) => {
-          const d = t0 + i * 0.85;
+          const d = t0 + i * STEP;
           const dir = m.x < 50 ? -28 : 28; // left-placed names fade in from the left, right-placed from the right
           return (
             <div key={m.name} className={`tk-item ${m.below ? "below" : ""}`} style={{ left: `${m.x}%`, top: `${m.y}%` }}>
@@ -101,20 +117,31 @@ function Section({ c }: { c: Cat }) {
 }
 
 export default function TechStackPage() {
+  const [headerDone, setHeaderDone] = useState(false);
+  const [done, setDone] = useState(0); // how many categories have fully finished their first run
+  const finish = useCallback((i: number) => setDone((d) => Math.max(d, i + 1)), []);
+
   useEffect(() => {
-    const t = setTimeout(() => {
-      const id = location.hash.slice(1);
-      if (id) document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 1300);
+    const t = setTimeout(() => setHeaderDone(true), 1900);
     return () => clearTimeout(t);
   }, []);
+
+  // arriving from the menu with a #category: skip the sequence order and scroll there
+  useEffect(() => {
+    const id = location.hash.slice(1);
+    const k = CATS.findIndex((c) => slug(c.title) === id);
+    const t1 = setTimeout(() => { if (k > 0) setDone(k); }, 0);
+    const t2 = setTimeout(() => {
+      if (id) document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 1300);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
+
   return (
     <main className="stage about compact ach tech">
       <div className="bg" /><StarField count={200} />
       <ThemeToggle />
-      <motion.div className="logo" initial={{ x: "80vw" }} animate={{ x: 0 }} transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}>
-        <Link href="/">khrystelle</Link>
-      </motion.div>
+      <Logo />
       <Navbar current="tech stack" />
 
       <div className="scroller">
@@ -126,7 +153,9 @@ export default function TechStackPage() {
             <motion.span className="tk-line r" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.6, duration: 0.85, ease: "linear" }} />
             <motion.span className="tk-hs" initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 1.45, ...spring }}><Spark /></motion.span>
           </div>
-          {CATS.map((c) => <Section key={c.title} c={c} />)}
+          {CATS.map((c, i) => (
+            <Section key={c.title} c={c} index={i} unlocked={headerDone && done >= i} onDone={finish} />
+          ))}
         </div>
       </div>
     </main>
