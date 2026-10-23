@@ -8,7 +8,8 @@ import TypingText from "@/components/typingText";
 import Logo from "@/components/logo";
 import Navbar from "@/components/navbar";
 import { useHash } from "@/components/useHash";
-import { Icon } from "@/components/icons";
+import { Icon, ICONS } from "@/components/icons";
+import { markFromMenu } from "@/components/fromMenu";
 
 type Sub = { label: string; id: string };
 // `id` is the #hash the destination page uses to open that section / planet.
