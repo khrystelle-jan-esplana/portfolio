@@ -547,3 +547,36 @@ html { background-color: var(--base); }
   .proj-content { right: 6vw; left: 6vw; top: 24vh; max-height: 58vh; }
   .proj-tag { right: 6vw; }
 }
+
+/* ---------- tech stack page ---------- */
+.tech { --tk: #A9DDFF; }
+:root[data-theme="dark"] .tech { --tk: #E1DAFC; }
+.tk-wrap { width: min(1300px, 92vw); margin: 0 auto; padding: 5.5rem 0 6rem; }
+
+.tk-head { display: flex; align-items: center; gap: 1.2rem; color: var(--ink); }
+.tk-head h1 { font: 400 clamp(2.6rem, 6vw, 5.6rem)/1 var(--font-name); white-space: nowrap; }
+.tk-hs { flex: none; width: clamp(34px, 4vw, 60px); color: var(--ink); }
+.tk-line { flex: 1; height: 2px; background: var(--ink); }
+.tk-line.l { transform-origin: 100% 50%; }  /* grows from the title out to the star */
+.tk-line.r { transform-origin: 0 50%; }
+
+.tk-sec { margin-top: 4.5rem; }
+.tk-title { display: flex; align-items: center; gap: 1.6rem; padding: 0 3%; min-height: 3.6rem; }
+.tk-sec.right .tk-title { flex-direction: row-reverse; }
+.tk-title h2 { font: 500 clamp(1.8rem, 3.4vw, 3.4rem)/1.1 var(--font-text); color: var(--ink); min-height: 1.1em; }
+.tp { position: relative; flex: none; width: clamp(40px, 4.4vw, 70px); aspect-ratio: 1; border-radius: 50%;
+  background: linear-gradient(150deg, var(--pl1), var(--pl2)); }
+
+.tk-box { position: relative; width: 100%; margin-top: 1.5rem; }
+.tk-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.tk-lines line { stroke: var(--tk); stroke-width: .18; stroke-linecap: round; }
+
+.tk-item { position: absolute; display: flex; align-items: center; gap: .8rem; transform: translate(-1rem, -50%); white-space: nowrap; }
+.tk-item.below { flex-direction: column; gap: .3rem; transform: translate(-50%, -1rem); }
+.tk-star { flex: none; width: 2rem; color: var(--tk); filter: drop-shadow(0 0 6px color-mix(in srgb, var(--tk) 70%, transparent)); }
+.tk-name { font: 500 clamp(1.1rem, 2vw, 2rem)/1 var(--font-text); color: var(--tk); text-shadow: 0 2px 8px rgba(70, 12, 63, .35); }
+
+@media (max-width: 700px) {
+  .tk-name { font-size: .95rem; } .tk-item { gap: .4rem; } .tk-star { width: 1.4rem; }
+  .tk-item { transform: translate(-.7rem, -50%); } .tk-item.below { transform: translate(-50%, -.7rem); }
+}

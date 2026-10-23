@@ -12,7 +12,7 @@ const menu = [
   { title: "achievements", href: "/achievements", ready: true, links: ["leadership"] },
   { title: "certifications", href: "/certifications", ready: true, links: [] as string[] },
   { title: "projects", href: "/projects", ready: true, links: [] as string[] },
-  { title: "tech stack", href: "/", ready: false, links: [] as string[] },
+  { title: "tech stack", href: "/tech-stack", ready: true, links: [] as string[] },
 ];
 
 export default function MenuPage() {
