@@ -1,18 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { Icon, ICONS } from "@/components/icons";
-import StarField from "@/components/starField";
-import ThemeToggle from "@/components/themeToggle";
+import { Icon, ICONS } from "@/next-js-ver/components/icons";
+import StarField from "@/next-js-ver/components/starField";
+import ThemeToggle from "@/next-js-ver/components/themeToggle";
+import { markFromMenu } from "@/next-js-ver/components/fromMenu";
 
-// Stars are in this order around the orbit. `ready` = the page exists.
-const menu = [
-  { title: "about me", href: "/about", ready: true, links: ["introduction", "interests", "hobbies", "skills"] },
-  { title: "achievements", href: "/achievements", ready: true, links: ["leadership"] },
-  { title: "certifications", href: "/", ready: false, links: [] as string[] },
-  { title: "projects", href: "/", ready: false, links: [] as string[] },
-  { title: "tech stack", href: "/", ready: false, links: [] as string[] },
+type Sub = { label: string; id: string };
+// `id` is the #hash the destination page uses to open that section / planet.
+const menu: { title: string; href: string; links: Sub[] }[] = [
+  { title: "about me", href: "/about", links: [
+    { label: "introduction", id: "introduction" }, { label: "interests", id: "interests" },
+    { label: "hobbies", id: "hobbies" }, { label: "skills", id: "skills" } ] },
+  { title: "achievements", href: "/achievements", links: [
+    { label: "leadership", id: "leadership" }, { label: "competitions", id: "competitions" },
+    { label: "award", id: "award" }, { label: "scholarships", id: "scholarships" },
+    { label: "course completions", id: "course-completions" } ] },
+  { title: "certifications", href: "/certifications", links: [] as Sub[] },
+  { title: "projects", href: "/projects", links: [
+    { label: "M.I.G.S", id: "migs" }, { label: "capstone", id: "capstone" }, { label: "IoT", id: "iot" } ] },
+  { title: "tech stack", href: "/tech-stack", links: [
+    { label: "programming tools", id: "programming-tools" }, { label: "programming languages", id: "programming-languages" },
+    { label: "frameworks and libraries", id: "frameworks-and-libraries" }, { label: "databases", id: "databases" } ] },
 ];
 
 export default function MenuPage() {
@@ -20,12 +30,14 @@ export default function MenuPage() {
   const pick = (i: number) => setSel(sel === i ? null : i);
   const item = sel === null ? null : menu[sel];
 
+  // tells the next page the logo should slide in from the right
+  useEffect(() => { markFromMenu(); }, []);
+
   return (
     <main className="stage">
       <div className="bg" /><StarField /><div className="frame" />
       <ThemeToggle />
 
-      {/* home button: name + cross star, top right */}
       <Link href="/" className="home-link" aria-label="Back to home">
         <span>khrystelle</span>
         <Icon name="crossStar" className="home-star" />
@@ -35,8 +47,8 @@ export default function MenuPage() {
         <div className="ring ring-outer" />
         <div className="ring ring-middle" />
         <div className="ring ring-inner" />
-        <div className="planet-orbit"><span className="planet" /></div>
-        <div className="planet-orbit two"><span className="planet" /></div>
+        <div className="planet-orbit"><span className="m-planet" /></div>
+        <div className="planet-orbit two"><span className="m-planet" /></div>
 
         <AnimatePresence mode="wait">
           <motion.h1
@@ -45,11 +57,10 @@ export default function MenuPage() {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 1.1 }}
           >
-            {item?.ready ? <Link href={item.href}>{item.title}</Link> : (item?.title ?? "menu")}
+            {item ? <Link href={item.href}>{item.title}</Link> : "menu"}
           </motion.h1>
         </AnimatePresence>
 
-        {/* the five menu buttons orbit the circle; hover shows the name on the outer side */}
         <div className="star-ring">
           {menu.map((m, i) => (
             <button
@@ -66,7 +77,6 @@ export default function MenuPage() {
         </div>
       </div>
 
-      {/* subcategories: rise from the bottom, lower-left */}
       <AnimatePresence mode="wait">
         {item && item.links.length > 0 && (
           <motion.nav
@@ -75,14 +85,14 @@ export default function MenuPage() {
             aria-label={`${item.title} sections`}
             exit={{ opacity: 0, transition: { duration: 0.4 } }}
           >
-            {item.links.map((link, i) => (
+            {item.links.map((l, i) => (
               <motion.div
-                key={link}
+                key={l.id}
                 initial={{ opacity: 0, y: 90 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9 + i * 0.18, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
               >
-                <Link href={`${item.href}#${link}`}>{link}</Link>
+                <Link href={`${item.href}#${l.id}`}>{l.label}</Link>
               </motion.div>
             ))}
           </motion.nav>

@@ -105,9 +105,6 @@ html, body { height: 100%; overflow: hidden; color: var(--ink); font-family: var
 
 .planet-orbit { position: absolute; inset: 0; animation: spin 22s linear infinite; pointer-events: none; }
 .planet-orbit.two { inset: 8.5%; animation-duration: 31s; animation-direction: reverse; animation-delay: -12s; }
-.planet { position: absolute; left: 50%; top: 0; width: clamp(18px, 2.4vw, 46px); aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%);
-  background: radial-gradient(circle at 30% 30%, var(--g4), var(--g2) 70%); box-shadow: 0 0 18px color-mix(in srgb, var(--g4) 60%, transparent); }
-
 .orbit-label { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 0 20%;
   font: 400 clamp(1.8rem, 4vw, 4.2rem)/1 var(--font-text); pointer-events: none; }
 
@@ -339,3 +336,278 @@ html { background-color: var(--base); }
   .ach-content h1, .ach-content p, .ach-content .ach-role { pointer-events: auto; }
   .ach-head { flex-direction: column; gap: .8rem; } .ach-role { text-align: left; }
 }
+
+
+/* ---------- certifications page ---------- */
+.cert-page {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.cert-container {
+  position: absolute;
+  inset: 0;
+  top: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.cert-drag-viewport {
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 2vh 0; 
+  margin-top: 2vh; 
+  cursor: grab;
+}
+.cert-drag-viewport:active {
+  cursor: grabbing;
+}
+
+.cert-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+  padding-left: 10vw; 
+  padding-right: 30vw; 
+  width: max-content;
+}
+
+.cert-frame-wrapper {
+  flex: 0 0 clamp(350px, 45vw, 600px);
+  aspect-ratio: 1.6 / 1;
+  position: relative;
+}
+
+.cert-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.frame-bg {
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 2;
+  transition: filter 0.5s ease;
+}
+
+.cert-frame:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+.cert-frame:hover .frame-bg {
+  filter: drop-shadow(0 0 15px var(--g4)) 
+          drop-shadow(0 0 35px color-mix(in srgb, var(--g2) 70%, transparent));
+}
+
+.cert-img-clip {
+  position: absolute;
+  inset: 11% 8%; 
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #000;
+  transition: box-shadow 0.5s ease;
+}
+
+.cert-frame:hover .cert-img-clip {
+  box-shadow: inset 0 0 20px rgba(255,255,255,0.2);
+}
+
+.cert-img {
+  object-fit: contain;
+  pointer-events: none;
+  background: #fff;
+}
+
+/* --- BOTTOM LABEL & SUN --- */
+.cert-bottom-label {
+  position: absolute;
+  top: calc(5vh + clamp(350px, 45vw, 600px) / 1.6 + 10vh); 
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(350px, 60vw, 800px); 
+  height: 220px; /* Increased height to accommodate the steeper curve */
+  overflow: hidden; 
+  pointer-events: none;
+}
+
+/* Circling Sun */
+.cert-sun {
+  position: absolute;
+  top: 70px; /* Push sun down slightly to sit under the deep curve */
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(120px, 18vw, 200px); 
+  aspect-ratio: 1;
+  z-index: 1;
+}
+
+.cert-sun .mask {
+  animation: spin 40s linear infinite;
+  opacity: 0.9;
+}
+
+/* The Text sits in front of the sun */
+.cert-text-wrap {
+  position: absolute;
+  top: -20px; /* Adjust up to frame the text nicely over the sun */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2; 
+}
+
+.cert-curved-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.cert-curved-svg text {
+  font: 400 clamp(2rem, 4.5vw, 4rem) var(--font-name);
+  fill: var(--ink);
+  text-transform: lowercase;
+  clip-path: inset(0 100% 0 0);
+  animation: wipeText 1.5s 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes wipeText {
+  to { clip-path: inset(0 -20% 0 0); }
+}
+
+/* Overview Modal */
+.cert-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(10, 5, 15, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vw;
+}
+
+.cert-modal-content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cert-modal-img {
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+.cert-modal-close {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+.cert-modal-close:hover {
+  opacity: 1;
+}
+
+
+/* ---------- projects page  ---------- */
+.proj-orbit { --S: min(88vh, 52vw); position: absolute; right: calc(var(--S) / -2); top: 54%; width: var(--S); height: var(--S); margin-top: calc(var(--S) / -2); z-index: 1; }
+
+.proj-content { position: absolute; left: 5vw; right: 30vw; top: 19vh; max-height: 66vh; overflow-y: auto; z-index: 2; }
+.proj-content h1 { font: 600 clamp(1.5rem, 2.8vw, 3rem)/1.12 var(--font-text); }
+.proj-content p { margin-top: 1.6rem; text-align: justify; font: 400 clamp(.95rem, 1.45vw, 1.65rem)/1.95 var(--font-text); opacity: .8; }
+
+.chips { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: .8rem 1rem; margin-top: 1.8rem; }
+.chip { display: inline-flex; align-items: center; gap: .7rem; padding: .55rem 1.3rem .55rem .6rem; border: 1px solid var(--ink); border-radius: 99px;
+  background: color-mix(in srgb, var(--g1) 40%, transparent); font: 500 clamp(.8rem, 1.2vw, 1.3rem)/1 var(--font-text); letter-spacing: .03em; text-transform: uppercase; white-space: nowrap; }
+.chip svg { width: 1.7em; height: 1.7em; flex: none; }
+
+.proj-label { position: fixed; left: 5vw; bottom: 4vh; z-index: 2; font: 400 clamp(2rem, 3.4vw, 3.6rem)/1 var(--font-name); }
+.proj-tag { position: fixed; right: 29vw; bottom: 4vh; z-index: 2; text-align: right; min-height: 1.1em; font: 600 clamp(1.8rem, 3vw, 3.2rem)/1 var(--font-text); }
+
+@media (max-width: 900px) {
+  .proj-orbit { --S: 80vw; opacity: .3; }
+  .proj-content { right: 6vw; left: 6vw; top: 24vh; max-height: 58vh; }
+  .proj-tag { right: 6vw; }
+}
+
+/* ---------- tech stack page ---------- */
+.tech { --tk: #A9DDFF; }
+:root[data-theme="dark"] .tech { --tk: #E1DAFC; }
+.tk-wrap { width: min(1300px, 92vw); margin: 0 auto; padding: 5.5rem 0 6rem; }
+
+.tk-head { display: flex; align-items: center; gap: 1.2rem; color: var(--ink); }
+.tk-head h1 { font: 400 clamp(2.6rem, 6vw, 5.6rem)/1 var(--font-name); white-space: nowrap; }
+.tk-hs { flex: none; width: clamp(34px, 4vw, 60px); color: var(--ink); }
+.tk-line { flex: 1; height: 2px; background: var(--ink); }
+.tk-line.l { transform-origin: 100% 50%; }  /* grows from the title out to the star */
+.tk-line.r { transform-origin: 0 50%; }
+
+.tk-sec { margin-top: 4.5rem; }
+.tk-title { display: flex; align-items: center; gap: 1.6rem; padding: 0 3%; min-height: 3.6rem; }
+.tk-sec.right .tk-title { flex-direction: row-reverse; }
+.tk-title h2 { font: 500 clamp(1.8rem, 3.4vw, 3.4rem)/1.1 var(--font-text); color: var(--ink); min-height: 1.1em; }
+.tp { position: relative; flex: none; width: clamp(40px, 4.4vw, 70px); aspect-ratio: 1; border-radius: 50%;
+  background: linear-gradient(150deg, var(--pl1), var(--pl2)); }
+
+.tk-box { position: relative; width: 100%; margin-top: 1.5rem; }
+.tk-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.tk-lines line { stroke: var(--tk); stroke-width: .18; stroke-linecap: round; }
+
+.tk-item { position: absolute; display: flex; align-items: center; gap: .8rem; transform: translate(-1rem, -50%); white-space: nowrap; }
+.tk-item.below { flex-direction: column; gap: .3rem; transform: translate(-50%, -1rem); }
+.tk-star { flex: none; width: 2rem; color: var(--tk); filter: drop-shadow(0 0 6px color-mix(in srgb, var(--tk) 70%, transparent)); }
+.tk-name { font: 500 clamp(1.1rem, 2vw, 2rem)/1 var(--font-text); color: var(--tk); text-shadow: 0 2px 8px rgba(70, 12, 63, .35); }
+
+@media (max-width: 700px) {
+  .tk-name { font-size: .95rem; } .tk-item { gap: .4rem; } .tk-star { width: 1.4rem; }
+  .tk-item { transform: translate(-.7rem, -50%); } .tk-item.below { transform: translate(-50%, -.7rem); }
+}
+
+/* ---------- menu fixes ---------- */
+.m-planet { position: absolute; left: 50%; top: 0; width: clamp(18px, 2.4vw, 46px); aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 30% 30%, var(--g4), var(--g2) 70%); box-shadow: 0 0 18px color-mix(in srgb, var(--g4) 60%, transparent); }
+
+/* centre title scales with the circle and wraps, so any length stays inside the inner ring */
+.orbit-label { font-size: calc(var(--S) * .085); padding: 0 19%; text-wrap: balance; overflow-wrap: anywhere; }
+
+/* subcategory list: capped width, wraps long names instead of running into the circles or off screen */
+.sub-list { max-width: 27vw; }
+.sub-list a { font-size: clamp(1.8rem, 4.2vw, 4.8rem); line-height: 1.05; text-wrap: balance; overflow-wrap: anywhere; }
+.sub-list > div { margin-bottom: .2rem; }
+@media (max-width: 700px) { .sub-list { max-width: 58vw; } .sub-list a { font-size: 2.2rem; } }
+
+.tk-sec { scroll-margin-top: 5rem; }
+
+
+/* ---------- achievements: course completions gallery ---------- */
+.gallery { margin-top: 1.6rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; padding-bottom: 1rem; }
+.frame-card { position: relative; aspect-ratio: 1.68; background: url(/certifications/celestial-card-landscape.png) center / 100% 100% no-repeat; }
+.frame-card img { position: absolute; left: 9%; top: 11%; width: 82%; height: 78%; object-fit: contain; border-radius: 6px; }
+@media (max-width: 900px) { .gallery { grid-template-columns: 1fr; } }
+
+/* hide scrollbars (content still scrolls) */
+.ach-content, .proj-content { scrollbar-width: none; -ms-overflow-style: none; }
+.ach-content::-webkit-scrollbar, .proj-content::-webkit-scrollbar { display: none; }
+
+/* ---------- tech stack: subcategory look ---------- */
+.tech { --tk: #FFE70C; }   /* dark mode keeps #E1DAFC from its own rule above */
+
+.tk-name { font: 400 clamp(1.3rem, 2.4vw, 2.4rem)/1 var(--font-name); letter-spacing: .01em; color: var(--tk);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--tk) 65%, transparent), 0 0 22px color-mix(in srgb, var(--tk) 35%, transparent), 0 2px 5px rgba(70, 12, 63, .35); }
+.tk-star { filter: drop-shadow(0 0 5px var(--tk)) drop-shadow(0 0 12px color-mix(in srgb, var(--tk) 55%, transparent)); }
+.tk-lines line { filter: drop-shadow(0 0 2px var(--tk)); }

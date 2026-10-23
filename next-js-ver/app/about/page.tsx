@@ -2,13 +2,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import StarField from "@/components/starField";
-import ThemeToggle from "@/components/themeToggle";
-import TypingText from "@/components/typingText";
+import StarField from "@/next-js-ver/components/starField";
+import ThemeToggle from "@/next-js-ver/components/themeToggle";
+import TypingText from "@/next-js-ver/components/typingText";
+import Navbar from "@/next-js-ver/components/navbar"; 
+import Logo from "@/next-js-ver/components/logo";
 
 const SUN = "/svg-icons/sun-icon.svg";
-// Only "about me" exists so far; the others point back to the menu until you build them.
-const NAV: [string, string][] = [["about me", "/about"], ["achievements", "/achievements"], ["certifications", "/menu"], ["projects", "/menu"], ["tech stack", "/menu"]];
 
 const TOPICS: Record<"interests" | "hobbies", [string, string][]> = {
   interests: [
@@ -99,9 +99,9 @@ export default function AboutPage() {
       <motion.div className="logo" initial={{ x: "80vw" }} animate={{ x: 0 }} transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}>
         <Link href="/">khrystelle</Link>
       </motion.div>
-      <motion.nav className="nav" initial={{ opacity: 0, x: 140 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}>
-        {NAV.map(([n, h]) => <Link key={n} href={h} className={n === "about me" ? "on" : ""}>{n}</Link>)}
-      </motion.nav>
+      
+      {/* NEW SHARED NAVBAR */}
+      <Navbar current="about me" />
 
       <div className="scroller">
         <section id="introduction" className="sec intro">
