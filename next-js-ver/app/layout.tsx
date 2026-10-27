@@ -5,7 +5,10 @@ import "./globals.css";
 const italiana = Italiana({ weight: "400", subsets: ["latin"], variable: "--font-name" });
 const cormorant = Cormorant_Garamond({ weight: ["300", "400", "500"], subsets: ["latin"], variable: "--font-text" });
 
-export const metadata: Metadata = { title: "khrystelle jan | portfolio" };
+export const metadata: Metadata = {
+  title: "khrystelle jan | portfolio",
+  icons: { icon: "/favicon/favicon-portfolio-circle.png" },
+};
 
 // Sets the saved theme before first paint (no flash)
 const themeInit = `try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"light"}catch(e){}`;

@@ -4,11 +4,9 @@ import { useRouter } from "next/navigation";
 import StarField from "@/components/starField";
 import ThemeToggle from "@/components/themeToggle";
 import TypingText from "@/components/typingText";
-import Logo from "@/components/logo";
-import Navbar from "@/components/navbar";
-import { useHash } from "@/components/useHash";
 import { Icon } from "@/components/icons";
 
+const PHOTO = "/photos/landing_photo-1.png"; // change .png if your file is .jpg / .webp
 const STARS = 5;
 const STEP_MS = 700; // time per star; total wait = STARS * STEP_MS
 
@@ -46,13 +44,26 @@ export default function Landing() {
       <Icon name="starCombo" className="pos combo slide-lr" />
       <Icon name="rayDown" className="pos ray slide-up" />
 
+      {/* photo with glow + cloud behind it */}
+      <div className="photo-wrap" aria-hidden>
+        <div className="photo-cloud" />
+        <div
+          className="photo-fig"
+          style={{ "--photo": `url(${PHOTO})` } as React.CSSProperties}
+        >
+          <div className="photo-glow" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="photo-img" src={PHOTO} alt="" draggable={false} />
+        </div>
+      </div>
+      <div className="pf"><TypingText text="portfolio" delay={900} /></div>
+
       <section className="hero">
         <div className="line">
           <Icon name="lineStar" className="l-a" />
           <Icon name="lineStar" className="l-b" />
           <Icon name="lineStar" className="l-c" />
         </div>
-        <div className="portfolio"><TypingText text="portfolio" delay={900} /></div>
         <h1 className="name">
           <span className="first from-right">khrystelle</span>
           <span className="second from-left">jan</span>
