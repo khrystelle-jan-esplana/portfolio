@@ -19,9 +19,9 @@ export const menu: MenuItem[] = [
     { label: "course completions", id: "course-completions" } ] },
   { title: "certifications", href: "/certifications", links: [] },
   { title: "projects", href: "/projects", links: [
-    { label: "M.I.G.S", id: "migs" },
     { label: "capstone", id: "capstone" },
-    { label: "IoT", id: "iot" } ] },
+    { label: "IoT", id: "iot" },
+    { label: "third year project", id: "third-year-project" }, ] },
   { title: "reach out", href: "/reach-out", links: [] },
 ];
 
