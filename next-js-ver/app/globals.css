@@ -1108,3 +1108,8 @@ html { background-color: var(--base); }
   .ro-btn { padding: .6rem 1.3rem .6rem .9rem; }
   .ro-sun { --sz: 56vw; }
 }
+
+
+/* tech stack: connected stars use the same color as their texts (#4E3DA3 in light mode) */
+.tk-star .spark,
+.mt .ms-star .spark { color: inherit; }
