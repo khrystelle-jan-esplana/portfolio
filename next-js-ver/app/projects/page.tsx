@@ -42,8 +42,7 @@ const ITEMS: Project[] = [
       "Contributed to project documentation, including organizing and preparing technical and project-related information.",
     ],
     status: "Under development as an academic capstone project. The platform's features and implementation are being developed and refined as part of the project.",
-    // PLACEHOLDER photos: replace these with your own pictures (e.g. "/projects/capstone-1.png")
-    photos: ["/certifications/dsdap-cert.png", "/certifications/egov-cert.png", "/certifications/html-css-cert.png", "/certifications/msppt-cert.png"],
+    photos: ["/projects/dcSpace-img1.png", "/projects/dcSpace-img2.png", "/projects/dcSpace-img3.png" ],
   },
   {
     title: "DC Space: A Web-Based IoT Event Attendance Monitoring System Using RFID Technology with Real-Time Monitoring",
@@ -64,8 +63,7 @@ const ITEMS: Project[] = [
       "Contributed to the project's technical documentation, including organizing system information and documenting project components and processes.",
     ],
     status: "Academic Internet of Everything (IoE) project documented in April 2026. The project documentation covers the system design, implementation, testing, results, and recommendations.",
-    // PLACEHOLDER photos: replace these with your own pictures
-    photos: ["/certifications/msword-cert.png", "/certifications/stardom-cert.png", "/certifications/globalcr-day1-cert.png", "/certifications/stardom-day2-cert.png"],
+    photos: ["/projects/iot-img1.png", "/projects/iot-img2.png", "/projects/iot-img3.jpg", "/projects/iot-img4.jpg"],
   },
 ];
 
