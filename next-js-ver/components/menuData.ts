@@ -9,8 +9,7 @@ export const menu: MenuItem[] = [
     { label: "interests", id: "interests" },
     { label: "hobbies", id: "hobbies" },
     { label: "skills", id: "skills" },
-    { label: "tech stack", id: "tech-stack" },
-    { label: "social media", id: "social-media" } ] },
+    { label: "tech stack", id: "tech-stack" } ] },
   { title: "achievements", href: "/achievements", links: [
     { label: "leadership", id: "leadership" },
     { label: "competitions", id: "competitions" },
@@ -22,7 +21,9 @@ export const menu: MenuItem[] = [
     { label: "capstone", id: "capstone" },
     { label: "IoT", id: "iot" },
     { label: "third year project", id: "third-year-project" }, ] },
-  { title: "reach out", href: "/reach-out", links: [] },
+  { title: "reach out", href: "/reach-out", links: [
+    { label: "social media", id: "social-media", href: "/reach-out" },
+    { label: "message me!", id: "message" } ] },
 ];
 
 export const subHref = (m: MenuItem, l: Sub) => l.href ?? `${m.href}#${l.id}`;
