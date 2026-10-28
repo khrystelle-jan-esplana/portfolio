@@ -679,3 +679,129 @@ html { background-color: var(--base); }
 
   .explore { right: auto; left: 50%; transform: translateX(-50%); bottom: 6vh; }
 }
+
+
+/* ---------- menu page + navbar menu: phone design ---------- */
+@property --sweep { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes frameSweep { to { --sweep: 360deg; } }
+@keyframes ruleGrow { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+@keyframes starIn { from { opacity: 0; scale: .3; } to { opacity: 1; scale: 1; } }
+@keyframes cornerIn { from { opacity: 0; } to { opacity: .55; } }
+
+/* hidden on desktop */
+.m-menu, .m-home, .m-corner, .m-nav-btn, .m-overlay { display: none; }
+.m-wrap { display: contents; }
+
+@media (max-width: 700px) {
+  .nav { display: none; }   /* desktop pill navbar */
+
+  /* ----- menu page: swap the orbit for the phone list ----- */
+  .menu-page .orbit-stage,
+  .menu-page .sub-list,
+  .menu-page .home-link:not(.m-home) { display: none; }
+  .menu-page .m-menu { display: block; }
+  .menu-page .m-home { display: flex; }
+  .menu-page .m-corner { display: block; }
+
+  /* border line draws in (clockwise from the top) after the "menu" text fades in */
+  .menu-page .frame {
+    -webkit-mask: conic-gradient(#000 var(--sweep), transparent 0);
+            mask: conic-gradient(#000 var(--sweep), transparent 0);
+    animation: frameSweep 2s .9s ease-in-out both;
+  }
+
+  /* curled corners of the frame */
+  .m-corner { position: fixed; width: 22px; height: 22px; z-index: 1; color: var(--ink); pointer-events: none;
+    opacity: 0; animation: cornerIn .8s 2.6s both; }
+  .m-corner.tl { left: calc(6vw - 8px); top: calc(2.3vh - 8px); }
+  .m-corner.tr { right: calc(6vw - 8px); top: calc(2.3vh - 8px); transform: scaleX(-1); }
+  .m-corner.bl { left: calc(6vw - 8px); bottom: calc(2.3vh - 8px); transform: scaleY(-1); }
+  .m-corner.br { right: calc(6vw - 8px); bottom: calc(2.3vh - 8px); transform: scale(-1, -1); }
+
+  /* ----- shared list (menu page + navbar overlay) ----- */
+  .m-menu {
+    --top: 32vh;                                 /* first item */
+    --row: 10.4vh;                               /* space between items */
+    --fs: clamp(1.7rem, 8.4vw, 2.3rem);          /* item font */
+    --sfs: clamp(1.4rem, 7.4vw, 2rem);           /* dropdown font */
+    position: fixed; inset: 0; z-index: 2; pointer-events: none;
+  }
+
+  /* sparkle used on the title rules and next to every item */
+  .m-star { flex: none; display: block; width: .62em; aspect-ratio: 1; background: var(--ink);
+    -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
+
+  /* header: ✦——— menu ———✦ (lines grow from the title outward, then the stars appear) */
+  .m-head { position: absolute; top: 19.6vh; left: 13vw; right: 13vw; transform: translateY(-50%);
+    display: flex; align-items: center; gap: 1.1rem; }
+  .m-head h1 { font: 400 clamp(2.2rem, 10.6vw, 3rem)/1 var(--font-name); letter-spacing: .03em; animation: fadeIn .9s .2s both; }
+  .m-rule { position: relative; flex: 1; height: 16px; }
+  .m-rule::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--ink);
+    animation: ruleGrow .9s 1s cubic-bezier(.4, 0, .2, 1) both; }
+  .m-rule.l::after { transform-origin: right center; }   /* starts at the title, grows left */
+  .m-rule.r::after { transform-origin: left center; }    /* starts at the title, grows right */
+  .m-rule .m-star { position: absolute; top: 50%; width: 16px; animation: starIn .6s 1.7s both; }
+  .m-rule.l .m-star { left: 0; transform: translate(-50%, -50%); }
+  .m-rule.r .m-star { right: 0; transform: translate(50%, -50%); }
+
+  /* menu items: ✦ about me ✦ */
+  .m-list { list-style: none; margin: 0; padding: 0; }
+  .m-item { position: absolute; left: 50%; top: calc(var(--top) + var(--i) * var(--row)); pointer-events: auto;
+    transform: translate(-50%, -50%);
+    transition: transform .9s cubic-bezier(.22, 1, .36, 1), opacity .5s; }
+  .m-item button { display: flex; align-items: center; gap: .7em; padding: .3em .4em; background: none; border: 0; cursor: pointer;
+    color: var(--ink); white-space: nowrap; font: 400 var(--fs)/1 var(--font-name); letter-spacing: .04em;
+    animation: fadeIn .9s var(--d) both; -webkit-tap-highlight-color: transparent; }
+  .m-item button:active { opacity: .7; }
+  .m-item button:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 6px; }
+
+  /* a dropdown item was tapped: the others fade out, the tapped one glides to the top slot and stays */
+  .m-item.away { opacity: 0; pointer-events: none; }
+  .m-item.on { transform: translate(-50%, calc(-50% - var(--i) * var(--row))); transition-delay: .35s, 0s; }
+
+  /* dropdown links fade in one by one (delays are set in the TSX) */
+  .m-sub { position: absolute; left: 0; right: 0; top: calc(var(--top) + 8.6vh - var(--sfs) * .75); list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column; align-items: center; gap: max(0px, calc(5.85vh - var(--sfs) * 1.5)); pointer-events: auto; }
+  .m-sub a { display: block; padding: .25em .5em; color: var(--ink); text-decoration: none; white-space: nowrap;
+    font: 400 var(--sfs)/1 var(--font-name); letter-spacing: .04em; -webkit-tap-highlight-color: transparent; }
+  .m-sub a:active { opacity: .6; }
+
+  /* logo (Italiana, thickened a little to match the mock's weight) */
+  .m-home { position: fixed; top: auto; right: auto; left: 50%; bottom: 4.4vh; transform: translateX(-50%); z-index: 3;
+    font-size: clamp(1.6rem, 7vw, 2rem); }
+  .m-home span { -webkit-text-stroke: .7px var(--ink); }
+  .m-home .home-star { width: 2.4rem; margin-left: -1.1rem; }
+
+  /* ----- navbar on inner pages: "about me ⊕" button + overlay ----- */
+  .m-nav-btn { position: fixed; top: 4.3vh; right: 6.6vw; transform: translateY(-50%); z-index: 6;
+    display: flex; align-items: center; gap: .6rem; padding: .4rem 0; background: none; border: 0; cursor: pointer; color: var(--ink);
+    font: 400 1.3rem/1 var(--font-name); letter-spacing: .02em; -webkit-tap-highlight-color: transparent; }
+  .m-nav-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 6px; }
+  .m-nav-ic { width: 22px; height: 22px; transition: transform .6s cubic-bezier(.22, 1, .36, 1); }
+  .m-nav-ic.open { transform: rotate(45deg); }
+
+  .m-overlay { display: block; position: fixed; inset: 0; z-index: 4; }   /* above the page, below the theme toggle */
+  .m-overlay .m-menu { display: block; --top: 27.3vh; }
+  .m-logo { position: absolute; left: 50%; bottom: 4.2vh; transform: translateX(-50%); z-index: 3; color: var(--ink); text-decoration: none;
+    font: 400 clamp(1.6rem, 7vw, 2rem)/1 var(--font-name); -webkit-text-stroke: .7px var(--ink); }
+
+  /* hide the page's own logo while the menu is open */
+  html[data-menu="open"] .logo { visibility: hidden; }
+
+  .m-nav-btn { display: flex; }
+}
+
+
+/* ---------- fixes: aligned logo/navbar name + frosted menu overlay ---------- */
+@media (max-width: 700px) {
+  /* logo and the "about me ⊕" button now sit on the same line, same size */
+  .logo { top: calc(4.3vh - .65rem); font-size: 1.3rem; }
+
+  /* menu overlay is frosted glass, so the page stays visible behind it */
+  .m-overlay {
+    background: color-mix(in srgb, var(--base) 40%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(1.15);
+            backdrop-filter: blur(16px) saturate(1.15);
+  }
+  .m-overlay .bg { display: none; }   /* the solid background is no longer used */
+}

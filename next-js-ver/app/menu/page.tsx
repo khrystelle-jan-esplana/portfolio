@@ -4,30 +4,10 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import StarField from "@/components/starField";
 import ThemeToggle from "@/components/themeToggle";
-import TypingText from "@/components/typingText";
-import Logo from "@/components/logo";
-import Navbar from "@/components/navbar";
-import { useHash } from "@/components/useHash";
 import { Icon, ICONS } from "@/components/icons";
 import { markFromMenu } from "@/components/fromMenu";
-
-type Sub = { label: string; id: string };
-// `id` is the #hash the destination page uses to open that section / planet.
-const menu: { title: string; href: string; links: Sub[] }[] = [
-  { title: "about me", href: "/about", links: [
-    { label: "introduction", id: "introduction" }, { label: "interests", id: "interests" },
-    { label: "hobbies", id: "hobbies" }, { label: "skills", id: "skills" } ] },
-  { title: "achievements", href: "/achievements", links: [
-    { label: "leadership", id: "leadership" }, { label: "competitions", id: "competitions" },
-    { label: "award", id: "award" }, { label: "scholarships", id: "scholarships" },
-    { label: "course completions", id: "course-completions" } ] },
-  { title: "certifications", href: "/certifications", links: [] as Sub[] },
-  { title: "projects", href: "/projects", links: [
-    { label: "M.I.G.S", id: "migs" }, { label: "capstone", id: "capstone" }, { label: "IoT", id: "iot" } ] },
-  { title: "tech stack", href: "/tech-stack", links: [
-    { label: "programming tools", id: "programming-tools" }, { label: "programming languages", id: "programming-languages" },
-    { label: "frameworks and libraries", id: "frameworks-and-libraries" }, { label: "databases", id: "databases" } ] },
-];
+import { menu, subHref } from "@/components/menuData";
+import MobileMenuList from "@/components/mobileMenuList";
 
 export default function MenuPage() {
   const [sel, setSel] = useState<number | null>(null);
@@ -38,10 +18,19 @@ export default function MenuPage() {
   useEffect(() => { markFromMenu(); }, []);
 
   return (
-    <main className="stage">
+    <main className="stage menu-page">
       <div className="bg" /><StarField /><div className="frame" />
       <ThemeToggle />
 
+      {/* phone: curled frame corners */}
+      {["tl", "tr", "bl", "br"].map((c) => (
+        <svg key={c} className={`m-corner ${c}`} viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1" aria-hidden>
+          <path d="M3 13c0-6 4-10 10-10" />
+          <circle cx="8" cy="8" r="2.2" />
+        </svg>
+      ))}
+
+      {/* ================= DESKTOP ================= */}
       <Link href="/" className="home-link" aria-label="Back to home">
         <span>khrystelle</span>
         <Icon name="crossStar" className="home-star" />
@@ -96,12 +85,27 @@ export default function MenuPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9 + i * 0.18, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
               >
-                <Link href={`${item.href}#${l.id}`}>{l.label}</Link>
+                <Link href={subHref(item, l)}>{l.label}</Link>
               </motion.div>
             ))}
           </motion.nav>
         )}
       </AnimatePresence>
+
+      {/* ================= PHONE ================= */}
+      <nav className="m-menu" aria-label="Portfolio menu" style={{ "--m": `url(${ICONS.menuStar.light})` } as React.CSSProperties}>
+        <div className="m-head">
+          <span className="m-rule l"><span className="m-star" /></span>
+          <h1>menu</h1>
+          <span className="m-rule r"><span className="m-star" /></span>
+        </div>
+        <MobileMenuList delay={2.3} />
+      </nav>
+
+      <Link href="/" className="home-link m-home" aria-label="Back to home">
+        <span>khrystelle</span>
+        <Icon name="crossStar" className="home-star" />
+      </Link>
     </main>
   );
 }
