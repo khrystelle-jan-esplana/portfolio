@@ -946,3 +946,102 @@ html { background-color: var(--base); }
   .pj-head { font-size: clamp(1.35rem, 6vw, 1.6rem); }
   .pj-slide { flex-basis: 82%; }
 }
+
+/* ---------- certifications page: year groups ---------- */
+.cert-page { --pl1: #d5c6ea; --pl2: #6c4a88; --cw: clamp(300px, 29vw, 540px); --yl: 3vw; --sw: clamp(30px, 3vw, 46px); }
+:root[data-theme="dark"] .cert-page { --pl1: #F4C6D1; --pl2: #8a2f86; }
+
+/* desktop: one horizontal strip; each year label sticks to the left while its photos pass, then the next year pushes it away */
+.cp-scroll { position: absolute; left: 0; right: 0; top: 17vh; z-index: 2; overflow-x: auto; overflow-y: hidden;
+  cursor: grab; user-select: none; -webkit-user-select: none; scrollbar-width: none; }
+.cp-scroll::-webkit-scrollbar { display: none; }
+.cp-scroll:active { cursor: grabbing; }
+.cp-track { display: flex; align-items: flex-start; gap: 4vw; width: max-content; min-width: 100%; padding: 0 12vw 3rem var(--yl); }
+.cp-group { flex: none; }
+
+.cp-year { position: sticky; left: var(--yl); z-index: 3; display: flex; align-items: center; gap: 1.2rem; width: max-content; height: 4.6rem;
+  padding-left: calc(var(--sw) + 1.6rem); }
+.cp-year h2 { font: 700 clamp(1.8rem, 3vw, 3.2rem)/1 var(--font-text); color: var(--ink); }
+.cp-planet { position: relative; flex: none; width: clamp(46px, 5vw, 90px); aspect-ratio: 1; border-radius: 50%;
+  background: linear-gradient(150deg, var(--pl1), var(--pl2)); }
+
+.cp-row { display: flex; gap: 3vw; margin-top: 1.6rem; }
+.cp-item { position: relative; flex: 0 0 var(--cw); aspect-ratio: 1.68; }
+
+/* sort icon */
+.cp-sort { display: grid; place-items: center; padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.cp-sort img { display: block; width: var(--sw); height: var(--sw); transition: transform .6s cubic-bezier(.22, 1, .36, 1); }
+.cp-sort[data-asc="true"] img { transform: rotate(180deg); }
+.cp-sort:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 8px; }
+:root[data-theme="dark"] .cp-sort img { filter: invert(1) hue-rotate(180deg); }  /* remove if your icon already looks right in dark mode */
+.cp-fixed { position: absolute; left: var(--yl); top: calc(17vh + (4.6rem - var(--sw)) / 2); z-index: 4; }
+.cp-in { display: none; }
+
+/* desktop: curved label sits lower, like the mockup */
+.cert-page > .cert-bottom-label { top: auto; bottom: -9vh; }
+.cp-msun { display: none; }
+
+/* ---- phone ---- */
+@media (max-width: 700px) {
+  .cert-page { --sw: 22px; }
+  .cert-page > .cert-bottom-label { display: none; }
+  .cp-msun { display: block; }
+
+  .cp-scroll { top: 7vh; bottom: 0; overflow-x: hidden; overflow-y: auto; cursor: auto; padding-bottom: 14vh; }
+  .cp-track { flex-direction: column; gap: 1.6rem; width: 100%; padding: 0 0 8vh; }
+  .cp-group { width: 100%; }
+
+  .cp-year { position: static; width: 100%; height: auto; min-height: 3.6rem; padding: 0 7vw; gap: 1rem; }
+  .cp-year h2 { font-size: clamp(1.7rem, 7.6vw, 2.1rem); }
+  .cp-planet { width: 42px; }
+
+  .cp-fixed { display: none; }
+  .cp-in { display: grid; margin-left: auto; padding: .5rem; margin-right: -.5rem; }
+
+  /* each year's photos swipe sideways, one card at a time */
+  .cp-row { gap: 4vw; margin-top: .6rem; padding: .6rem 7vw 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 7vw; scrollbar-width: none; }
+  .cp-row::-webkit-scrollbar { display: none; }
+  .cp-item { flex-basis: 80vw; scroll-snap-align: start; }
+
+  .cert-modal-close { top: -2.6rem; right: 0; }
+}
+
+
+/* ---------- certifications: phone photos stack vertically (no sideways scroll) ---------- */
+@media (max-width: 700px) {
+  .cp-row { flex-direction: column; gap: 1.2rem; overflow: visible; scroll-snap-type: none; padding: .6rem 7vw 1rem; }
+  .cp-item { flex: none; width: 100%; scroll-snap-align: none; }
+}
+
+
+/* ---------- certifications: smaller planets beside the year (desktop only) ---------- */
+@media (min-width: 701px) {
+  .cp-planet { width: clamp(34px, 3.6vw, 64px); }
+}
+
+
+/* ---------- certifications: fix sort icon position (renamed --sw to --sb) ---------- */
+.cert-page { --sb: clamp(30px, 3vw, 46px); }
+.cp-sort img { width: var(--sb); height: var(--sb); }
+.cp-fixed { top: calc(17vh + (4.6rem - var(--sb)) / 2); }
+
+@media (min-width: 701px) {
+  .cp-year { padding-left: calc(var(--sb) + 1.6rem); }
+}
+@media (max-width: 700px) {
+  .cert-page { --sb: 22px; }
+}
+
+
+/* ---------- projects: embedded PDF ---------- */
+.pj-pdf { height: 72vh; max-height: 780px; border: 1px solid var(--ink); border-radius: 10px; overflow: hidden; background: #fff; }
+.pj-pdf iframe { display: block; width: 100%; height: 100%; border: 0; }
+.pj-pdf-link { display: inline-flex; margin-top: 1rem; padding: .55rem 1.3rem; border: 1px solid var(--ink); border-radius: 99px; color: var(--ink);
+  text-decoration: none; font: 500 clamp(.85rem, 1.2vw, 1.15rem)/1 var(--font-text); letter-spacing: .03em;
+  background: color-mix(in srgb, var(--g1) 40%, transparent); transition: background .3s; }
+.pj-pdf-link:hover, .pj-pdf-link:focus-visible { background: color-mix(in srgb, var(--g1) 75%, transparent); }
+
+@media (max-width: 700px) {
+  .pj-pdf { display: none; }                 /* phones can't scroll embedded PDFs properly */
+  .pj-pdf-link { margin-top: 0; font-size: 1.05rem; }
+}

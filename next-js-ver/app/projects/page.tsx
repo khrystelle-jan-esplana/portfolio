@@ -12,17 +12,41 @@ import { Spark as ListSpark, pop, gy, rise, useMedia } from "@/components/aboutS
 const SUN = "/svg-icons/sun-icon.svg";
 const BULLET = "/svg-icons/bulletStar.svg";
 const IDS = ["third-year-project", "capstone", "iot"];
-const DEFAULT = 1; // opens on Capstone when there is no #hash. Set to 0 once Third Year Project has content.
+const DEFAULT = 0; // opens on Capstone when there is no #hash. Set to 0 once Third Year Project has content.
 
 type Project = {
   title: string; tag: string; body: string; tools: string[];
   objectives: string[]; role: string[]; status: string; photos: string[];
+  pdf?: string;
 };
 
 // Chronological: planet 1 = first project (1 star) ... planet 3 = last (3 stars).
 const ITEMS: Project[] = [
   // Third Year Project: content removed, fill it in later (same fields as the others)
-  { title: "", tag: "Third Year Project", body: "", tools: [], objectives: [], role: [], status: "", photos: [] },
+  {   
+    title: "Campus Network Design: Multi-Floor Campus Network for St. Dominic College of Asia",
+    tag: "Third Year Project",
+    body: "This project involves designing a multi-floor campus network for St. Dominic College of Asia (SDCA). The network uses VLAN segmentation, centralized routing, DHCP, floor-based servers, and wireless connectivity to provide organized and efficient communication across four floors. A core switch manages inter-VLAN routing and IP address assignment, while an edge router connects the internal campus network to the ISP. The design aims to provide reliable connectivity, organized traffic management, and a scalable network infrastructure.",
+    objectives: [
+      "Design a network infrastructure that connects devices across four campus floors.",
+      "Implement VLAN segmentation and separate IP subnets to organize network traffic for each floor.",
+      "Configure inter-VLAN routing to enable communication between devices on different floors.",
+      "Use DHCP to automatically assign IP addresses and default gateways to connected devices.",
+      "Incorporate wireless access points to provide connectivity for laptops, smartphones, and other wireless devices.",
+      "Configure servers with static IP addresses to maintain stable access to network services.",
+      "Establish connectivity to external networks through an edge router and ISP connection.",
+    ],
+    tools: ["Cisco Packet Tracer","Core Switch", "Access Switches", "VLANs", "IP Subnetting", "DHCP", "Wireless Access Points", "Servers", "Edge Router", "ISP"],
+    role: [
+      "Contributed to designing the multi-floor campus network topology.",
+      "Worked on organizing network devices and connections according to the designated floors and network segments.",
+      "Applied networking concepts involving VLAN segmentation, IP addressing, subnetting, DHCP, and inter-VLAN routing.",
+      "Helped structure the network design to support communication between wired and wireless devices.",
+      "Documented the network topology, IP addressing scheme, network components, and routing design.",
+    ],
+    status: "Completed as a networking midterm project for BSIT 3B. The submitted documentation presents the campus network topology and explains its VLAN configuration, IP addressing, DHCP setup, server placement, routing, and external connectivity.",
+    photos: [], pdf: "/projects/CampusNetworkDesign_ESPLANA (2).pdf",
+  }, 
   {
     title: "DC SPACE: AI-driven Event Intelligence Platform for Predictive Crowd Management and Adaptive Event Optimization",
     tag: "Capstone Project",
@@ -173,6 +197,20 @@ function Slides({ photos }: { photos: string[] }) {
   );
 }
 
+// embedded PDF (desktop) + a link that opens it in a new tab (always; the only option on phones)
+function PdfView({ src }: { src: string }) {
+  return (
+    <Sec>
+      <motion.div variants={fadeUp}>
+        <div className="pj-pdf">
+          <iframe src={`${src}#toolbar=0&navpanes=0`} title="Project document (PDF)" loading="lazy" />
+        </div>
+        <a className="pj-pdf-link" href={src} target="_blank" rel="noopener noreferrer">Open the PDF in a new tab</a>
+      </motion.div>
+    </Sec>
+  );
+}
+
 function ProjectBody({ it }: { it: Project }) {
   return (
     <div className="pj">
@@ -210,6 +248,7 @@ function ProjectBody({ it }: { it: Project }) {
       )}
 
       {it.photos.length > 0 && <Slides photos={it.photos} />}
+      {it.pdf && <PdfView src={it.pdf} />}
     </div>
   );
 }
