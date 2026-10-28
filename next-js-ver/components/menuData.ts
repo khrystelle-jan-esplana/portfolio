@@ -9,7 +9,7 @@ export const menu: MenuItem[] = [
     { label: "interests", id: "interests" },
     { label: "hobbies", id: "hobbies" },
     { label: "skills", id: "skills" },
-    { label: "tech stack", id: "tech-stack", href: "/tech-stack" },
+    { label: "tech stack", id: "tech-stack" },
     { label: "social media", id: "social-media" } ] },
   { title: "achievements", href: "/achievements", links: [
     { label: "leadership", id: "leadership" },

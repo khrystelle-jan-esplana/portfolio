@@ -805,3 +805,61 @@ html { background-color: var(--base); }
   }
   .m-overlay .bg { display: none; }   /* the solid background is no longer used */
 }
+
+
+/* ---------- tech stack inside the about page ---------- */
+/* #4E3DA3 for the stars, lines and names (category titles untouched); dark mode keeps its own color */
+:root[data-theme="light"] .tk-sec { --tk: #4E3DA3; }
+:root[data-theme="dark"]  .tk-sec { --tk: #E1DAFC; }
+:root[data-theme="light"] .tk-name { text-shadow: none; }
+:root[data-theme="light"] .tk-star { filter: none; }
+:root[data-theme="light"] .tk-lines line { filter: none; }
+
+/* planet colors for the category titles (they used to come from the .ach class) */
+.tk-wrap { --pl1: #d5c6ea; --pl2: #6c4a88; }
+:root[data-theme="dark"] .tk-wrap { --pl1: #F4C6D1; --pl2: #8a2f86; }
+
+/* ---------- about page: phone sections (interests, hobbies, skills, tech stack) ---------- */
+.msec { margin-top: 3.6rem; }
+.msec:last-child { padding-bottom: 6rem; }
+
+/* header: ✦——— title ———✦ */
+.mh { display: flex; align-items: center; gap: .9rem; width: 86vw; margin: 0 auto 1.4rem; }
+.mh h2 { font: 400 clamp(2rem, 8.8vw, 2.5rem)/1 var(--font-text); white-space: nowrap; color: var(--ink); } /* use var(--font-name) for Italiana */
+.mh-rule { position: relative; flex: 1; height: 16px; }
+.mh-line { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--ink); }
+.mh-rule.l .mh-line { transform-origin: right center; }  /* grows from the title outward */
+.mh-rule.r .mh-line { transform-origin: left center; }
+.mh-sp { position: absolute; top: 50%; width: 15px; color: var(--ink); }
+.mh-rule.l .mh-sp { left: 0; transform: translate(-50%, -50%); }
+.mh-rule.r .mh-sp { right: 0; transform: translate(50%, -50%); }
+
+/* bullet rows (interests, hobbies, tech stack categories) */
+.ml { list-style: none; margin: 0; padding: 0 8vw 0 9.5vw; }
+.mb { display: flex; align-items: center; gap: 1rem; width: 100%; padding: .75rem 0; background: none; border: 0; cursor: pointer; text-align: left;
+  color: var(--ink); font: 600 clamp(1.15rem, 5.4vw, 1.4rem)/1.2 var(--font-text); -webkit-tap-highlight-color: transparent; }
+.mb:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 6px; }
+.mb-star { flex: none; width: 24px; aspect-ratio: 1; background: var(--ink);
+  -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat;
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1); }
+.mb[aria-expanded="true"] .mb-star { transform: rotate(90deg); }
+
+/* dropdown content */
+.md { overflow: hidden; }
+.md p { margin: 0 0 .9rem calc(24px + 1rem); max-width: 56vw; font: 600 clamp(.78rem, 3.3vw, .95rem)/1.7 var(--font-text); opacity: .75; }
+
+/* connected stars + texts (skills, tech stack items) */
+.ms-list { list-style: none; margin: 0; padding: 0 8vw 0 9.5vw; }
+.ms-list.in { padding: 0; }
+.ms-row { position: relative; display: flex; align-items: center; height: 4rem; }
+.ms-col { position: relative; flex: none; width: 24px; height: 100%; margin-right: 1rem; display: flex; align-items: center; justify-content: center; color: var(--ink); }
+.ms-star { position: relative; z-index: 1; width: 22px; }
+.ms-line { position: absolute; left: calc(50% - .5px); top: 50%; width: 1px; height: 100%; background: currentColor; transform-origin: 50% 0; }
+.ms-text { font: 600 clamp(1.1rem, 5.2vw, 1.35rem)/1.2 var(--font-text); color: var(--ink); }
+
+/* tech stack contents use the purple (category titles keep the normal ink color) */
+.mt { --tk: #4E3DA3; }
+:root[data-theme="dark"] .mt { --tk: #E1DAFC; }
+.mt .ms-list .ms-col { color: var(--tk); }
+.mt .ms-list .ms-text { color: var(--tk); font-weight: 500; }
+.mt .ms-row { height: 3.6rem; }

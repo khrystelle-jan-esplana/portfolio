@@ -1,4 +1,3 @@
-// EDIT HERE: swap any file path to change an icon. Light and dark versions are both rendered; CSS shows the right one.
 export const ICONS = {
   crossStar:    { light: "/svg-icons/lightMode/crossStar-light.svg",        dark: "/svg-icons/darkMode/crossStar-dark.svg" },
   lineStar:     { light: "/svg-icons/lightMode/line-star-light.svg",        dark: "/svg-icons/darkMode/line-star-dark.svg" },

@@ -5,37 +5,13 @@ import { motion } from "framer-motion";
 import StarField from "@/components/starField";
 import ThemeToggle from "@/components/themeToggle";
 import TypingText from "@/components/typingText";
-import Logo from "@/components/logo";
 import Navbar from "@/components/navbar";
-import { useHash } from "@/components/useHash";
-import { Icon } from "@/components/icons";
+import TechStack from "@/components/techStack";
+import AboutMobile from "@/components/aboutMobile";
+import { TOPICS, SKILLS, Spark, pop, fadeDown, gx, gy, inView, useMedia } from "@/components/aboutShared";
 
 const SUN = "/svg-icons/sun-icon.svg";
 
-const TOPICS: Record<"interests" | "hobbies", [string, string][]> = {
-  interests: [
-    ["volunteering", "Recently, I have taken interest in volunteering. With what is happening around the country right now, as a citizen, I want to help as I can even just a little bit."],
-    ["hiking", "I’ve always been to the beach when it comes to going on vacation which is why now, I have an interest in hiking especially as it encourages being physically active."],
-    ["learning new languages", "I believe that learning new languages can be a good advantage especially when travelling. To add, I also think it would be great to interact with people with different languages. ♡"],
-    ["stargazing", "As a kid, I have always been fascinated by the stars much more knowing their names. It feels like I'm closer to them which is why I’m interested in knowing more about constellations."],
-  ],
-
-  hobbies: [
-    ["listening to music", "Listening to music has always been relaxing which is why it became a hobby of mine to create playlist and learn new songs."], ["cleaning the house", "It has become a hobby of mine to clean the house even though I am tired. I can’t stand seeing my house not cleaned especially if we have visitors."],
-    ["cooking", "As the eldest daughter, my parents taught me to cook our meals that it became a hobby of mine to cook meals as well as learning to cook something new to me."], ["swimming", "Ever since I was a child, we have been going to the beach every summer which is why every now and then, it became a hobby to always swim in the ocean and the pool."],
-  ],
-};
-const SKILLS = ["attention to detail", "teamwork & collaboration", "communication", "adaptable", "visual design awareness", "continuous learning"];
-
-// ---- animation helpers (variants "h" = hidden, "v" = visible) ----
-const fadeDown = (d = 0) => ({ h: { opacity: 0, y: -26 }, v: { opacity: 1, y: 0, transition: { delay: d, duration: 0.8 } } });
-const pop = (d = 0) => ({ h: { scale: 0, opacity: 0 }, v: { scale: 1, opacity: 1, transition: { delay: d, type: "spring" as const, stiffness: 240, damping: 13 } } });
-const gx = (d = 0, t = 0.7) => ({ h: { scaleX: 0 }, v: { scaleX: 1, transition: { delay: d, duration: t, ease: "linear" as const } } });
-const gy = (d = 0, t = 0.7) => ({ h: { scaleY: 0 }, v: { scaleY: 1, transition: { delay: d, duration: t, ease: "linear" as const } } });
-const inView = { initial: "h", whileInView: "v", viewport: { amount: 0.2 } } as const;
-const Spark = () => (
-  <svg className="spark" viewBox="-10 -10 20 20" aria-hidden><path d="M0-10Q1-1 10 0Q1 1 0 10Q-1 1-10 0Q-1-1 0-10Z" fill="currentColor" /></svg>
-);
 const Sun = () => <span className="mask" style={{ "--m": `url(${SUN})` } as React.CSSProperties} />;
 
 function TypeOnView({ text }: { text: string }) {
@@ -89,6 +65,8 @@ const NODES: [string, number, number, number][] = [
 ];
 
 export default function AboutPage() {
+  const mobile = useMedia("(max-width: 700px)");
+
   useEffect(() => {
     const id = location.hash.slice(1);
     if (id) setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 1300);
@@ -101,8 +79,7 @@ export default function AboutPage() {
       <motion.div className="logo" initial={{ x: "80vw" }} animate={{ x: 0 }} transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}>
         <Link href="/">khrystelle</Link>
       </motion.div>
-      
-      {/* NEW SHARED NAVBAR */}
+
       <Navbar current="about me" />
 
       <div className="scroller">
@@ -146,27 +123,35 @@ export default function AboutPage() {
           </motion.div>
         </section>
 
-        <Topics />
+        {mobile === null ? null : mobile ? (
+          <AboutMobile />
+        ) : (
+          <>
+            <Topics />
 
-        <section id="skills" className="sec">
-          <motion.div className="card skills-card" variants={fadeDown(0)} {...inView}>
-            {["tl", "tr", "bl", "br"].map((c, i) => (
-              <motion.span key={c} className={`corner ${c}`} variants={pop(0.8 + i * 0.4)}><Sun /></motion.span>
-            ))}
-            <motion.h2 className="card-title" variants={fadeDown(0.3)}>skills</motion.h2>
-            <div className="sk-grid">
-              <motion.span className="sk-line" style={{ ...at(2, 1, 4), margin: "0 12.5%", transformOrigin: "0 50%" }} variants={gx(0.4, 1.5)} />
-              <motion.span className="sk-line v" style={{ gridRow: "2 / 5", gridColumn: 4, margin: "1.3rem 0", transformOrigin: "50% 0" }} variants={gy(1.9, 0.7)} />
-              <motion.span className="sk-line" style={{ ...at(4, 3, 2), margin: "0 25%", transformOrigin: "100% 50%" }} variants={gx(2.6, 0.5)} />
-              {NODES.map(([label, r, c, d]) => (
-                <span key={label} style={{ display: "contents" }}>
-                  <motion.span className={`sk-label ${r === 2 ? "top" : "bot"}`} style={at(r === 2 ? 1 : 5, c)} variants={pop(d)}>{label}</motion.span>
-                  <motion.span className="sk-star" style={at(r, c)} variants={pop(d)}><Spark /></motion.span>
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        </section>
+            <section id="skills" className="sec">
+              <motion.div className="card skills-card" variants={fadeDown(0)} {...inView}>
+                {["tl", "tr", "bl", "br"].map((c, i) => (
+                  <motion.span key={c} className={`corner ${c}`} variants={pop(0.8 + i * 0.4)}><Sun /></motion.span>
+                ))}
+                <motion.h2 className="card-title" variants={fadeDown(0.3)}>skills</motion.h2>
+                <div className="sk-grid">
+                  <motion.span className="sk-line" style={{ ...at(2, 1, 4), margin: "0 12.5%", transformOrigin: "0 50%" }} variants={gx(0.4, 1.5)} />
+                  <motion.span className="sk-line v" style={{ gridRow: "2 / 5", gridColumn: 4, margin: "1.3rem 0", transformOrigin: "50% 0" }} variants={gy(1.9, 0.7)} />
+                  <motion.span className="sk-line" style={{ ...at(4, 3, 2), margin: "0 25%", transformOrigin: "100% 50%" }} variants={gx(2.6, 0.5)} />
+                  {NODES.map(([label, r, c, d]) => (
+                    <span key={label} style={{ display: "contents" }}>
+                      <motion.span className={`sk-label ${r === 2 ? "top" : "bot"}`} style={at(r === 2 ? 1 : 5, c)} variants={pop(d)}>{label}</motion.span>
+                      <motion.span className="sk-star" style={at(r, c)} variants={pop(d)}><Spark /></motion.span>
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            </section>
+
+            <TechStack />
+          </>
+        )}
       </div>
     </main>
   );
