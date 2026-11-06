@@ -15,7 +15,8 @@ export const menu: MenuItem[] = [
     { label: "competitions", id: "competitions" },
     { label: "award", id: "award" },
     { label: "scholarships", id: "scholarships" },
-    { label: "course completions", id: "course-completions" } ] },
+    { label: "course completions", id: "course-completions" },
+    { label: "TOEIC", id: "toeic" }  ] },
   { title: "certifications", href: "/certifications", links: [] },
   { title: "projects", href: "/projects", links: [
     { label: "capstone", id: "capstone" },

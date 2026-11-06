@@ -1113,3 +1113,35 @@ html { background-color: var(--base); }
 /* tech stack: connected stars use the same color as their texts (#4E3DA3 in light mode) */
 .tk-star .spark,
 .mt .ms-star .spark { color: inherit; }
+
+
+/* ---------- achievements: photo slider + viewer ---------- */
+.ach-dphotos { margin-top: 2.6rem; padding-bottom: 1.5rem; }
+.ach-mphotos { margin: 2rem 9.4vw 0; }
+
+.ach-slide { padding: 0; cursor: zoom-in; color: inherit; font: inherit; transition: transform .35s cubic-bezier(.22, 1, .36, 1); }
+.ach-slide:hover, .ach-slide:focus-visible { transform: scale(1.02); }
+.ach-slide:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.ach-photos .pj-slide img { object-fit: cover; }
+
+/* full-screen viewer (sits above the phone menu overlay) */
+.ach-lb { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 5vh 5vw;
+  background: rgba(10, 5, 15, .88); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); cursor: zoom-out; }
+.ach-lb-img { display: block; max-width: 90vw; max-height: 80vh; object-fit: contain; border-radius: 8px; cursor: default;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .6); }
+.ach-lb-close, .ach-lb-arrow { position: absolute; display: grid; place-items: center; background: none; border: 0; color: #fff; cursor: pointer;
+  opacity: .65; transition: opacity .3s; -webkit-tap-highlight-color: transparent; }
+.ach-lb-close:hover, .ach-lb-arrow:hover, .ach-lb-close:focus-visible, .ach-lb-arrow:focus-visible { opacity: 1; }
+.ach-lb-close { top: 2.5vh; right: 3vw; width: 44px; height: 44px; font-size: 1.6rem; }
+.ach-lb-arrow { top: 50%; width: 52px; height: 52px; margin-top: -26px; font: 400 3rem/1 var(--font-text); padding-bottom: .4rem; }
+.ach-lb-arrow.l { left: 2vw; }
+.ach-lb-arrow.r { right: 2vw; }
+.ach-lb-count { position: absolute; bottom: 3vh; left: 50%; transform: translateX(-50%); color: #fff; opacity: .7; font: 500 1rem var(--font-text); letter-spacing: .08em; }
+
+@media (max-width: 700px) {
+  .ach-lb { padding: 8vh 3vw; }
+  .ach-lb-img { max-width: 94vw; }
+  .ach-lb-arrow { top: auto; bottom: 2vh; margin-top: 0; }
+  .ach-lb-arrow.l { left: 8vw; }
+  .ach-lb-arrow.r { right: 8vw; }
+}
